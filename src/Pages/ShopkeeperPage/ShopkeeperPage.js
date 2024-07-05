@@ -6,11 +6,16 @@ import {
     IconHome, IconSettings,
     IconUser, IconUserGroup,
 } from "@arco-design/web-react/icon";
+import {useEffect} from "react";
 
 const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;
 const ShopkeeperPage=()=>{
     const navigate=useNavigate()
+    useEffect(()=>{
+        navigate('/shopkeeper')
+    },[])
+
     return (
         <div className={'shopkeeperBackground'}>
             <div style={{height: "100%", width: '13%', backgroundColor: 'white'}}>

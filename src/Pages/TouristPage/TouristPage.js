@@ -8,11 +8,16 @@ import {
     IconUserGroup
 } from "@arco-design/web-react/icon";
 import tourist from './images/tourist.png'
+import {useEffect} from "react";
 
 const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;
 const TouristPage=()=>{
     const navigate=useNavigate()
+    useEffect(()=>{
+        navigate('/tourist')
+    },[])
+
     return (
         <div className={'touristBackground'}>
             <div style={{height:"100%",width:'13%',backgroundColor:'white'}}>

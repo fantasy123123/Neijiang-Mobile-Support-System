@@ -3,11 +3,16 @@ import { Menu } from '@arco-design/web-react';
 import {Outlet, useNavigate} from "react-router-dom";
 import admin from './images/admin.png'
 import { IconHome, IconSettings,  IconUser, IconUserGroup} from "@arco-design/web-react/icon";
+import {useEffect, useState} from "react";
 
 const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;
 const AdminPage=()=>{
     const navigate=useNavigate()
+    useEffect(()=>{
+        navigate('/admin')
+    },[])
+
     return (
         <div className={'adminBackground'}>
             <div style={{height:"100%",width:'13%',backgroundColor:'white'}}>
