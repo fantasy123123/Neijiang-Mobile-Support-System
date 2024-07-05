@@ -1,20 +1,16 @@
 import './ShopkeeperPage.css'
 import { Menu } from '@arco-design/web-react';
-import {Outlet} from "react-router-dom";
+import {Outlet, useNavigate} from "react-router-dom";
 import shop from './images/shop.png'
 import {
-    IconHome,
-    IconImage,
-    IconLocation,
-    IconMessage,
-    IconMobile, IconSearch, IconSettings,
-    IconShareInternal, IconStar, IconThumbUp,
+    IconHome, IconSettings,
     IconUser, IconUserGroup,
 } from "@arco-design/web-react/icon";
 
 const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;
 const ShopkeeperPage=()=>{
+    const navigate=useNavigate()
     return (
         <div className={'shopkeeperBackground'}>
             <div style={{height: "100%", width: '13%', backgroundColor: 'white'}}>
@@ -36,9 +32,9 @@ const ShopkeeperPage=()=>{
                             </>
                         }
                     >
-                        <MenuItem key='1_1'>商户信息</MenuItem>
-                        <MenuItem key='1_2'>商户产品</MenuItem>
-                        <MenuItem key='1_3'>搜索商户</MenuItem>
+                        <MenuItem key='1_1' onClick={()=>{navigate('/shopkeeper/shopInformation')}}>商户信息</MenuItem>
+                        <MenuItem key='1_2' onClick={()=>{navigate('/shopkeeper/product')}}>商户产品</MenuItem>
+                        <MenuItem key='1_3' onClick={()=>{navigate('/shopkeeper/search')}}>搜索商户</MenuItem>
                     </SubMenu>
                     <SubMenu
                         key='2'
@@ -48,8 +44,8 @@ const ShopkeeperPage=()=>{
                             </>
                         }
                     >
-                        <MenuItem key='2_1'>密码</MenuItem>
-                        <MenuItem key='2_2'>基本信息</MenuItem>
+                        <MenuItem key='2_1' onClick={()=>{navigate('/shopkeeper/password')}}>密码</MenuItem>
+                        <MenuItem key='2_2' onClick={()=>{navigate('/shopkeeper/basicInformation')}}>基本信息</MenuItem>
                     </SubMenu>
 
                     <SubMenu
@@ -60,9 +56,9 @@ const ShopkeeperPage=()=>{
                             </>
                         }
                     >
-                        <MenuItem key='3_1'>群组</MenuItem>
-                        <MenuItem key='3_2'>群组会员</MenuItem>
-                        <MenuItem key='3_3'>群组讨论</MenuItem>
+                        <MenuItem key='3_1' onClick={()=>{navigate('/shopkeeper/group')}}>群组</MenuItem>
+                        <MenuItem key='3_2' onClick={()=>{navigate('/shopkeeper/member')}}>群组会员</MenuItem>
+                        <MenuItem key='3_3' onClick={()=>{navigate('/shopkeeper/discussion')}}>群组讨论</MenuItem>
                     </SubMenu>
                     <SubMenu
                         key='4'
@@ -72,8 +68,8 @@ const ShopkeeperPage=()=>{
                             </>
                         }
                     >
-                        <MenuItem key='4_1'>天气</MenuItem>
-                        <MenuItem key='4_2'>系统配置</MenuItem>
+                        <MenuItem key='4_1' onClick={()=>{navigate('/shopkeeper/weather')}}>天气</MenuItem>
+                        <MenuItem key='4_2' onClick={()=>{navigate('/shopkeeper/systemConfiguration')}}>系统配置</MenuItem>
                     </SubMenu>
                 </Menu>
             </div>
