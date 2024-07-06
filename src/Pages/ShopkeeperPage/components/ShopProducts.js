@@ -171,18 +171,16 @@ const ShopProducts=()=>{
                 <div style={{fontSize: 25, fontWeight: 'bold', color: '#165DFF', textAlign: 'center'}}>
                     设置商户产品
                 </div>
-                <div style={{width:'90%',background:'white',marginLeft:'5%',marginTop:'3%',borderRadius:10,border:'1px solid grey',maxHeight:'82%',overflow:'auto'}}>
-                    <Table columns={columns} data={data} style={{padding:30}}/>
-                </div>
-                <div style={{display:"flex",justifyContent:'right',marginTop:'3%',marginRight:'5%'}}>
+                <div style={{width:'90%',background:'white',textAlign:'right',marginLeft:'5%',marginTop:'3%',borderRadius:10,border:'1px solid grey',maxHeight:'82%',overflow:'auto'}}>
                     <Button
-                        style={{marginRight:30}}
+                        style={{marginRight:30,marginTop:20}}
                         type={'primary'}
                         size={"large"}
                         onClick={()=>{setIfAdd(true)}}
                     >
                         新增
                     </Button>
+                    <Table columns={columns} data={data} style={{margin:20}}/>
                 </div>
                 <Modal
                     title='新增商品分类'
