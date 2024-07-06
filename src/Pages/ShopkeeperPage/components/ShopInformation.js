@@ -47,6 +47,7 @@ const ShopInformation=()=>{
                 </div>
                 <div style={{width:'100%',display:'flex',justifyContent:'space-around',marginTop:'3%'}}>
                     <Card
+                        onClick={()=>{navigate('/shopkeeper/shopInformation/product')}}
                         style={{ width: '28%',cursor:'pointer' }}
                         title='产品分类'
                         className='card-custom-hover-style'

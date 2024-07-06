@@ -38,6 +38,7 @@ import ShopManageMember from "./Pages/ShopkeeperPage/components/ShopManageMember
 import ManagementType from "./Pages/ShopkeeperPage/components/ManagementType";
 import ManagementEnvironment from "./Pages/ShopkeeperPage/components/ManagementEnvironment";
 import ManagementPlace from "./Pages/ShopkeeperPage/components/ManagementPlace";
+import ProductSort from "./Pages/ShopkeeperPage/components/ProductSort";
 
 
 const routes=[
@@ -236,6 +237,10 @@ const routes=[
             {
                 path: '/shopkeeper/shopInformation/place',
                 element: <ManagementPlace/>
+            },
+            {
+                path: '/shopkeeper/shopInformation/product',
+                element: <ProductSort/>
             }
         ]
     }
