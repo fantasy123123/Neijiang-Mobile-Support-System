@@ -63,12 +63,14 @@ const ManagementPlace=()=>{
                 <div style={{display:"flex",justifyContent:'right',marginTop:'3%',marginRight:'5%'}}>
                     <Button
                         type={'primary'}
+                        size={"large"}
                         style={{marginRight:30}}
                         onClick={()=>{setIfEdit(true)}}
                     >
                         修改
                     </Button>
                     <Button
+                        size={"large"}
                         style={{border:'1px solid #FF7D00',marginRight:30}}
                         onClick={()=>{navigate('/shopkeeper/shopInformation')}}
                         status={'warning'}
@@ -114,7 +116,7 @@ const ManagementPlace=()=>{
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input.TextArea
-                                    autoSize={{ minRows: 1, maxRows: 3 }}
+                                    autoSize={{ minRows: 1, maxRows: 2 }}
                                     defaultValue={description}
                                     onChange={value=>{tempDescription=value}}
                                     style={{width:'90%'}}

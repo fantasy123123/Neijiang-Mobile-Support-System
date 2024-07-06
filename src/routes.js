@@ -241,7 +241,7 @@ const routes=[
             {
                 path: '/shopkeeper/shopInformation/product',
                 element: <ProductSort/>
-            }
+            },
         ]
     }
 ]

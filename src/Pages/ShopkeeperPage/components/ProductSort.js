@@ -29,7 +29,7 @@ const ProductSort=()=> {
             title: '是否可用',
             dataIndex: 'ifUse',
             render: (col, record, index) => {
-                return <span>{record?'是':'否'}</span>
+                return <span style={{color:record.ifUse?'green':'red'}}>{record?'是':'否'}</span>
             }
         },
         {
@@ -92,11 +92,13 @@ const ProductSort=()=> {
                     <Button
                         style={{marginRight:30}}
                         type={'primary'}
+                        size={"large"}
                         onClick={()=>{setIfAdd(true)}}
                     >
                         新增
                     </Button>
                     <Button
+                        size={"large"}
                         style={{border:'1px solid #FF7D00',marginRight:30}}
                         onClick={()=>{navigate('/shopkeeper/shopInformation')}}
                         status={'warning'}
@@ -145,7 +147,7 @@ const ProductSort=()=> {
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input.TextArea
-                                    autoSize={{ minRows: 1, maxRows: 3 }}
+                                    autoSize={{ minRows: 1, maxRows: 2 }}
                                     style={{width:'90%'}}
                                 />
                             </div>
@@ -220,7 +222,7 @@ const ProductSort=()=> {
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input.TextArea
-                                    autoSize={{ minRows: 1, maxRows: 3 }}
+                                    autoSize={{ minRows: 1, maxRows: 2 }}
                                     defaultValue={editObject.description}
                                     onChange={value=>{setEditObject({...editObject,description:value})}}
                                     style={{width:'90%'}}
