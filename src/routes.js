@@ -1,38 +1,41 @@
 import InitialPage from "./InitialPage";
 import SignInPage from "./Pages/SignInPage/SignInPage";
 import RegisterPage from "./Pages/RegisterPage/RegisterPage";
-import AdminPage from "./Pages/AdminPage/AdminPage";
-import TouristPage from "./Pages/TouristPage/TouristPage";
-import ShopkeeperPage from "./Pages/ShopkeeperPage/ShopkeeperPage";
-import ShopkeeperRegister from "./Pages/RegisterPage/ShopkeeperRegister";
 import TouristRegister from "./Pages/RegisterPage/TouristRegister";
-import SystemConfiguration from "./Pages/Components/WebsiteManagement/SystemConfiguration";
-import AdminManageFiles from "./Pages/Components/WebsiteManagement/AdminManageFiles";
-import Weather from "./Pages/Components/WebsiteManagement/Weather";
-import AdminManagePermissions from "./Pages/Components/WebsiteManagement/AdminManagePermissions";
-import AdminViewShops from "./Pages/Components/ShopManagement/AdminViewShops";
-import AdminLogoutShops from "./Pages/Components/ShopManagement/AdminLogoutShops";
-import AdminRecommendShops from "./Pages/Components/ShopManagement/AdminRecommendShops";
-import PasswordManage from "./Pages/Components/UserManagement/PasswordManage";
-import BasicInformation from "./Pages/Components/UserManagement/BasicInformation";
-import AdminViewUsers from "./Pages/Components/UserManagement/AdminViewUsers";
-import AdminLogoutUsers from "./Pages/Components/UserManagement/AdminLogoutUsers";
-import AdminViewGroups from "./Pages/Components/GroupManagement/AdminViewGroups";
-import AdminDissolveGroup from "./Pages/Components/GroupManagement/AdminDissolveGroup";
-import TouristViewShops from "./Pages/Components/ShopManagement/TouristViewShops";
-import TouristViewProducts from "./Pages/Components/ShopManagement/TouristViewProducts";
-import SearchShops from "./Pages/Components/ShopManagement/SearchShops";
-import TouristCommentShops from "./Pages/Components/ShopManagement/TouristCommentShops";
-import TouristFriend from "./Pages/Components/UserManagement/TouristFriend";
-import TouristComments from "./Pages/Components/UserManagement/TouristComments";
-import TouristCollection from "./Pages/Components/UserManagement/TouristCollection";
-import TouristManageGroup from "./Pages/Components/GroupManagement/TouristManageGroup";
-import ManageDiscussion from "./Pages/Components/GroupManagement/ManageDiscussion";
-import TouristManageRecommendation from "./Pages/Components/GroupManagement/TouristManageRecommendation";
-import ShopInformation from "./Pages/Components/ShopManagement/ShopInformation";
-import ShopProducts from "./Pages/Components/ShopManagement/ShopProducts";
-import ShopManageGroup from "./Pages/Components/GroupManagement/ShopManageGroup";
-import ShopManageMember from "./Pages/Components/GroupManagement/ShopManageMember";
+import ShopkeeperRegister from "./Pages/RegisterPage/ShopkeeperRegister";
+import AdminPage from "./Pages/AdminPage/AdminPage";
+import SystemConfiguration from "./Pages/Components/SystemConfiguration";
+import AdminManageFiles from "./Pages/AdminPage/componnets/AdminManageFiles";
+import Weather from "./Pages/Components/Weather";
+import AdminManagePermissions from "./Pages/AdminPage/componnets/AdminManagePermissions";
+import AdminViewShops from "./Pages/AdminPage/componnets/AdminViewShops";
+import AdminLogoutShops from "./Pages/AdminPage/componnets/AdminLogoutShops";
+import AdminRecommendShops from "./Pages/AdminPage/componnets/AdminRecommendShops";
+import PasswordManage from "./Pages/Components/PasswordManage";
+import AdminBasicInformation from "./Pages/AdminPage/componnets/AdminBasicInformation";
+import AdminViewUsers from "./Pages/AdminPage/componnets/AdminViewUsers";
+import AdminLogoutUsers from "./Pages/AdminPage/componnets/AdminLogoutUsers";
+import AdminViewGroups from "./Pages/AdminPage/componnets/AdminViewGroups";
+import AdminDissolveGroup from "./Pages/AdminPage/componnets/AdminDissolveGroup";
+import TouristPage from "./Pages/TouristPage/TouristPage";
+import TouristViewShops from "./Pages/TouristPage/components/TouristViewShops";
+import TouristViewProducts from "./Pages/TouristPage/components/TouristViewProducts";
+import SearchShops from "./Pages/Components/SearchShops";
+import TouristCommentShops from "./Pages/TouristPage/components/TouristCommentShops";
+import TouristBasicInformation from "./Pages/TouristPage/components/TouristBasicInformation";
+import TouristFriend from "./Pages/TouristPage/components/TouristFriend";
+import TouristComments from "./Pages/TouristPage/components/TouristComments";
+import TouristCollection from "./Pages/TouristPage/components/TouristCollection";
+import TouristManageGroup from "./Pages/TouristPage/components/TouristManageGroup";
+import ManageDiscussion from "./Pages/Components/ManageDiscussion";
+import TouristManageRecommendation from "./Pages/TouristPage/components/TouristManageRecommendation";
+import ShopkeeperPage from "./Pages/ShopkeeperPage/ShopkeeperPage";
+import ShopInformation from "./Pages/ShopkeeperPage/components/ShopInformation";
+import ShopProducts from "./Pages/ShopkeeperPage/components/ShopProducts";
+import ShopBasicInformation from "./Pages/ShopkeeperPage/components/ShopBasicInformation";
+import ShopManageGroup from "./Pages/ShopkeeperPage/components/ShopManageGroup";
+import ShopManageMember from "./Pages/ShopkeeperPage/components/ShopManageMember";
+
 
 const routes=[
     {
@@ -93,7 +96,7 @@ const routes=[
             },
             {
                 path:'/admin/basicInformation',
-                element:<BasicInformation/>
+                element:<AdminBasicInformation/>
             },
             {
                 path:'/admin/viewUser',
@@ -147,7 +150,7 @@ const routes=[
             },
             {
                 path: '/tourist/basicInformation',
-                element:<BasicInformation/>
+                element:<TouristBasicInformation/>
             },
             {
                 path: '/tourist/friend',
@@ -205,7 +208,7 @@ const routes=[
             },
             {
                 path: '/shopkeeper/basicInformation',
-                element:<BasicInformation/>
+                element:<ShopBasicInformation/>
             },
             {
                 path: '/shopkeeper/group',
