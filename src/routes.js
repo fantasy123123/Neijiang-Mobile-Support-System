@@ -35,6 +35,9 @@ import ShopProducts from "./Pages/ShopkeeperPage/components/ShopProducts";
 import ShopBasicInformation from "./Pages/ShopkeeperPage/components/ShopBasicInformation";
 import ShopManageGroup from "./Pages/ShopkeeperPage/components/ShopManageGroup";
 import ShopManageMember from "./Pages/ShopkeeperPage/components/ShopManageMember";
+import ManagementType from "./Pages/ShopkeeperPage/components/ManagementType";
+import ManagementEnvironment from "./Pages/ShopkeeperPage/components/ManagementEnvironment";
+import ManagementPlace from "./Pages/ShopkeeperPage/components/ManagementPlace";
 
 
 const routes=[
@@ -222,6 +225,18 @@ const routes=[
                 path: '/shopkeeper/discussion',
                 element:<ManageDiscussion/>
             },
+            {
+                path: '/shopkeeper/shopInformation/type',
+                element: <ManagementType/>
+            },
+            {
+                path: '/shopkeeper/shopInformation/environment',
+                element: <ManagementEnvironment/>
+            },
+            {
+                path: '/shopkeeper/shopInformation/place',
+                element: <ManagementPlace/>
+            }
         ]
     }
 ]

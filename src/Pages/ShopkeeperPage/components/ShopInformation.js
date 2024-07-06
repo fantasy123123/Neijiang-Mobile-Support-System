@@ -1,7 +1,9 @@
 import {Card} from "@arco-design/web-react";
 import '../ShopkeeperPage.css'
+import {useNavigate} from "react-router-dom";
 
 const ShopInformation=()=>{
+    const navigate=useNavigate()
     return (
         <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
             <div style={{width:"90%",height:'90%'}}>
@@ -10,6 +12,7 @@ const ShopInformation=()=>{
                 </div>
                 <div style={{width:'100%',display:'flex',justifyContent:'space-around',marginTop:'3%'}}>
                     <Card
+                        onClick={()=>{navigate('/shopkeeper/shopInformation/type')}}
                         style={{ width: '28%',cursor:'pointer' }}
                         title='经营类型'
                         className='card-custom-hover-style'
@@ -20,18 +23,20 @@ const ShopInformation=()=>{
                         </div>
                     </Card>
                     <Card
+                        onClick={()=>{navigate('/shopkeeper/shopInformation/environment')}}
                         style={{ width: '28%',cursor:'pointer' }}
                         title='经营环境'
                         className='card-custom-hover-style'
                         hoverable
                     >
                         <div style={{fontSize:17}}>
-                            管理以下信息：<br/>场所类型名称，环境名称，说明，创建时间，创建人，是否可用。
+                            管理以下信息：<br/>经营环境名称，经营环境说明，经营环境是否可用，创建时间，创建人。
                         </div>
                     </Card>
                     <Card
+                        onClick={()=>{navigate('/shopkeeper/shopInformation/place')}}
                         style={{ width: '28%',cursor:'pointer' }}
-                        title='经营场所分类'
+                        title='经营场所'
                         className='card-custom-hover-style'
                         hoverable
                     >
