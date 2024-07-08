@@ -1,7 +1,9 @@
 import {useState} from "react";
-import {Space, Image} from "@arco-design/web-react";
+import { Image, Button} from "@arco-design/web-react";
+import {useNavigate} from "react-router-dom";
 
 const ShopImage=()=>{
+    const navigate=useNavigate()
     const [initData,setInitData]=useState([
             {
                 uid:"1",
@@ -61,7 +63,17 @@ const ShopImage=()=>{
                         </Image.PreviewGroup>
                     </div>
                 </div>
-                <div style={{float:'right',marginRight:'5%',marginTop:5,color:'grey',fontSize:17}}>修改照片请至“基本信息”中</div>
+                <div style={{marginRight:'5.5%',marginTop:15,display:'flex',justifyContent:'right'}}>
+                    <div style={{color:'grey',fontSize:17,marginRight:30}}>修改照片请至“用户管理 - 基本信息”中</div>
+                    <Button
+                        size={"large"}
+                        style={{border:'1px solid #FF7D00'}}
+                        onClick={()=>{navigate('/shopkeeper/shopInformation')}}
+                        status={'warning'}
+                    >
+                        返回
+                    </Button>
+                </div>
             </div>
         </div>
     )

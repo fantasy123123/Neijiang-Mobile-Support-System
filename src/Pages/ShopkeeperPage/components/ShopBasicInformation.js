@@ -105,7 +105,7 @@ const ShopBasicInformation=()=>{
                         data={column}
                         labelStyle={{ textAlign: 'right' }}
                     />
-                    <div  style={{paddingLeft:50,paddingRight:50,paddingBottom:30}}>
+                    <div style={{paddingLeft:50,paddingRight:50,paddingBottom:30}}>
                         <div style={{color:'#86909C',marginBottom:10}}>商户照片</div>
                         <Upload
                             action='/'
