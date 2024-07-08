@@ -1,10 +1,8 @@
-
-import {Button, Descriptions, Input, Modal, Image, Upload, Space} from "@arco-design/web-react";
+import {Button, Descriptions, Input, Modal, Upload} from "@arco-design/web-react";
 import {useState} from "react";
 
 const ShopBasicInformation=()=>{
     const [ifEdit,setIfEdit]=useState(false)
-    const [visible, setVisible] = useState(false);
 
     const [initData,setInitData]=useState({
         name:'名字',

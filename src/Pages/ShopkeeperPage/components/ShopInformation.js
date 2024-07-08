@@ -58,16 +58,18 @@ const ShopInformation=()=>{
                         </div>
                     </Card>
                     <Card
+                        onClick={()=>{navigate('/shopkeeper/shopInformation/map')}}
                         style={{ width: '28%',cursor:'pointer' }}
                         title='商户地图'
                         className='card-custom-hover-style'
                         hoverable
                     >
                         <div style={{fontSize:17}}>
-                            将商户所在的地理位置在地图上标示出来。并且提供公交线路查询，自驾车路线查询功能。
+                            将商户所在的地理位置在地图上标示出来。
                         </div>
                     </Card>
                     <Card
+                        onClick={()=>{navigate('/shopkeeper/shopInformation/image')}}
                         style={{ width: '28%',cursor:'pointer' }}
                         title='商户相册'
                         className='card-custom-hover-style'
