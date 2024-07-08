@@ -159,56 +159,56 @@ const ShopBasicInformation=()=>{
                         <div style={{width:'65%'}}>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    defaultValue={editData.name}
+                                    defaultValue={initData.name}
                                     onChange={value=>{setEditData({...editData,name:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    defaultValue={editData.location}
+                                    defaultValue={initData.location}
                                     onChange={value=>{setEditData({...editData,location:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    defaultValue={editData.phone}
+                                    defaultValue={initData.phone}
                                     onChange={value=>{setEditData({...editData,phone:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    defaultValue={editData.email}
+                                    defaultValue={initData.email}
                                     onChange={value=>{setEditData({...editData,email:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    defaultValue={editData.type}
+                                    defaultValue={initData.type}
                                     onChange={value=>{setEditData({...editData,type:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    defaultValue={editData.environment}
+                                    defaultValue={initData.environment}
                                     onChange={value=>{setEditData({...editData,environment:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    defaultValue={editData.place}
+                                    defaultValue={initData.place}
                                     onChange={value=>{setEditData({...editData,place:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    defaultValue={editData.category}
+                                    defaultValue={initData.category}
                                     onChange={value=>{setEditData({...editData,category:value})}}
                                     style={{width:'90%'}}
                                 />

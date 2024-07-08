@@ -147,56 +147,56 @@ const ShopMap=()=>{
                         <div style={{width:'65%'}}>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    defaultValue={editData.province}
+                                    defaultValue={initData.province}
                                     onChange={value=>{setEditData({...editData,province:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    defaultValue={editData.city}
+                                    defaultValue={initData.city}
                                     onChange={value=>{setEditData({...editData,city:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    defaultValue={editData.district}
+                                    defaultValue={initData.district}
                                     onChange={value=>{setEditData({...editData,district:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    defaultValue={editData.street}
+                                    defaultValue={initData.street}
                                     onChange={value=>{setEditData({...editData,street:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    defaultValue={editData.township}
+                                    defaultValue={initData.township}
                                     onChange={value=>{setEditData({...editData,township:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    defaultValue={editData.streetNumber}
+                                    defaultValue={initData.streetNumber}
                                     onChange={value=>{setEditData({...editData,streetNumber:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    defaultValue={editData.longitude}
+                                    defaultValue={initData.longitude}
                                     onChange={value=>{setEditData({...editData,longitude:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    defaultValue={editData.latitude}
+                                    defaultValue={initData.latitude}
                                     onChange={value=>{setEditData({...editData,latitude:value})}}
                                     style={{width:'90%'}}
                                 />

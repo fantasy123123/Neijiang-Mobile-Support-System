@@ -1,9 +1,9 @@
 import {useState} from "react";
-import {Button, DatePicker, Descriptions, Input, Modal, Radio, Upload} from "@arco-design/web-react";
+import {Avatar, Button, DatePicker, Descriptions, Input, Modal, Progress, Radio, Upload} from "@arco-design/web-react";
+import {IconEdit, IconPlus} from "@arco-design/web-react/icon";
 
 const TouristBasicInformation=()=>{
     const [ifEdit,setIfEdit] = useState(false);
-    const [ifVisible,setIfVisible] = useState(false);
     const [initData,setInitData]=useState({
         uid:'用户id',
         name:'名字',
@@ -12,13 +12,7 @@ const TouristBasicInformation=()=>{
         phone:'电话',
         email:'邮件',
         text:'用户个性签名',
-        image:[
-            {
-                uid:"1",
-                name:'照片',
-                url:'//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp'
-            },
-        ],
+        image:'//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp',
         time:'创建时间'
     })
     const [editData,setEditData]=useState(initData)
@@ -57,6 +51,8 @@ const TouristBasicInformation=()=>{
         },
     ];
 
+    const [file, setFile] = useState({'url':initData.image});
+    const cs = `arco-upload-list-item${file && file.status === 'error' ? ' is-error' : ''}`;
 
     return (
         <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
@@ -74,27 +70,31 @@ const TouristBasicInformation=()=>{
                     maxHeight: '80%',
                     overflow: 'auto'
                 }}>
-                    <Button
-                        type={'primary'}
-                        size={"large"}
-                        style={{marginRight: 30, float: "right", marginTop: 30}}
-                        onClick={() => {
-                            setIfEdit(true)
-                        }}
-                    >
-                        修改
-                    </Button>
-                    <div style={{paddingLeft: 50, paddingRight: 50, paddingBottom: 30,marginTop: 30,marginBottom: -35}}>
-                        <div style={{marginBottom: 10,fontSize: 15}}>用户头像</div>
-                        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: 130, border: '1px solid #E6E6E6',borderRadius: 50}}>
-                            <img src={editData.image[0].url} style={{width: 100, height: 100, borderRadius: 50}} alt='用户头像'/>
+                    <div style={{marginTop: 30}}>
+                        <Button
+                            type={'primary'}
+                            size={"large"}
+                            style={{marginRight: 50, float: "right"}}
+                            onClick={() => {
+                                setIfEdit(true)
+                            }}
+                        >
+                            修改
+                        </Button>
+                        <div style={{display:'flex',alignItems:'center',marginLeft:50}}>
+                            <div style={{marginBottom: 10,fontSize: 15,marginRight:30}}>用户头像</div>
+                            <Avatar size={80}>
+                                <img
+                                    alt='avatar'
+                                    src={initData.image}
+                                />
+                            </Avatar>
                         </div>
-
                     </div>
                     <Descriptions
                         column={3}
                         size={'large'}
-                        style={{paddingLeft: 50, paddingRight: 50, paddingTop: 30}}
+                        style={{paddingLeft: 50, paddingRight: 50, paddingTop: 30,paddingBottom:10}}
                         title='用户信息'
                         data={column}
                         labelStyle={{textAlign: 'right'}}
@@ -133,7 +133,7 @@ const TouristBasicInformation=()=>{
                             <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
                                 电子邮件
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
+                            <div style={{height:50,width:'100%',marginTop:10,textAlign:'right'}}>
                                 个性签名
                             </div>
                         </div>
@@ -145,18 +145,51 @@ const TouristBasicInformation=()=>{
                                 display: 'flex',
                                 alignItems: 'center'
                             }}>
-                                <img src={editData.image[0].url}
-                                     style={{width: 70, height: 70, borderRadius: 50, marginBottom: 10,marginRight: -110}}
-                                     alt='用户头像'/>
-                                <span style={{marginLeft: 130}}>
-                                    <Upload
-                                        action='/'
-                                        multiple
-                                        imagePreview
-                                        listType='picture-list'
-                                    />
-                                </span>
-
+                                <Upload
+                                    action='/'
+                                    fileList={file ? [file] : []}
+                                    showUploadList={false}
+                                    onChange={(_, currentFile) => {
+                                        setFile({
+                                            ...currentFile,
+                                            url: URL.createObjectURL(currentFile.originFile),
+                                        });
+                                    }}
+                                    onProgress={(currentFile) => {
+                                        setFile(currentFile);
+                                    }}
+                                >
+                                    <div className={cs}>
+                                        {file && file.url ? (
+                                            <div className='arco-upload-list-item-picture custom-upload-avatar'>
+                                                <img src={file.url} />
+                                                <div className='arco-upload-list-item-picture-mask'>
+                                                    <IconEdit />
+                                                </div>
+                                                {file.status === 'uploading' && file.percent < 100 && (
+                                                    <Progress
+                                                        percent={file.percent}
+                                                        type='circle'
+                                                        size='mini'
+                                                        style={{
+                                                            position: 'absolute',
+                                                            left: '50%',
+                                                            top: '50%',
+                                                            transform: 'translateX(-50%) translateY(-50%)',
+                                                        }}
+                                                    />
+                                                )}
+                                            </div>
+                                        ) : (
+                                            <div className='arco-upload-trigger-picture'>
+                                                <div className='arco-upload-trigger-picture-text'>
+                                                    <IconPlus />
+                                                    <div style={{ marginTop: 10, fontWeight: 600 }}>Upload</div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </Upload>
                             </div>
                             <div style={{
                                 height: 50,
@@ -166,7 +199,7 @@ const TouristBasicInformation=()=>{
                                 alignItems: 'center'
                             }}>
                                 <Input
-                                    defaultValue={editData.name}
+                                    defaultValue={initData.name}
                                     onChange={value => {
                                         setEditData({...editData, name: value})
                                     }}
@@ -180,7 +213,7 @@ const TouristBasicInformation=()=>{
                                 display: 'flex',
                                 alignItems: 'center'
                             }}>
-                                <Radio.Group defaultValue={editData.sex}>
+                                <Radio.Group defaultValue={initData.sex}>
                                 {['男', '女', '保密'].map((item) => {
                                         return (
                                             <Radio key={item} value={item}>
@@ -198,7 +231,7 @@ const TouristBasicInformation=()=>{
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <DatePicker
-                                    defaultValue={editData.birthday}
+                                    defaultValue={initData.birthday}
                                     onChange={(value) => {
                                         setEditData({ ...editData, birthday: value });
                                     }}
@@ -207,28 +240,28 @@ const TouristBasicInformation=()=>{
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    defaultValue={editData.phone}
+                                    defaultValue={initData.phone}
                                     onChange={value=>{setEditData({...editData,phone:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    defaultValue={editData.email}
+                                    defaultValue={initData.email}
                                     onChange={value=>{setEditData({...editData,email:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>
-                            <div style={{height:130,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
+                            <div style={{minHeight:50,width:'100%',marginTop:10}}>
                                 <Input.TextArea
-                                    defaultValue={editData.text}
+                                    defaultValue={initData.text}
                                     onChange={value=>{setEditData({...editData,text:value})}}
-                                    style={{width:'90%',height:100}}
+                                    style={{width:'90%'}}
+                                    autoSize={{minRows:2,maxRows:3}}
                                 />
                             </div>
                         </div>
                     </div>
-                    <br />
                     <div style={{textAlign:'right',color:'grey',marginRight:20}}>
                         (无法修改创建时间)
                     </div>
