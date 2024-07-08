@@ -39,6 +39,8 @@ import ManagementType from "./Pages/ShopkeeperPage/components/ManagementType";
 import ManagementEnvironment from "./Pages/ShopkeeperPage/components/ManagementEnvironment";
 import ManagementPlace from "./Pages/ShopkeeperPage/components/ManagementPlace";
 import ProductSort from "./Pages/ShopkeeperPage/components/ProductSort";
+import ShopImage from "./Pages/ShopkeeperPage/components/ShopImage";
+import ShopMap from "./Pages/ShopkeeperPage/components/ShopMap";
 
 
 const routes=[
@@ -241,6 +243,14 @@ const routes=[
             {
                 path: '/shopkeeper/shopInformation/product',
                 element: <ProductSort/>
+            },
+            {
+                path: '/shopkeeper/shopInformation/map',
+                element: <ShopMap/>
+            },
+            {
+                path: '/shopkeeper/shopInformation/image',
+                element: <ShopImage/>
             },
         ]
     }
