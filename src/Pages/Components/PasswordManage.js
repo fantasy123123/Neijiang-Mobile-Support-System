@@ -22,7 +22,7 @@ const PasswordManage=()=>{
                 <div style={{fontSize:25,fontWeight:'bold',color:'#165DFF',textAlign:'center'}}>
                     密码管理
                 </div>
-                <div style={{width:'80%',background:'white',marginLeft:'10%',marginTop:'3%',borderRadius:10,border:'1px solid grey',maxHeight:'80%',overflow:'auto'}}>
+                <div style={{width:'80%',background:'white',marginLeft:'10%',marginTop:'2%',borderRadius:10,border:'1px solid grey',maxHeight:'80%',overflow:'auto'}}>
                     <div style={{marginTop:'2%',marginLeft:'5%',marginRight:'5%',marginBottom:'2%'}}>
                         <div style={{color:'grey',fontSize:22,textAlign:'center'}}>修改密码</div>
                         <Form

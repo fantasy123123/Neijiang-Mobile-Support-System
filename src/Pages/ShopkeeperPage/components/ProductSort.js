@@ -85,7 +85,7 @@ const ProductSort=()=> {
                 <div style={{fontSize: 25, fontWeight: 'bold', color: '#165DFF', textAlign: 'center'}}>
                     设置商品分类
                 </div>
-                <div style={{width:'90%',background:'white',marginLeft:'5%',marginTop:'3%',borderRadius:10,border:'1px solid grey',maxHeight:'82%',overflow:'auto'}}>
+                <div style={{width:'90%',background:'white',marginLeft:'5%',marginTop:'2%',borderRadius:10,border:'1px solid grey',maxHeight:'82%',overflow:'auto'}}>
                     <Table columns={columns} data={data} style={{padding:30}}/>
                 </div>
                 <div style={{display:"flex",justifyContent:'right',marginTop:'3%',marginRight:'5%'}}>

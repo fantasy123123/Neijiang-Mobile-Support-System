@@ -64,7 +64,7 @@ const TouristBasicInformation=()=>{
                     width: '90%',
                     background: 'white',
                     marginLeft: '5%',
-                    marginTop: '3%',
+                    marginTop: '2%',
                     borderRadius: 10,
                     border: '1px solid grey',
                     maxHeight: '80%',

@@ -77,11 +77,11 @@ const ShopMap=()=>{
                 <div style={{fontSize:25,fontWeight:'bold',color:'#165DFF',textAlign:'center'}}>
                     商户地图
                 </div>
-                <div style={{width:'90%',background:'white',marginLeft:'5%',marginTop:'3%',borderRadius:10,border:'1px solid grey',height:'80%',overflow:'auto'}}>
+                <div style={{width:'90%',background:'white',marginLeft:'5%',marginTop:'2%',borderRadius:10,border:'1px solid grey',height:'80%',overflow:'auto'}}>
                     <Button
                         type={'primary'}
                         size={"large"}
-                        style={{marginRight:30,float:"right",marginTop:30}}
+                        style={{marginRight:50,float:"right",marginTop:30}}
                         onClick={()=>{setIfEdit(true)}}
                     >
                         修改

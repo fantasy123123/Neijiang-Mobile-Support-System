@@ -10,7 +10,7 @@ const ShopInformation=()=>{
                 <div style={{fontSize:25,fontWeight:'bold',color:'#165DFF',textAlign:'center'}}>
                     设置商户信息
                 </div>
-                <div style={{width:'100%',display:'flex',justifyContent:'space-around',marginTop:'3%'}}>
+                <div style={{width:'100%',display:'flex',justifyContent:'space-around',marginTop:'2%'}}>
                     <Card
                         onClick={()=>{navigate('/shopkeeper/shopInformation/type')}}
                         style={{ width: '28%',cursor:'pointer' }}

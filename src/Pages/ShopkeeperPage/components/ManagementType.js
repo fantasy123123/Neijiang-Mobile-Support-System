@@ -51,7 +51,7 @@ const ManagementType=()=>{
                 <div style={{fontSize:25,fontWeight:'bold',color:'#165DFF',textAlign:'center'}}>
                     设置经营类型
                 </div>
-                <div style={{width:'90%',background:'white',marginLeft:'5%',marginTop:'3%',borderRadius:10,border:'1px solid grey'}}>
+                <div style={{width:'90%',background:'white',marginLeft:'5%',marginTop:'2%',borderRadius:10,border:'1px solid grey'}}>
                     <Descriptions
                         size={'large'}
                         style={{padding:50}}
