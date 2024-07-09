@@ -2,8 +2,9 @@ import './RegisterPage.css'
 import picture2 from './image/picture2.png'
 import tourist from './image/user.png'
 import {useEffect, useRef, useState} from "react";
-import {Button, Checkbox, Form, Input} from "@arco-design/web-react";
+import {Button, Checkbox, Form, Input, Message} from "@arco-design/web-react";
 import {useNavigate} from "react-router-dom";
+import axiosInstance from "../../api/AxiosApi";
 
 const FormItem = Form.Item;
 
@@ -55,12 +56,12 @@ const TouristRegister=()=>{
                             <FormItem label='密码' field='密码' style={{width:'100%'}} rules={[{ required: true }]}>
                                 <Input onChange={value => {setPwd(value)}} placeholder='请输入密码' />
                             </FormItem>
-                            <FormItem label='昵称' field='昵称' style={{width:'100%'}} rules={[{ required: true }]}>
+                            <FormItem label='昵称' field='昵称' style={{width:'100%'}}>
                                 <Input onChange={value => {setName(value)}} placeholder='请输入昵称' />
                             </FormItem>
                         </div>
                         <div style={{position:'absolute',bottom:'8%',left:'5%',width:'40%'}}>
-                            <FormItem label='联系方式' field='联系方式' style={{width:'100%'}} rules={[{ required: true }]}>
+                            <FormItem label='联系方式' field='联系方式' style={{width:'100%'}}>
                                 <Input onChange={value => {setPhone(value)}} placeholder='请输入联系方式' />
                             </FormItem>
                             <FormItem label='邮箱' style={{width:'100%'}} field='邮箱'>
@@ -69,7 +70,25 @@ const TouristRegister=()=>{
                         </div>
                         <div style={{position:'absolute',right:'6%',bottom:'1%',width:'40%'}}>
                             <FormItem style={{width:'100%',textAlign:'center'}}>
-                                <Button type='primary' htmlType='submit' style={{width:'80%'}}>
+                                <Button
+                                    type='primary'
+                                    htmlType='submit'
+                                    style={{width:'80%'}}
+                                    onClick={()=>{
+                                        axiosInstance.post('/accounts', {
+                                            username:username,
+                                            password:pwd,
+                                            roleId:3
+                                        })
+                                            .then(res => {
+                                                Message.info('注册成功！')
+                                                navigate('/signIn')
+                                            })
+                                            .catch(error => {
+                                                console.error(error);
+                                            });
+                                    }}
+                                >
                                     提交
                                 </Button>
                             </FormItem>
