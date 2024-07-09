@@ -1,4 +1,4 @@
-import {Card, Descriptions, Input, Modal, Rate, Tooltip, Upload} from "@arco-design/web-react";
+import {Card, Descriptions, Input, Modal, Popover, Rate, Tooltip, Upload} from "@arco-design/web-react";
 import {useState} from "react";
 
 const TouristCommentShops=()=>{
@@ -31,7 +31,7 @@ const TouristCommentShops=()=>{
                     评价商户
                 </div>
                 <div style={{width: '100%', display: 'flex', justifyContent: 'space-around', marginTop: '3%'}}>
-                    <Tooltip content="点击查看商户详情" position="top">
+                    <Popover content="点击查看商户详情" position="top">
                         <Card
 
                             onClick={()=>{}}//TODO: 跳转到商户详情页面
@@ -49,7 +49,14 @@ const TouristCommentShops=()=>{
                                 labelStyle={{textAlign: 'right'}}
                             />
                             <button
-                                style={{width: '100%', height: '30px', backgroundColor: '#165DFF', color: 'white', border: 'none', borderRadius: '5px'}}
+                                style={{
+                                    width: '100%',
+                                    height: '30px',
+                                    backgroundColor: '#165DFF',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '5px'
+                                }}
                                 onClick={() => {
                                     setIfEdit(true)
                                 }}
@@ -123,7 +130,7 @@ const TouristCommentShops=()=>{
                                 </div>
                             </Modal>
                         </Card>
-                    </Tooltip>
+                    </Popover>
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import {Card, Descriptions, Input, Modal, Rate, Tooltip} from "@arco-design/web-react";
+import {Card, Descriptions, Input, Modal, Popover, Rate, Tooltip} from "@arco-design/web-react";
 import {useState} from "react";
 import {IconHeart, IconHeartFill} from "@arco-design/web-react/icon";
 
@@ -174,7 +174,7 @@ const TouristViewShops=()=>{
                                             确定
                                         </button>
                                     </div>
-                                    <Tooltip content='收藏商户' position='top'>
+                                    <Popover content='收藏商户' position='top'>
                                         <IconHeartFill
                                             style={{
                                                 color: isFavorite ? 'red' : 'gray',
@@ -186,7 +186,7 @@ const TouristViewShops=()=>{
                                                 setIsFavorite(!isFavorite)
                                             }}
                                         />
-                                    </Tooltip>
+                                    </Popover>
                                 </div>
                                     }
                         >
