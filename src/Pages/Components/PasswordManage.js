@@ -1,5 +1,6 @@
-import {Button, Checkbox, Form, Input} from "@arco-design/web-react";
+import {Button, Checkbox, Form, Input, Message} from "@arco-design/web-react";
 import {useState} from "react";
+import axiosInstance from "../../api/AxiosApi";
 const FormItem = Form.Item;
 
 const formItemLayout = {
@@ -34,9 +35,6 @@ const PasswordManage=()=>{
                             <FormItem label='名称' field='名称' rules={[{ required: true }]}>
                                 <Input onChange={value=>{setName(value)}} placeholder='请输入您的名称' />
                             </FormItem>
-                            <FormItem label='联系方式' field='联系方式' rules={[{ required: true }]}>
-                                <Input onChange={value=>{setPhone(value)}} placeholder='请输入您的联系方式' />
-                            </FormItem>
                             <FormItem label='新密码' field='新密码' rules={[{ required: true }]}>
                                 <Input onChange={value=>{setPwd(value)}} placeholder='请输入您的新密码' />
                             </FormItem>
@@ -52,7 +50,31 @@ const PasswordManage=()=>{
                                 <Checkbox>我已阅读相关规定</Checkbox>
                             </FormItem>
                             <FormItem wrapperCol={{ offset: 7 }}>
-                                <Button type='primary' htmlType='submit'>
+                                <Button
+                                    type='primary'
+                                    htmlType='submit'
+                                    onClick={()=>{
+                                        if(pwd===pwdAgain) {
+                                            axiosInstance.put('/accounts/accounts',{
+                                                "accountId": localStorage.getItem('accountId'),
+                                                "username": name,
+                                                "password": pwd,
+                                                "roleId": localStorage.getItem('roleId')
+                                            }).then(
+                                                res=>{
+                                                    Message.info('修改成功！')
+                                                }
+                                            ).catch(
+                                                error=>{
+                                                    console.log(error)
+                                                }
+                                            )
+                                        }
+                                        else {
+                                            Message.error('两次输入的密码不一致！')
+                                        }
+                                    }}
+                                >
                                     提交
                                 </Button>
                             </FormItem>

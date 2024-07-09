@@ -216,6 +216,10 @@ const SignInPage = () => {
                                                     localStorage.removeItem('accountId')
                                                 }
                                                 localStorage.setItem('accountId',res.data.data.accountId)
+                                                if(localStorage.getItem('roleId')){
+                                                    localStorage.removeItem('roleId')
+                                                }
+                                                localStorage.setItem('roleId',res.data.data.roleId)
                                                 switch (res.data.data.roleId){
                                                     case 1: navigate('/admin');
                                                     break;
