@@ -6,7 +6,7 @@ import { Button, Form, Input, Message,Radio } from '@arco-design/web-react';
 import {IconSafe, IconUnlock, IconUser} from '@arco-design/web-react/icon';
 import {useEffect, useRef, useState} from 'react';
 import { useNavigate} from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../api/AxiosApi";
 
 const FormItem = Form.Item;
 
@@ -15,7 +15,6 @@ const SignInPage = () => {
     let name=''
     let password=''
     let inputCode=''
-    let identity=''
     let code=''
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -151,28 +150,8 @@ const SignInPage = () => {
             textAlign: 'center',
           }}
         >
-            <div style={{fontSize:25,fontWeight:"bold",color:'deepskyblue'}}>请选择您的身份并登录</div>
+            <div style={{fontSize:25,fontWeight:"bold",color:'deepskyblue'}}>登录</div>
             <Form autoComplete="off" ref={formRef} style={{marginTop:'7.5%'}}>
-                <FormItem field='身份' rules={[{required:true}]} style={{display:'flex',justifyContent:'center'}}>
-                    <Radio.Group
-                        style={{display:'flex',position:'relative',right:'3.5%'}}
-                        onChange={value =>{identity=value}}
-                    >
-                        {['游客','商户','管理员'].map((item) => {
-                            return (
-                                <Radio key={item} value={item}>
-                                    {({ checked }) => {
-                                        return (
-                                            <Button tabIndex={-1} key={item} type={checked ? 'primary' : 'default'}>
-                                                {item}
-                                            </Button>
-                                        );
-                                    }}
-                                </Radio>
-                            );
-                        })}
-                    </Radio.Group>
-                </FormItem>
 
                 <FormItem field="用户名" rules={[{ required: true }]} style={{marginTop:'2.5%'}}>
                     <Input
@@ -224,26 +203,28 @@ const SignInPage = () => {
                                 try {
                                     await formRef.current.validate();
                                     if(inputCode===code) {
-                                        axios({
-                                            method:'POST',
-                                            url:'http://127.0.0.1:8091/auth/token',
-                                            data:{
-                                                "username":name,
-                                                "password":password
-                                            }
+                                        axiosInstance.post('/accounts/tokens',{
+                                            username:name,
+                                            password:password
                                         }).then(
                                             res=>{
-                                                if(res.data.msg==='success') {
-                                                    Message.info('登录成功！');
-                                                    sessionStorage.setItem('token',res.data.jwt)
-                                                    navigate('/main/home')
+                                                if(localStorage.getItem('token')){
+                                                    localStorage.removeItem('token')
                                                 }
-                                                else {
-                                                    Message.error('登录失败！请检查用户名与密码是否正确。');
+                                                localStorage.setItem('token',res.data.data.token)
+                                                switch (res.data.data.roleId){
+                                                    case 1: navigate('/admin');
+                                                    break;
+                                                    case 2: navigate('/shopkeeper');
+                                                    break;
+                                                    case 3: navigate('/tourist');
+                                                    break;
                                                 }
-                                            },
+                                                Message.info('登录成功！')
+                                            }
+                                        ).catch(
                                             error=>{
-                                                Message.error('Network Error!');
+                                                console.log(error)
                                             }
                                         )
                                     }

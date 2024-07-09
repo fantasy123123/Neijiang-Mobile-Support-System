@@ -55,7 +55,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
     response => response,
     error => {
-        Message.error('Network Error!');
+        Message.error(error.response.data.message);
         return Promise.reject(error);
     }
 );
