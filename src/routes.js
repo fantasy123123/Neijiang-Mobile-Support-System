@@ -9,12 +9,9 @@ import AdminManageFiles from "./Pages/AdminPage/componnets/AdminManageFiles";
 import Weather from "./Pages/Components/Weather";
 import AdminManagePermissions from "./Pages/AdminPage/componnets/AdminManagePermissions";
 import AdminViewShops from "./Pages/AdminPage/componnets/AdminViewShops";
-import AdminLogoutShops from "./Pages/AdminPage/componnets/AdminLogoutShops";
-import AdminRecommendShops from "./Pages/AdminPage/componnets/AdminRecommendShops";
 import PasswordManage from "./Pages/Components/PasswordManage";
 import AdminBasicInformation from "./Pages/AdminPage/componnets/AdminBasicInformation";
 import AdminViewUsers from "./Pages/AdminPage/componnets/AdminViewUsers";
-import AdminLogoutUsers from "./Pages/AdminPage/componnets/AdminLogoutUsers";
 import AdminViewGroups from "./Pages/AdminPage/componnets/AdminViewGroups";
 import AdminDissolveGroup from "./Pages/AdminPage/componnets/AdminDissolveGroup";
 import TouristPage from "./Pages/TouristPage/TouristPage";
@@ -89,14 +86,6 @@ const routes=[
                 element:<AdminViewShops/>
             },
             {
-                path:'/admin/logoutShop',
-                element:<AdminLogoutShops/>
-            },
-            {
-                path:'/admin/recommendShop',
-                element:<AdminRecommendShops/>
-            },
-            {
                 path:'/admin/password',
                 element:<PasswordManage />
             },
@@ -107,10 +96,6 @@ const routes=[
             {
                 path:'/admin/viewUser',
                 element:<AdminViewUsers/>
-            },
-            {
-                path:'/admin/logoutUser',
-                element:<AdminLogoutUsers/>
             },
             {
                 path:'/admin/viewGroup',

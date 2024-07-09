@@ -61,9 +61,9 @@ const TouristBasicInformation=()=>{
                     基本信息管理
                 </div>
                 <div style={{
-                    width: '90%',
+                    width: '80%',
                     background: 'white',
-                    marginLeft: '5%',
+                    marginLeft: '10%',
                     marginTop: '2%',
                     borderRadius: 10,
                     border: '1px solid grey',
