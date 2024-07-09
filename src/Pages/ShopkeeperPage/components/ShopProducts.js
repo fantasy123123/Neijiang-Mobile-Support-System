@@ -1,12 +1,10 @@
 import {Button, Input, InputNumber, Modal, Radio, Table} from "@arco-design/web-react";
-import {useNavigate} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 import {IconSearch} from "@arco-design/web-react/icon";
 
 const ShopProducts=()=>{
     const inputRef1 = useRef(null);
     const inputRef2 = useRef(null);
-    const navigate=useNavigate()
 
     const columns = [
         {
