@@ -1,43 +1,55 @@
-import {useRef, useState} from "react";
+//已完成
+
+import {useEffect, useRef, useState} from "react";
 import {IconSearch} from "@arco-design/web-react/icon";
-import {Button, Descriptions, Input, Message, Modal, Table} from "@arco-design/web-react";
+import {Button,  Input, Message,  Table} from "@arco-design/web-react";
+import axiosInstance from "../../../api/AxiosApi";
 
 const AdminViewGroups=()=>{
-    const [ifView,setIfView]=useState(false)
-    const [editObject,setEditObject]=useState({})
-    const [groupData,setGroupData]=useState([
-        {
-            key:'1',
-            id:'1',
-            name:'groupname',
-            description:'description',
-            create:'time'
-        },
-        {
-            key:'2',
-            id:'2',
-            name:'groupname',
-            description:'description',
-            create:'time'
-        },
-        {
-            key:'3',
-            id:'3',
-            name:'groupname',
-            description:'description',
-            create:'time'
-        },
-    ])
+    const [groupData,setGroupData]=useState([])
+    const [memberData,setMemberData]=useState([])
+
+    useEffect(()=>{
+        axiosInstance.get('/groups').then(
+            res=>{
+                let tempGroup=[]
+                res.data.data.forEach((value,index)=>{
+                    tempGroup.push({...value,key:value.groupId})
+                })
+                setGroupData(tempGroup)
+                let tempMember=[]
+                res.data.data.forEach((value, index) => {
+                    axiosInstance.get('/groups/members/'+value.groupId).then(
+                        res=>{
+                            tempMember.unshift(res.data.data)
+                        }
+                    ).catch(
+                        err=>{
+                            console.log(err)
+                        }
+                    )
+                })
+                setMemberData(tempMember)
+            }
+        ).catch(
+            err=>{
+                console.log(err)
+            }
+        )
+
+    },[])
+
     const inputRef1 = useRef(null);
+    const inputRef2 = useRef(null);
     const group = [
         {
             title: '群组编号',
-            dataIndex: 'id',
-            sorter: (a, b) => a.id - b.id,
+            dataIndex: 'groupId',
+            sorter: (a, b) => a.groupId - b.groupId,
         },
         {
             title: '群组名称',
-            dataIndex: 'name',
+            dataIndex: 'groupName',
             filterIcon: <IconSearch />,
             filterDropdown: ({ filterKeys, setFilterKeys, confirm }) => {
                 return (
@@ -57,7 +69,7 @@ const AdminViewGroups=()=>{
                     </div>
                 );
             },
-            onFilter: (value, row) => (value ? row.type.indexOf(value) !== -1 : true),
+            onFilter: (value, row) => (value ? row.groupName.indexOf(value) !== -1 : true),
             onFilterDropdownVisibleChange: (visible) => {
                 if (visible) {
                     setTimeout(() => inputRef1.current.focus(), 150);
@@ -70,8 +82,8 @@ const AdminViewGroups=()=>{
         },
         {
             title: '创建时间',
-            dataIndex: 'create',
-            sorter: (a, b) => a.time - b.time,
+            dataIndex: 'createdAt',
+            sorter: (a, b) => a.createdAt - b.createdAt,
         },
         {
             title: '操作',
@@ -82,8 +94,17 @@ const AdminViewGroups=()=>{
                         type={"primary"}
                         onClick={()=>{
                             if(window.confirm('确定注销该群组？')) {
-                                Message.info('注销成功!');
-                                setIfView(false)
+                                axiosInstance.delete('/groups/'+record.groupId).then(
+                                    res=>{
+                                        setGroupData([...groupData.filter(item=>item!==record)])
+                                        Message.info('注销成功!');
+                                    }
+                                ).catch(
+                                    err=>{
+                                        console.log(err)
+                                    }
+                                )
+
                             }
                         }}>
                         注销
@@ -93,35 +114,14 @@ const AdminViewGroups=()=>{
         }
     ];
 
-    const [memberData,setMemberData]=useState([
-        {
-            key: '1',
-            userId: '1',
-            name:'a',
-            time:'createTime',
-        },
-        {
-            key: '2',
-            userId: '2',
-            name:'a',
-            time:'createTime',
-        },
-        {
-            key: '3',
-            userId: '3',
-            name:'a',
-            time:'createTime',
-        },
-    ])
-    const inputRef2 = useRef(null);
     const member = [
         {
-            title: '成员编号',
-            dataIndex: 'userId',
-            sorter: (a, b) => a.id - b.id,
+            title: '成员账号',
+            dataIndex: 'accountId',
+            sorter: (a, b) => a.accountId - b.accountId,
         },
         {
-            title: '成员名字',
+            title: '成员名称',
             dataIndex: 'name',
             filterIcon: <IconSearch />,
             filterDropdown: ({ filterKeys, setFilterKeys, confirm }) => {
@@ -142,7 +142,7 @@ const AdminViewGroups=()=>{
                     </div>
                 );
             },
-            onFilter: (value, row) => (value ? row.type.indexOf(value) !== -1 : true),
+            onFilter: (value, row) => (value ? row.name.indexOf(value) !== -1 : true),
             onFilterDropdownVisibleChange: (visible) => {
                 if (visible) {
                     setTimeout(() => inputRef2.current.focus(), 150);
@@ -150,15 +150,20 @@ const AdminViewGroups=()=>{
             },
         },
         {
+            title: '成员角色',
+            dataIndex: 'role',
+        },
+        {
             title: '注册时间',
-            dataIndex: 'time',
-            sorter: (a, b) => a.time - b.time,
+            dataIndex: 'createdAt',
+            sorter: (a, b) => a.createdAt - b.createdAt,
         },
     ];
-    function expandedRowRender() {
+
+    function expandedRowRender(record,index) {
         return <Table
             columns={member}
-            data={memberData}
+            data={memberData[index]}
             pagination={false}
             borderCell={true}
         />;
@@ -181,6 +186,7 @@ const AdminViewGroups=()=>{
                     overflow:'auto'
                 }}>
                     <Table
+
                         indentSize={60}
                         expandedRowRender={expandedRowRender}
                         columns={group}
