@@ -1,3 +1,5 @@
+//已完成
+
 import {Button, InputNumber, Radio, Switch} from "@arco-design/web-react";
 const SystemConfiguration=()=>{
     return (
@@ -32,7 +34,7 @@ const SystemConfiguration=()=>{
                     </div>
                     <div style={{width:'30%',marginLeft:"5%",fontSize:20,color:'grey'}}>
                         <div style={{height:50,width:'100%',display:'flex',alignItems:'center'}}>
-                            <Switch checkedText='是' uncheckedText='否' size={'default'}/>
+                            <Switch checkedText='是' uncheckedText='否' size={'default'} checked/>
                         </div>
                         <div style={{height:50,width:'100%',display:'flex',alignItems:'center'}}>
                             <InputNumber
@@ -61,7 +63,7 @@ const SystemConfiguration=()=>{
                             </Radio.Group>
                         </div>
                         <div style={{height:50,width:'100%',display:'flex',alignItems:'center'}}>
-                            <Switch checkedText='是' uncheckedText='否' size={'default'}/>
+                            <Switch checkedText='是' uncheckedText='否' checked size={'default'}/>
                         </div>
                         <div style={{height:50,width:'100%',display:'flex',alignItems:'center'}}>
                             <InputNumber
@@ -73,10 +75,10 @@ const SystemConfiguration=()=>{
                             &nbsp;s
                         </div>
                         <div style={{height:50,width:'100%',display:'flex',alignItems:'center'}}>
-                            <Switch checkedText='是' uncheckedText='否' size={'default'}/>
+                            <Switch checkedText='是' uncheckedText='否' checked size={'default'}/>
                         </div>
                         <div style={{height:50,width:'100%',display:'flex',alignItems:'center'}}>
-                            <Switch checkedText='是' uncheckedText='否' size={'default'}/>
+                            <Switch checkedText='是' uncheckedText='否' checked size={'default'}/>
                         </div>
                     </div>
                 </div>
