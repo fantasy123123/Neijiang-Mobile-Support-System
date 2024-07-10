@@ -24,6 +24,7 @@ import TouristComments from "./Pages/TouristPage/components/TouristComments";
 import TouristCollection from "./Pages/TouristPage/components/TouristCollection";
 import TouristManageGroup from "./Pages/TouristPage/components/TouristManageGroup";
 import ManageDiscussion from "./Pages/Components/ManageDiscussion";
+import ChatRoom from './Pages/Components/ChatRoom';
 import TouristManageRecommendation from "./Pages/TouristPage/components/TouristManageRecommendation";
 import ShopkeeperPage from "./Pages/ShopkeeperPage/ShopkeeperPage";
 import ShopInformation from "./Pages/ShopkeeperPage/components/ShopInformation";
@@ -207,6 +208,10 @@ const routes=[
             {
                 path: '/shopkeeper/discussion',
                 element:<ManageDiscussion/>
+            },
+            {
+                path: "/shopkeeper/chat/:groupId",
+                element: <ChatRoom/>
             },
             {
                 path: '/shopkeeper/shopInformation/type',
