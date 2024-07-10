@@ -10,6 +10,9 @@ const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;
 const AdminPage=()=>{
     const navigate=useNavigate()
+    useEffect(()=>{
+        navigate('/admin')
+    },[])
 
     return (
         <div className={'adminBackground'}>
