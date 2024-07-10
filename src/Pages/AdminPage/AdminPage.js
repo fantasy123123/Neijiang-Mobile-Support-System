@@ -60,19 +60,10 @@ const AdminPage=()=>{
                         <MenuItem key='1_3' onClick={()=>{navigate('/admin/weather')}}>天气</MenuItem>
                         <MenuItem key='1_4' onClick={()=>{navigate('/admin/systemConfiguration')}}>系统配置</MenuItem>
                     </SubMenu>
-                    <MenuItem key='2' onClick={()=>{navigate('/admin/viewUser',{state:userArray})}}><IconUser />用户管理</MenuItem>
-                    <MenuItem key='3' onClick={()=>{navigate('/admin/viewShop',{state:shopArray})}}><IconHome />商户管理</MenuItem>
-                    <SubMenu
-                        key='4'
-                        title={
-                            <>
-                                <IconUserGroup />群组管理
-                            </>
-                        }
-                    >
-                        <MenuItem key='4_1' onClick={()=>{navigate('/admin/viewGroup')}}>查看群组</MenuItem>
-                        <MenuItem key='4_2' onClick={()=>{navigate('/admin/dissolveGroup')}}>解散群组</MenuItem>
-                    </SubMenu>
+                    <MenuItem key='2' onClick={()=>{navigate('/admin/viewUser')}}><IconUser />用户管理</MenuItem>
+                    <MenuItem key='3' onClick={()=>{navigate('/admin/viewShop')}}><IconHome />商户管理</MenuItem>
+                    <MenuItem key='4' onClick={()=>{navigate('/admin/viewGroup')}}><IconUserGroup />群组管理</MenuItem>
+
                     <MenuItem key='5' onClick={()=>{navigate('/admin/password')}}><IconLock />密码</MenuItem>
                     <MenuItem key='6' onClick={()=>{navigate('/admin/basicInformation')}}><IconInfoCircle />基本信息</MenuItem>
                 </Menu>
