@@ -1,8 +1,8 @@
-// 登录界面
+// 登录界面，已完成
 
 import './SignInPage.css';
 import {Link} from "react-router-dom";
-import { Button, Form, Input, Message,Radio } from '@arco-design/web-react';
+import { Button, Form, Input, Message} from '@arco-design/web-react';
 import {IconSafe, IconUnlock, IconUser} from '@arco-design/web-react/icon';
 import {useEffect, useRef, useState} from 'react';
 import { useNavigate} from "react-router-dom";
@@ -212,6 +212,14 @@ const SignInPage = () => {
                                                     localStorage.removeItem('token')
                                                 }
                                                 localStorage.setItem('token',res.data.data.token)
+                                                if(localStorage.getItem('accountId')){
+                                                    localStorage.removeItem('accountId')
+                                                }
+                                                localStorage.setItem('accountId',res.data.data.accountId)
+                                                if(localStorage.getItem('roleId')){
+                                                    localStorage.removeItem('roleId')
+                                                }
+                                                localStorage.setItem('roleId',res.data.data.roleId)
                                                 switch (res.data.data.roleId){
                                                     case 1: navigate('/admin');
                                                     break;

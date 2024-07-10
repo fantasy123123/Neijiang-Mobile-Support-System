@@ -1,24 +1,11 @@
 import {useRef, useState} from "react";
-import {
-    Button,
-    Card,
-    DatePicker,
-    Descriptions,
-    Input,
-    Modal,
-    Progress,
-    Radio, Table,
-    Tooltip,
-    Upload
-} from "@arco-design/web-react";
-import {IconEdit, IconHeartFill, IconPlus, IconSearch} from "@arco-design/web-react/icon";
+import {Input, Table,} from "@arco-design/web-react";
+import {IconSearch} from "@arco-design/web-react/icon";
 
 const TouristViewProducts=()=>{
-    const [ifEdit,setIfEdit] = useState(false);
-    const [ifVisible,setIfVisible] = useState(false);
     const [initData,setInitData]=useState([
         {
-            key:'1',
+            key: '1',
             name:'名字1',
             location:'地点',
             phone:'电话',
@@ -30,7 +17,7 @@ const TouristViewProducts=()=>{
             time:'创建时间'
         },
         {
-            key:'2',
+            key: '2',
             name:'名字2',
             location:'地点',
             phone:'电话',
@@ -42,7 +29,7 @@ const TouristViewProducts=()=>{
             time:'创建时间'
         },
         {
-            key:'3',
+            key: '3',
             name:'名字3',
             location:'地点',
             phone:'电话',

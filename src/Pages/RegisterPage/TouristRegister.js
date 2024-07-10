@@ -1,3 +1,5 @@
+//已完成
+
 import './RegisterPage.css'
 import picture2 from './image/picture2.png'
 import tourist from './image/user.png'
