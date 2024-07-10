@@ -10,35 +10,6 @@ const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;
 const AdminPage=()=>{
     const navigate=useNavigate()
-    let tempUserArray=[]
-    let tempShopArray=[]
-    let tempAdminArray=[]
-    const [userArray,setUserArray]=useState([])
-    const [shopArray,setShopArray]=useState([])
-
-    useEffect(()=>{
-        navigate('/admin')
-        axiosInstance.get('/accounts').then(
-            res=>{
-                for (let data of res.data.data) {
-                    switch (data.roleId){
-                        case 1:tempAdminArray.push(data);
-                        break;
-                        case 2:tempShopArray.push(data);
-                        break;
-                        case 3:tempUserArray.push(data);
-                        break;
-                    }
-                }
-                setShopArray(tempShopArray)
-                setUserArray(tempUserArray)
-            }
-        ).catch(
-            error=>{
-                console.log(error)
-            }
-        )
-    },[])
 
     return (
         <div className={'adminBackground'}>
@@ -63,7 +34,6 @@ const AdminPage=()=>{
                     <MenuItem key='2' onClick={()=>{navigate('/admin/viewUser')}}><IconUser />用户管理</MenuItem>
                     <MenuItem key='3' onClick={()=>{navigate('/admin/viewShop')}}><IconHome />商户管理</MenuItem>
                     <MenuItem key='4' onClick={()=>{navigate('/admin/viewGroup')}}><IconUserGroup />群组管理</MenuItem>
-
                     <MenuItem key='5' onClick={()=>{navigate('/admin/password')}}><IconLock />密码</MenuItem>
                     <MenuItem key='6' onClick={()=>{navigate('/admin/basicInformation')}}><IconInfoCircle />基本信息</MenuItem>
                 </Menu>
