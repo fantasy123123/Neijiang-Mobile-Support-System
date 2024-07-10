@@ -1,17 +1,19 @@
 import {useRef, useState} from "react";
 import {IconSearch} from "@arco-design/web-react/icon";
 import {Button, Descriptions, Input, Message, Modal, Table} from "@arco-design/web-react";
+import {useLocation} from "react-router-dom";
 
 const AdminViewUsers=()=>{
     const inputRef1 = useRef(null);
     const inputRef2 = useRef(null);
     const [ifView,setIfView]=useState(false)
     const [editObject,setEditObject]=useState({})
+    const [data,setData]=useState(useLocation().state)
 
     const columns = [
         {
             title: '用户id',
-            dataIndex: 'id',
+            dataIndex: 'accountId',
             filterIcon: <IconSearch />,
             filterDropdown: ({ filterKeys, setFilterKeys, confirm }) => {
                 return (
@@ -40,7 +42,7 @@ const AdminViewUsers=()=>{
         },
         {
             title: '用户名称',
-            dataIndex: 'name',
+            dataIndex: 'username',
             filterIcon: <IconSearch />,
             filterDropdown: ({ filterKeys, setFilterKeys, confirm }) => {
                 return (
@@ -97,39 +99,6 @@ const AdminViewUsers=()=>{
             }
         }
     ];
-
-    const [data,setData]=useState([
-        {
-            id:'1',
-            name:'a',
-            sex:'男',
-            phone:'电话',
-            email:'邮件',
-            birth:'2004-5-1',
-            signature:'个性签名',
-            time:'创建时间',
-        },
-        {
-            id:'2',
-            name:'b',
-            sex:'男',
-            phone:'电话',
-            email:'邮件',
-            birth:'2004-5-1',
-            signature:'个性签名',
-            time:'创建时间',
-        },
-        {
-            id:'3',
-            name:'c',
-            sex:'男',
-            phone:'电话',
-            email:'邮件',
-            birth:'2004-5-1',
-            signature:'个性签名',
-            time:'创建时间',
-        },
-    ])
 
     const column2 = [
         {
