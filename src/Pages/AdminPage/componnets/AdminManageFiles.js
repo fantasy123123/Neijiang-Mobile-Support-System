@@ -1,56 +1,39 @@
 import {
     Button,
-    Descriptions,
     Input,
-    InputNumber,
     Message,
-    Modal,
-    Radio,
-    Space,
+    Modal, Radio,
     Table,
-    Upload
 } from "@arco-design/web-react";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {IconSearch} from "@arco-design/web-react/icon";
+import axiosInstance from "../../../api/AxiosApi";
 
 const AdminManageFiles=()=>{
     const [ifView,setIfView]=useState(false)
     const [ifUpdate,setIfUpdate]=useState(false)
     const [ifRead,setIfRead] = useState(false)
     const [editObject,setEditObject]=useState({})
-
-    const [articleData,setArticleData]=useState([
-        {
-            key:'1',
-            id:'1',
-            title:'name',
-            category:'种类',
-            create:'time',
-            content:'文章内容'
-        },
-        {
-            key:'2',
-            id:'2',
-            title:'name',
-            category:'种类',
-            create:'time',
-            content:'文章内容'
-        },
-        {
-            key:'3',
-            id:'3',
-            title:'name',
-            category:'种类',
-            create:'time',
-            content:'文章内容'
-        },
-    ])
     const inputRef1 = useRef(null);
     const inputRef2 = useRef(null);
+
+    const [articleData,setArticleData]=useState([])
+    useEffect(()=>{
+        axiosInstance.get('/articles').then(
+            res=>{
+                setArticleData(res.data.data)
+            }
+        ).catch(
+            err=>{
+                console.log(err)
+            }
+        )
+    },[])
+
     const article = [
         {
             title: '文章编号',
-            dataIndex: 'id',
+            dataIndex: 'articleId',
             sorter: (a, b) => a.id - b.id,
         },
         {
@@ -61,7 +44,7 @@ const AdminManageFiles=()=>{
                 return (
                     <div className='arco-table-custom-filter'>
                         <Input.Search
-                            style={{width:120}}
+                            style={{width:150}}
                             ref={inputRef1}
                             searchButton
                             value={filterKeys[0] || ''}
@@ -75,7 +58,7 @@ const AdminManageFiles=()=>{
                     </div>
                 );
             },
-            onFilter: (value, row) => (value ? row.type.indexOf(value) !== -1 : true),
+            onFilter: (value, row) => (value ? row.title.indexOf(value) !== -1 : true),
             onFilterDropdownVisibleChange: (visible) => {
                 if (visible) {
                     setTimeout(() => inputRef1.current.focus(), 150);
@@ -84,13 +67,13 @@ const AdminManageFiles=()=>{
         },
         {
             title: '文章种类',
-            dataIndex: 'category',
+            dataIndex: 'categoryName',
             filterIcon: <IconSearch />,
             filterDropdown: ({ filterKeys, setFilterKeys, confirm }) => {
                 return (
                     <div className='arco-table-custom-filter'>
                         <Input.Search
-                            style={{width:120}}
+                            style={{width:150}}
                             ref={inputRef2}
                             searchButton
                             value={filterKeys[0] || ''}
@@ -104,7 +87,7 @@ const AdminManageFiles=()=>{
                     </div>
                 );
             },
-            onFilter: (value, row) => (value ? row.type.indexOf(value) !== -1 : true),
+            onFilter: (value, row) => (value ? row.categoryName.indexOf(value) !== -1 : true),
             onFilterDropdownVisibleChange: (visible) => {
                 if (visible) {
                     setTimeout(() => inputRef2.current.focus(), 150);
@@ -112,23 +95,29 @@ const AdminManageFiles=()=>{
             },
         },
         {
-            title: '发布时间',
-            dataIndex: 'create',
-            sorter: (a, b) => a.time - b.time,
-        },
-        {
             title: '操作',
+            width: 200,
             render: (col, record) => {
-                return <div style={{display:'flex' }}>
+                return <div style={{display:'flex'}}>
                     <Button
                         style={{marginRight:10}}
                         type={"primary"}
                         onClick={()=>{
                             setEditObject(record)
+                            setIfRead(true)
+                        }}
+                    >
+                        查看
+                    </Button>
+                    <Button
+                        style={{marginRight:10}}
+                        type={'outline'}
+                        onClick={()=>{
+                            setEditObject(record)
                             setIfView(true)
                         }}
                     >
-                        修改信息
+                        修改
                     </Button>
                     <Button
                         style={{marginRight:10}}
@@ -136,27 +125,24 @@ const AdminManageFiles=()=>{
                         type={"primary"}
                         onClick={()=>{
                             if(window.confirm('确定删除该文章？')) {
-                                Message.info('删除成功!');
-                                setIfView(false)
+                                axiosInstance.delete('/articles/'+record.articleId).then(
+                                    res=>{
+                                        Message.info('删除成功！')
+                                        setArticleData([...articleData.filter(item=>item!==record)])
+                                    }
+                                ).catch(
+                                    err=>{
+                                        console.log(err)
+                                    }
+                                )
                             }
                         }}>
                         删除
-                    </Button>
-                    <Button
-                        style={{marginRight:10}}
-                        type={'outline'}
-                        onClick={()=>{
-                            setEditObject(record)
-                            setIfRead(true)
-                        }}
-                    >
-                        查看文章
                     </Button>
                 </div>
             }
         }
     ];
-    const [disabled, setDisabled] = useState(false);
     return (
         <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
             <div style={{width: "90%", height: '90%'}}>
@@ -180,7 +166,6 @@ const AdminManageFiles=()=>{
                     <Button
                         type='primary'
                         onClick={()=>{setIfUpdate(true)}}
-                        disabled={disabled}
                         style={{marginTop:20,marginLeft:20,marginRight:30}}
                     >
                         发表文章
@@ -194,13 +179,37 @@ const AdminManageFiles=()=>{
                         pagination={{pageSize: 5}}
                     />
                     <Modal
-                        title={editObject.title + ' 文章详情'}
+                        title={'修改文章'}
                         unmountOnExit={true}
                         maskClosable={false}
                         visible={ifView}
                         onOk={() => {
-                            setEditObject({})
-                            setIfView(false)
+                            axiosInstance.put('/articles', {
+                                "articleId": editObject.articleId,
+                                "title": editObject.title,
+                                "content": editObject.content,
+                                "categoryId": editObject.categoryId,
+                                "authorId": editObject.authorId
+                            }).then(
+                                res=>{
+                                    Message.info('修改成功！')
+                                    setEditObject({})
+                                    setIfView(false)
+                                    axiosInstance.get('/articles').then(
+                                        res=>{
+                                            setArticleData(res.data.data)
+                                        }
+                                    ).catch(
+                                        err=>{
+                                            Message.error('更新文章列表失败！')
+                                        }
+                                    )
+                                }
+                            ).catch(
+                                err=>{
+                                    Message.info('修改失败！')
+                                }
+                            )
                         }}
                         onCancel={() => {
                             setEditObject({})
@@ -209,7 +218,7 @@ const AdminManageFiles=()=>{
                         autoFocus={false}
                     >
                         <div style={{display: 'flex', width: '100%', justifyContent: 'space-between'}}>
-                            <div style={{width: '27%'}}>
+                            <div style={{width: '20%'}}>
                                 <div style={{
                                     height: 50,
                                     width: '100%',
@@ -238,7 +247,7 @@ const AdminManageFiles=()=>{
                                     文章种类
                                 </div>
                             </div>
-                            <div style={{width: '65%'}}>
+                            <div style={{width: '75%'}}>
                                 <div style={{
                                     height: 50,
                                     width: '100%',
@@ -247,8 +256,10 @@ const AdminManageFiles=()=>{
                                     alignItems: 'center'
                                 }}>
                                     <Input
+                                        defaultValue={editObject.articleId}
+                                        disabled
                                         onChange={value => {
-                                            setEditObject({...editObject, id: value})
+                                            setEditObject({...editObject, articleId: value})
                                         }}
                                         style={{width: '90%'}}
                                     />
@@ -261,6 +272,7 @@ const AdminManageFiles=()=>{
                                     alignItems: 'center'
                                 }}>
                                     <Input
+                                        defaultValue={editObject.title}
                                         onChange={value => {
                                             setEditObject({...editObject, title: value})
                                         }}
@@ -274,12 +286,33 @@ const AdminManageFiles=()=>{
                                     display: 'flex',
                                     alignItems: 'center'
                                 }}>
-                                    <Input
+                                    <Radio.Group
+                                        name='button-radio-group'
+                                        style={{display:'flex'}}
+                                        defaultValue={editObject.categoryName}
                                         onChange={value => {
-                                            setEditObject({...editObject, category: value})
+                                            setEditObject({...editObject,
+                                                categoryId:value==='技术'?
+                                                    1:value==='健康'?
+                                                        2:value==='金融'?
+                                                            3:4
+                                            })
                                         }}
-                                        style={{width: '90%'}}
-                                    />
+                                    >
+                                        {['技术', '健康', '金融','教育'].map((item) => {
+                                            return (
+                                                <Radio key={item} value={item}>
+                                                    {({ checked }) => {
+                                                        return (
+                                                            <Button tabIndex={-1} key={item} type={checked ? 'primary' : 'default'}>
+                                                                {item}
+                                                            </Button>
+                                                        );
+                                                    }}
+                                                </Radio>
+                                            );
+                                        })}
+                                    </Radio.Group>
                                 </div>
                             </div>
                         </div>
@@ -290,8 +323,32 @@ const AdminManageFiles=()=>{
                         maskClosable={false}
                         visible={ifUpdate}
                         onOk={() => {
-                            setEditObject({})
-                            setIfUpdate(false)
+                            if(editObject.title&&editObject.content&&editObject.categoryId) {
+                                axiosInstance.post('/articles',{
+                                    ...editObject,authorId:parseInt(localStorage.getItem('accountId'))
+                                }).then(
+                                    res=>{
+                                        Message.info('发表成功！')
+                                        setEditObject({})
+                                        setIfUpdate(false)
+                                        axiosInstance.get('/articles').then(
+                                            res=>{
+                                                setArticleData(res.data.data)
+                                            }
+                                        ).catch(
+                                            err=>{
+                                                Message.error('更新文章列表失败！')
+                                            }
+                                        )
+                                    }
+                                ).catch(
+                                    err=>{
+                                        Message.info('发表失败！')
+                                    }
+                                )
+                            } else {
+                                Message.error('仍有未填写内容！')
+                            }
                         }}
                         onCancel={() => {
                             setEditObject({})
@@ -300,16 +357,7 @@ const AdminManageFiles=()=>{
                         autoFocus={false}
                     >
                         <div style={{display: 'flex', width: '100%', justifyContent: 'space-between'}}>
-                            <div style={{width: '27%'}}>
-                                <div style={{
-                                    height: 50,
-                                    width: '100%',
-                                    justifyContent: 'right',
-                                    display: 'flex',
-                                    alignItems: 'center'
-                                }}>
-                                    文章编号
-                                </div>
+                            <div style={{width: '20%'}}>
                                 <div style={{
                                     height: 50,
                                     width: '100%',
@@ -338,21 +386,7 @@ const AdminManageFiles=()=>{
                                     文章内容
                                 </div>
                             </div>
-                            <div style={{width: '65%'}}>
-                                <div style={{
-                                    height: 50,
-                                    width: '100%',
-                                    justifyContent: 'left',
-                                    display: 'flex',
-                                    alignItems: 'center'
-                                }}>
-                                <Input
-                                        onChange={value => {
-                                            setEditObject({...editObject, id: value})
-                                        }}
-                                        style={{width: '90%'}}
-                                    />
-                                </div>
+                            <div style={{width: '75%'}}>
                                 <div style={{
                                     height: 50,
                                     width: '100%',
@@ -374,12 +408,32 @@ const AdminManageFiles=()=>{
                                     display: 'flex',
                                     alignItems: 'center'
                                 }}>
-                                    <Input
+                                    <Radio.Group
+                                        name='button-radio-group'
+                                        style={{display:'flex'}}
                                         onChange={value => {
-                                            setEditObject({...editObject, category: value})
+                                            setEditObject({...editObject,
+                                                categoryId:value==='技术'?
+                                                    1:value==='健康'?
+                                                        2:value==='金融'?
+                                                            3:4
+                                            })
                                         }}
-                                        style={{width: '90%'}}
-                                    />
+                                    >
+                                        {['技术', '健康', '金融','教育'].map((item) => {
+                                            return (
+                                                <Radio key={item} value={item}>
+                                                    {({ checked }) => {
+                                                        return (
+                                                            <Button tabIndex={-1} key={item} type={checked ? 'primary' : 'default'}>
+                                                                {item}
+                                                            </Button>
+                                                        );
+                                                    }}
+                                                </Radio>
+                                            );
+                                        })}
+                                    </Radio.Group>
                                 </div>
                                 <div style={{
                                     height: 50,
@@ -390,7 +444,7 @@ const AdminManageFiles=()=>{
                                 }}>
                                     <Input.TextArea
                                         autoSize={{ minRows: 1, maxRows: 200 }}
-                                        onChange={value=>{setEditObject({...editObject,description:value})}}
+                                        onChange={value=>{setEditObject({...editObject,content:value})}}
                                         style={{width:'90%',zIndex:2}}
                                     />
                                 </div>
@@ -398,6 +452,7 @@ const AdminManageFiles=()=>{
                         </div>
                     </Modal>
                     <Modal
+                        footer={null}
                         title={editObject.title}
                         unmountOnExit={true}
                         maskClosable={false}
