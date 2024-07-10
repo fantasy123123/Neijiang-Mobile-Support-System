@@ -13,7 +13,6 @@ import PasswordManage from "./Pages/Components/PasswordManage";
 import AdminBasicInformation from "./Pages/AdminPage/componnets/AdminBasicInformation";
 import AdminViewUsers from "./Pages/AdminPage/componnets/AdminViewUsers";
 import AdminViewGroups from "./Pages/AdminPage/componnets/AdminViewGroups";
-import AdminDissolveGroup from "./Pages/AdminPage/componnets/AdminDissolveGroup";
 import TouristPage from "./Pages/TouristPage/TouristPage";
 import TouristViewShops from "./Pages/TouristPage/components/TouristViewShops";
 import TouristViewProducts from "./Pages/TouristPage/components/TouristViewProducts";
@@ -100,10 +99,6 @@ const routes=[
             {
                 path:'/admin/viewGroup',
                 element:<AdminViewGroups/>
-            },
-            {
-                path:'/admin/dissolveGroup',
-                element:<AdminDissolveGroup/>
             },
         ]
     },
