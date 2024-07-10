@@ -1,19 +1,33 @@
-import {useRef, useState} from "react";
+//已完成
+
+import {useEffect, useRef, useState} from "react";
 import {IconSearch} from "@arco-design/web-react/icon";
 import {Button, Descriptions, Input, Message, Modal, Table} from "@arco-design/web-react";
-import {useLocation} from "react-router-dom";
+import axiosInstance from "../../../api/AxiosApi";
 
 const AdminViewUsers=()=>{
     const inputRef1 = useRef(null);
     const inputRef2 = useRef(null);
     const [ifView,setIfView]=useState(false)
     const [editObject,setEditObject]=useState({})
-    const [data,setData]=useState(useLocation().state)
+    const [data,setData]=useState([])
+
+    useEffect(()=>{
+        axiosInstance.get('/users').then(
+            res=>{
+                setData(res.data.data)
+            }
+        ).catch(
+            err=>{
+                console.log(err)
+            }
+        )
+    },[])
 
     const columns = [
         {
             title: '用户id',
-            dataIndex: 'accountId',
+            dataIndex: 'userId',
             filterIcon: <IconSearch />,
             filterDropdown: ({ filterKeys, setFilterKeys, confirm }) => {
                 return (
@@ -42,7 +56,7 @@ const AdminViewUsers=()=>{
         },
         {
             title: '用户名称',
-            dataIndex: 'username',
+            dataIndex: 'name',
             filterIcon: <IconSearch />,
             filterDropdown: ({ filterKeys, setFilterKeys, confirm }) => {
                 return (
@@ -68,10 +82,6 @@ const AdminViewUsers=()=>{
                     setTimeout(() => inputRef2.current.focus(), 150);
                 }
             },
-        },
-        {
-            title: '性别',
-            dataIndex: 'sex',
         },
         {
             title: '电话',
@@ -103,7 +113,11 @@ const AdminViewUsers=()=>{
     const column2 = [
         {
             label: '用户id',
-            value: editObject.id,
+            value: editObject.userId,
+        },
+        {
+            label: '账号id',
+            value: editObject.accountId,
         },
         {
             label: '用户名称',
@@ -118,20 +132,8 @@ const AdminViewUsers=()=>{
             value: editObject.email,
         },
         {
-            label: '性别',
-            value: editObject.sex,
-        },
-        {
-            label: '出生日期',
-            value: editObject.birth,
-        },
-        {
             label: '创建时间',
-            value: editObject.time,
-        },
-        {
-            label: '个性签名',
-            value: editObject.signature,
+            value: editObject.createdAt?.substring(0,10),
         },
     ];
 
@@ -145,6 +147,7 @@ const AdminViewUsers=()=>{
                     <Table border={true} borderCell={true} columns={columns} data={data} style={{margin:30}}/>
                 </div>
                 <Modal
+                    footer={null}
                     title='用户详情与操作'
                     unmountOnExit={true}
                     maskClosable={false}
@@ -172,8 +175,17 @@ const AdminViewUsers=()=>{
                             type={"primary"}
                             onClick={()=>{
                                 if(window.confirm('确定注销该用户？')) {
-                                    Message.info('注销成功!');
-                                    setIfView(false)
+                                    axiosInstance.delete('/users/'+editObject.userId).then(
+                                        res=>{
+                                            Message.info('注销成功!')
+                                            setData([...data.filter(item=>item!==editObject)])
+                                            setIfView(false)
+                                        }
+                                    ).catch(
+                                        err=>{
+                                            console.log(err)
+                                        }
+                                    )
                                 }
                             }}>
                             注销

@@ -10,35 +10,6 @@ const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;
 const AdminPage=()=>{
     const navigate=useNavigate()
-    let tempUserArray=[]
-    let tempShopArray=[]
-    let tempAdminArray=[]
-    const [userArray,setUserArray]=useState([])
-    const [shopArray,setShopArray]=useState([])
-
-    useEffect(()=>{
-        navigate('/admin')
-        axiosInstance.get('/accounts').then(
-            res=>{
-                for (let data of res.data.data) {
-                    switch (data.roleId){
-                        case 1:tempAdminArray.push(data);
-                        break;
-                        case 2:tempShopArray.push(data);
-                        break;
-                        case 3:tempUserArray.push(data);
-                        break;
-                    }
-                }
-                setShopArray(tempShopArray)
-                setUserArray(tempUserArray)
-            }
-        ).catch(
-            error=>{
-                console.log(error)
-            }
-        )
-    },[])
 
     return (
         <div className={'adminBackground'}>
@@ -60,8 +31,8 @@ const AdminPage=()=>{
                         <MenuItem key='1_3' onClick={()=>{navigate('/admin/weather')}}>天气</MenuItem>
                         <MenuItem key='1_4' onClick={()=>{navigate('/admin/systemConfiguration')}}>系统配置</MenuItem>
                     </SubMenu>
-                    <MenuItem key='2' onClick={()=>{navigate('/admin/viewUser',{state:userArray})}}><IconUser />用户管理</MenuItem>
-                    <MenuItem key='3' onClick={()=>{navigate('/admin/viewShop',{state:shopArray})}}><IconHome />商户管理</MenuItem>
+                    <MenuItem key='2' onClick={()=>{navigate('/admin/viewUser')}}><IconUser />用户管理</MenuItem>
+                    <MenuItem key='3' onClick={()=>{navigate('/admin/viewShop')}}><IconHome />商户管理</MenuItem>
                     <SubMenu
                         key='4'
                         title={
