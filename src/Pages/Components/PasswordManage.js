@@ -1,3 +1,5 @@
+//已完成
+
 import {Button, Checkbox, Form, Input, Message} from "@arco-design/web-react";
 import {useState} from "react";
 import axiosInstance from "../../api/AxiosApi";
@@ -13,7 +15,6 @@ const formItemLayout = {
 };
 const PasswordManage=()=>{
     const [name,setName]=useState('')
-    const [phone,setPhone]=useState('')
     const [pwd,setPwd]=useState('')
     const [pwdAgain,setPwdAgain]=useState('')
 
@@ -32,8 +33,8 @@ const PasswordManage=()=>{
                             autoComplete='off'
                             {...formItemLayout}
                         >
-                            <FormItem label='名称' field='名称' rules={[{ required: true }]}>
-                                <Input onChange={value=>{setName(value)}} placeholder='请输入您的名称' />
+                            <FormItem label='新用户名' field='新用户名' rules={[{ required: true }]}>
+                                <Input onChange={value=>{setName(value)}} placeholder='请输入您的新用户名' />
                             </FormItem>
                             <FormItem label='新密码' field='新密码' rules={[{ required: true }]}>
                                 <Input onChange={value=>{setPwd(value)}} placeholder='请输入您的新密码' />

@@ -1,4 +1,4 @@
-// 注册界面
+// 注册界面，已完成
 import {Link, useNavigate} from "react-router-dom";
 import './RegisterPage.css'
 import touristSelected from './image/touristSelected.png'
