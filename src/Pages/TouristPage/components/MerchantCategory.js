@@ -12,7 +12,7 @@ const { Title } = Typography;
 const MerchantCatrgory = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { category } = location.state || {};
+    const { categoryName } = location.state || {};
     const { categoryId } = useParams();
     const [merchants, setMerchants] = useState([]);
 
@@ -29,7 +29,7 @@ const MerchantCatrgory = () => {
         }
         fetchMerchantInfo();
         
-    }, []);
+    }, [categoryId]);
 
     return (
         <Layout className={styles['whole-page']} style={{ height: '100vh', overflow: 'auto' }}>
@@ -41,7 +41,7 @@ const MerchantCatrgory = () => {
                         <Space direction="vertical" size="large" style={{ width: '100%' }}>
                             
                             <div style={{ marginBottom: '20px' }}>
-                                <Title className="category-title" heading={2}>{category.categoryName}</Title>
+                                <Title className="category-title" heading={2}>{categoryName}</Title>
 
                                 <Space wrap size="large" style={{ width: '100%' }}>
                                     {merchants.map((merchant, index) => (

@@ -43,7 +43,7 @@ const TouristPage = () => {
                         <Menu.SubMenu key='2' title={<><IconList />商家分类</>}>
                             {merchantsCategories.map((category, index) => (
                                 <Menu.Item key={`2_${index}`} onClick={
-                                    () => navigate(`/tourist/merchant/category/${category.categoryId}`, { state : category})}>{
+                                    () => navigate(`/tourist/merchant/category/${category.categoryId}`, { state : {categoryName : category.categoryName}})}>{
                                         <><IconMenu />{category.categoryName}</>
                                     }
                                 </Menu.Item>
