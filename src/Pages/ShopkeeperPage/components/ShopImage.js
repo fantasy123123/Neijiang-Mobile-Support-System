@@ -64,7 +64,6 @@ const ShopImage=()=>{
                     </div>
                 </div>
                 <div style={{marginRight:'5.5%',marginTop:15,display:'flex',justifyContent:'right'}}>
-                    <div style={{color:'grey',fontSize:17,marginRight:30}}>修改照片请至“用户管理 - 基本信息”中</div>
                     <Button
                         size={"large"}
                         style={{border:'1px solid #FF7D00'}}

@@ -21,12 +21,7 @@ import ChatRoom from './Pages/Components/ChatRoom';
 import ShopkeeperPage from "./Pages/ShopkeeperPage/ShopkeeperPage";
 import ShopInformation from "./Pages/ShopkeeperPage/components/ShopInformation";
 import ShopProducts from "./Pages/ShopkeeperPage/components/ShopProducts";
-import ShopBasicInformation from "./Pages/ShopkeeperPage/components/ShopBasicInformation";
 import ShopManageGroup from "./Pages/ShopkeeperPage/components/ShopManageGroup";
-import ManagementType from "./Pages/ShopkeeperPage/components/ManagementType";
-import ManagementEnvironment from "./Pages/ShopkeeperPage/components/ManagementEnvironment";
-import ManagementPlace from "./Pages/ShopkeeperPage/components/ManagementPlace";
-import ProductSort from "./Pages/ShopkeeperPage/components/ProductSort";
 import ShopImage from "./Pages/ShopkeeperPage/components/ShopImage";
 import ShopMap from "./Pages/ShopkeeperPage/components/ShopMap";
 import ProductDetail from "./Pages/TouristPage/components/ProductDetail";
@@ -34,6 +29,7 @@ import MerchantCatrgory from "./Pages/TouristPage/components/MerchantCategory";
 import TouristComment from "./Pages/TouristPage/components/TouristComment";
 import TouristFavorite from "./Pages/TouristPage/components/TouristFavorite";
 
+import ShopDiscount from "./Pages/ShopkeeperPage/components/ShopDiscount";
 
 const routes=[
     {
@@ -153,10 +149,6 @@ const routes=[
                 element:<PasswordManage/>
             },
             {
-                path: '/shopkeeper/basicInformation',
-                element:<ShopBasicInformation/>
-            },
-            {
                 path: '/shopkeeper/group',
                 element:<ShopManageGroup/>
             },
@@ -169,24 +161,12 @@ const routes=[
                 element: <ChatRoom/>
             },
             {
-                path: '/shopkeeper/shopInformation/type',
-                element: <ManagementType/>
-            },
-            {
-                path: '/shopkeeper/shopInformation/environment',
-                element: <ManagementEnvironment/>
-            },
-            {
-                path: '/shopkeeper/shopInformation/place',
-                element: <ManagementPlace/>
-            },
-            {
-                path: '/shopkeeper/shopInformation/product',
-                element: <ProductSort/>
-            },
-            {
                 path: '/shopkeeper/shopInformation/map',
                 element: <ShopMap/>
+            },
+            {
+                path: '/shopkeeper/shopInformation/discount',
+                element: <ShopDiscount/>
             },
             {
                 path: '/shopkeeper/shopInformation/image',
