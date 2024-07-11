@@ -7,27 +7,23 @@ import AdminPage from "./Pages/AdminPage/AdminPage";
 import SystemConfiguration from "./Pages/Components/SystemConfiguration";
 import AdminManageFiles from "./Pages/AdminPage/componnets/AdminManageFiles";
 import Weather from "./Pages/Components/Weather";
-import AdminManagePermissions from "./Pages/AdminPage/componnets/AdminManagePermissions";
 import AdminViewShops from "./Pages/AdminPage/componnets/AdminViewShops";
-import AdminLogoutShops from "./Pages/AdminPage/componnets/AdminLogoutShops";
-import AdminRecommendShops from "./Pages/AdminPage/componnets/AdminRecommendShops";
 import PasswordManage from "./Pages/Components/PasswordManage";
 import AdminBasicInformation from "./Pages/AdminPage/componnets/AdminBasicInformation";
 import AdminViewUsers from "./Pages/AdminPage/componnets/AdminViewUsers";
-import AdminLogoutUsers from "./Pages/AdminPage/componnets/AdminLogoutUsers";
 import AdminViewGroups from "./Pages/AdminPage/componnets/AdminViewGroups";
-import AdminDissolveGroup from "./Pages/AdminPage/componnets/AdminDissolveGroup";
 import TouristPage from "./Pages/TouristPage/TouristPage";
 import SearchShops from "./Pages/Components/SearchShops";
 import TouristHome from "./Pages/TouristPage/components/TouristHome";
 import MerchantDetail from "./Pages/TouristPage/components/MerchantDetail";
 import ManageDiscussion from "./Pages/Components/ManageDiscussion";
+import ChatRoom from './Pages/Components/ChatRoom';
+import TouristManageRecommendation from "./Pages/TouristPage/components/TouristManageRecommendation";
 import ShopkeeperPage from "./Pages/ShopkeeperPage/ShopkeeperPage";
 import ShopInformation from "./Pages/ShopkeeperPage/components/ShopInformation";
 import ShopProducts from "./Pages/ShopkeeperPage/components/ShopProducts";
 import ShopBasicInformation from "./Pages/ShopkeeperPage/components/ShopBasicInformation";
 import ShopManageGroup from "./Pages/ShopkeeperPage/components/ShopManageGroup";
-import ShopManageMember from "./Pages/ShopkeeperPage/components/ShopManageMember";
 import ManagementType from "./Pages/ShopkeeperPage/components/ManagementType";
 import ManagementEnvironment from "./Pages/ShopkeeperPage/components/ManagementEnvironment";
 import ManagementPlace from "./Pages/ShopkeeperPage/components/ManagementPlace";
@@ -76,20 +72,8 @@ const routes=[
                 element:<Weather/>
             },
             {
-                path:'/admin/permission',
-                element:<AdminManagePermissions/>
-            },
-            {
                 path:'/admin/viewShop',
                 element:<AdminViewShops/>
-            },
-            {
-                path:'/admin/logoutShop',
-                element:<AdminLogoutShops/>
-            },
-            {
-                path:'/admin/recommendShop',
-                element:<AdminRecommendShops/>
             },
             {
                 path:'/admin/password',
@@ -104,16 +88,8 @@ const routes=[
                 element:<AdminViewUsers/>
             },
             {
-                path:'/admin/logoutUser',
-                element:<AdminLogoutUsers/>
-            },
-            {
                 path:'/admin/viewGroup',
                 element:<AdminViewGroups/>
-            },
-            {
-                path:'/admin/dissolveGroup',
-                element:<AdminDissolveGroup/>
             },
         ]
     },
@@ -176,12 +152,12 @@ const routes=[
                 element:<ShopManageGroup/>
             },
             {
-                path: '/shopkeeper/member',
-                element:<ShopManageMember/>
-            },
-            {
                 path: '/shopkeeper/discussion',
                 element:<ManageDiscussion/>
+            },
+            {
+                path: "/shopkeeper/chat/:groupId",
+                element: <ChatRoom/>
             },
             {
                 path: '/shopkeeper/shopInformation/type',
