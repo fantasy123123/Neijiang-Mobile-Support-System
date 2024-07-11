@@ -18,7 +18,6 @@ import TouristHome from "./Pages/TouristPage/components/TouristHome";
 import MerchantDetail from "./Pages/TouristPage/components/MerchantDetail";
 import ManageDiscussion from "./Pages/Components/ManageDiscussion";
 import ChatRoom from './Pages/Components/ChatRoom';
-import TouristManageRecommendation from "./Pages/TouristPage/components/TouristManageRecommendation";
 import ShopkeeperPage from "./Pages/ShopkeeperPage/ShopkeeperPage";
 import ShopInformation from "./Pages/ShopkeeperPage/components/ShopInformation";
 import ShopProducts from "./Pages/ShopkeeperPage/components/ShopProducts";

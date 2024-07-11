@@ -44,7 +44,7 @@ const MerchantCatrgory = () => {
                                 <Title className="category-title" heading={2}>{category.categoryName}</Title>
 
                                 <Space wrap size="large" style={{ width: '100%' }}>
-                                    {(merchantsMap.get(category) || []).map((merchant, index) => (
+                                    {merchants.map((merchant, index) => (
                                         <Card
                                             key={merchant.merchantId}
                                             hoverable
