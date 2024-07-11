@@ -3,7 +3,7 @@ import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import axiosInstance from "../../api/AxiosApi";
-import { Card, List, Input, Button, Typography, Avatar, Icon } from "@arco-design/web-react";
+import { Card, List, Input, Button, Typography, Avatar } from "@arco-design/web-react";
 import "@arco-design/web-react/dist/css/arco.css";
 import { IconArrowLeft } from "@arco-design/web-react/icon";
 
