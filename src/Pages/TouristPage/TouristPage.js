@@ -55,7 +55,7 @@ const TouristPage = () => {
                         <Menu.Item key='4' onClick={() => navigate('/tourist/group')}><><IconUserGroup />我的群组</></Menu.Item>
                         <Menu.Item key='5' onClick={() => navigate('/tourist/comment')}><><IconUserGroup />我的评论</></Menu.Item>
                         <Menu.Item key='6' onClick={() => navigate('/tourist/favorite')}><><IconStar />我的收藏</></Menu.Item>
-                        <Menu.Item key='7' onClick={() => navigate('/tourist/profile')}><><IconUser />个人信息</></Menu.Item>
+                        <Menu.Item key='7' onClick={() => navigate('/tourist/profile')}><><IconUser />个人中心</></Menu.Item>
                     </Menu>
                 </Layout>
             </div>

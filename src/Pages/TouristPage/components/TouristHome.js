@@ -91,8 +91,11 @@ const TouristHome = () => {
                                                 key={merchant.merchantId}
                                                 hoverable
                                                 className={styles['shop-card']}
-                                                cover={<img alt={merchant.name} src={merchant.imageUrl} />}
-                                                onClick={() => navigate(`/tourist/merchant/${merchant.merchantId}`)}
+                                                cover={
+                                                    <img alt={merchant.name} src={merchant.imageUrl} 
+                                                    onClick={() => navigate(`/tourist/merchant/${merchant.merchantId}`)}
+                                                    />
+                                                }
                                             >
                                                 <Card.Meta title={merchant.name} description={`${merchant.businessType} ${merchant.address}`} />
                                             </Card>
@@ -107,8 +110,6 @@ const TouristHome = () => {
 
             <Footer />
         </Layout>
-
-        
     );
 }
 

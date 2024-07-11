@@ -21,7 +21,7 @@ const Header = () => {
             <div className={styles['user-info']}>
                 <Space size="middle">
                     {user?.imageUrl && <Avatar size={32} src={user.imageUrl} />}
-                    <Text style={{ fontSize: '15px', color: '#fff' }}>Hi, {user?.name}</Text>
+                    <Text style={{ fontSize: '15px', color: '#fff', paddingRight : 5 }}>Hi, {user?.name}</Text>
                     <Button type="primary">登出</Button>
                 </Space>
             </div>

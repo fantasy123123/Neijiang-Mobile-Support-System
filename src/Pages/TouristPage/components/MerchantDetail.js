@@ -252,9 +252,10 @@ const MerchantDetail = () => {
                                             hoverable
                                             className={styles['product-card']}
                                             cover={
-                                                <img alt={product.productName} src={product.imageUrl} />
+                                                <img alt={product.productName} src={product.imageUrl} 
+                                                    onClick={() => navigate(`/tourist/product/${product.productId}`)}
+                                                />
                                             }
-                                            onClick={() => navigate(`/tourist/product/${product.productId}`)}
                                         >
                                             <Card.Meta
                                                 title={product.productName}

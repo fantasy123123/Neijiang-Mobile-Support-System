@@ -28,8 +28,8 @@ import ProductDetail from "./Pages/TouristPage/components/ProductDetail";
 import MerchantCatrgory from "./Pages/TouristPage/components/MerchantCategory";
 import TouristComment from "./Pages/TouristPage/components/TouristComment";
 import TouristFavorite from "./Pages/TouristPage/components/TouristFavorite";
-
 import ShopDiscount from "./Pages/ShopkeeperPage/components/ShopDiscount";
+import TouristInfo from "./Pages/TouristPage/components/TouristInfo";
 
 const routes=[
     {
@@ -117,6 +117,10 @@ const routes=[
             {
                 path: '/tourist/favorite',
                 element: <TouristFavorite />
+            },
+            {
+                path: '/tourist/profile',
+                element: <TouristInfo />
             }
         ]
     },
