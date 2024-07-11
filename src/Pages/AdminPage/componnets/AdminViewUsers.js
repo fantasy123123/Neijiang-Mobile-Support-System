@@ -163,7 +163,7 @@ const AdminViewUsers=()=>{
                     autoFocus={false}
                 >
                     <Descriptions
-                        style={{width:'80%',marginLeft:'10%'}}
+                        style={{width:'100%'}}
                         labelStyle={{ textAlign: 'right' }}
                         column={2}
                         colon=' : '

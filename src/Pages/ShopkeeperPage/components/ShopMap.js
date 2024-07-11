@@ -1,7 +1,9 @@
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {Button, Descriptions, Input, Modal} from "@arco-design/web-react";
+import {Button, Descriptions, Input, Message, Modal} from "@arco-design/web-react";
 import AMapLoader from '@amap/amap-jsapi-loader';
+import axiosInstance from "../../../api/AxiosApi";
+
 
 const ShopMap=()=>{
     const navigate=useNavigate()
@@ -13,8 +15,6 @@ const ShopMap=()=>{
         "street": "福元中路",
         "district": "开福区",
         "township": "洪山街道",
-        'longitude':'112.9389',
-        'latitude':'28.2278'
     })
     const [editData,setEditData]=useState(initData)
     const column = [
@@ -45,7 +45,7 @@ const ShopMap=()=>{
     ];
 
     let map = null;
-    useEffect(()=>{
+    function initMap(longitude,latitude){
         window._AMapSecurityConfig = {
             securityJsCode: "0cd187735e348a8064c9d4b996255c5c",
         };
@@ -59,15 +59,30 @@ const ShopMap=()=>{
                     // 设置地图容器id
                     viewMode: "3D", // 是否为3D地图模式
                     zoom: 16, // 初始化地图级别
-                    center: [initData.longitude, initData.latitude], // 初始化地图中心点位置
+                    center: [longitude, latitude], // 初始化地图中心点位置
                 });
             })
             .catch((e) => {
                 console.log(e);
             });
+    }
+    function destroyMap(){
+        map?.destroy();
+    }
+
+    useEffect(()=>{
+        axiosInstance.get('/location/address?address='+initData.city+initData.district+initData.street+initData.township+initData.streetNumber).then(
+            res=>{
+                initMap(res.data.message.split(',')[0],res.data.message.split(',')[1])
+            }
+        ).catch(
+            err=>{
+                console.log(err)
+            }
+        )
 
         return () => {
-            map?.destroy();
+           destroyMap()
         };
     },[])
 
@@ -111,6 +126,18 @@ const ShopMap=()=>{
                     visible={ifEdit}
                     onOk={() => {
                         setIfEdit(false)
+                        setInitData(editData)
+                        Message.info('修改成功！')
+                        destroyMap()
+                        axiosInstance.get('/location/address?address='+editData.city+editData.district+editData.street+editData.township+editData.streetNumber).then(
+                            res=>{
+                                initMap(res.data.message.split(',')[0],res.data.message.split(',')[1])
+                            }
+                        ).catch(
+                            err=>{
+                                console.log(err)
+                            }
+                        )
                     }}
                     onCancel={() => {
                         setIfEdit(false)
@@ -136,12 +163,6 @@ const ShopMap=()=>{
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
                                 街道号
-                            </div>
-                            <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
-                                经度(N)
-                            </div>
-                            <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
-                                纬度(E)
                             </div>
                         </div>
                         <div style={{width:'65%'}}>
@@ -184,20 +205,6 @@ const ShopMap=()=>{
                                 <Input
                                     defaultValue={initData.streetNumber}
                                     onChange={value=>{setEditData({...editData,streetNumber:value})}}
-                                    style={{width:'90%'}}
-                                />
-                            </div>
-                            <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
-                                <Input
-                                    defaultValue={initData.longitude}
-                                    onChange={value=>{setEditData({...editData,longitude:value})}}
-                                    style={{width:'90%'}}
-                                />
-                            </div>
-                            <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
-                                <Input
-                                    defaultValue={initData.latitude}
-                                    onChange={value=>{setEditData({...editData,latitude:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>

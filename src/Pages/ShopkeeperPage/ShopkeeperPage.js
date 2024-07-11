@@ -40,17 +40,7 @@ const ShopkeeperPage=()=>{
                         <MenuItem key='1_1' onClick={()=>{navigate('/shopkeeper/shopInformation')}}>商户信息</MenuItem>
                         <MenuItem key='1_2' onClick={()=>{navigate('/shopkeeper/product')}}>商户产品</MenuItem>
                         <MenuItem key='1_3' onClick={()=>{navigate('/shopkeeper/search')}}>搜索商户</MenuItem>
-                    </SubMenu>
-                    <SubMenu
-                        key='2'
-                        title={
-                            <>
-                                <IconUser />用户管理
-                            </>
-                        }
-                    >
-                        <MenuItem key='2_1' onClick={()=>{navigate('/shopkeeper/password')}}>密码</MenuItem>
-                        <MenuItem key='2_2' onClick={()=>{navigate('/shopkeeper/basicInformation')}}>基本信息</MenuItem>
+                        <MenuItem key='1_4' onClick={()=>{navigate('/shopkeeper/password')}}>密码</MenuItem>
                     </SubMenu>
 
                     <SubMenu
@@ -62,7 +52,6 @@ const ShopkeeperPage=()=>{
                         }
                     >
                         <MenuItem key='3_1' onClick={()=>{navigate('/shopkeeper/group')}}>群组</MenuItem>
-                        <MenuItem key='3_2' onClick={()=>{navigate('/shopkeeper/member')}}>群组会员</MenuItem>
                         <MenuItem key='3_3' onClick={()=>{navigate('/shopkeeper/discussion')}}>群组讨论</MenuItem>
                     </SubMenu>
                     <SubMenu

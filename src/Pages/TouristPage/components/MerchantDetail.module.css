@@ -1,0 +1,76 @@
+.whole-page {
+    width: 100%;
+    background-color: #f0f2f5;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.merchant-title {
+    padding-bottom: 8px;
+    font-size: 35px;
+}
+
+.merchant-img {
+    border-style: none;
+    max-height: 400px;
+}
+
+.merchant-info {
+    font-size: 16px;
+}
+
+.merchant-card {
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.product-card {
+    min-width: 400px;
+    max-width: 400px;
+    min-height: 330px;
+    max-height: 330px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    height: 250px;
+    object-fit: cover;
+}
+
+:global(.arco-typography.product-category-title){
+    margin: 15px 0;
+}
+
+:global(.arco-typography.add-comment-title){
+    margin: 0 0 18px 0;
+}
+
+:global(.arco-textarea.comment-text-area) {
+    height: 100px;
+}
+
+.comment-item {
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 16px;
+}
+
+.comment-form {
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 16px;
+}
+
+.right-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
