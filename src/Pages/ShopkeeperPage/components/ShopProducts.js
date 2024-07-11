@@ -1,15 +1,34 @@
-import {Button, Input, InputNumber, Modal, Radio, Table} from "@arco-design/web-react";
+import {Button, Input, InputNumber, Message, Modal, Radio, Table} from "@arco-design/web-react";
 import {useEffect, useRef, useState} from "react";
 import {IconSearch} from "@arco-design/web-react/icon";
+import axiosInstance from "../../../api/AxiosApi";
+
 
 const ShopProducts=()=>{
     const inputRef1 = useRef(null);
     const inputRef2 = useRef(null);
+    const [data,setData]=useState([])
+
+    useEffect(()=>{
+        axiosInstance.get('/products/merchants/accountId/'+localStorage.getItem('accountId')).then(
+            res=>{
+                setData(res.data.data)
+            }
+        ).catch(
+            err=>{
+                console.log(err)
+            }
+        )
+    },[])
+
+    const [ifAdd,setIfAdd]=useState(false)
+    const [ifEdit,setIfEdit]=useState(false)
+    const [editObject,setEditObject]=useState({})
 
     const columns = [
         {
             title: '商品名称',
-            dataIndex: 'name',
+            dataIndex: 'productName',
             filterIcon: <IconSearch />,
             filterDropdown: ({ filterKeys, setFilterKeys, confirm }) => {
                 return (
@@ -29,7 +48,7 @@ const ShopProducts=()=>{
                     </div>
                 );
             },
-            onFilter: (value, row) => (value ? row.name.indexOf(value) !== -1 : true),
+            onFilter: (value, row) => (value ? row.productName.indexOf(value) !== -1 : true),
             onFilterDropdownVisibleChange: (visible) => {
                 if (visible) {
                     setTimeout(() => inputRef1.current.focus(), 150);
@@ -38,7 +57,7 @@ const ShopProducts=()=>{
         },
         {
             title: '商品类型',
-            dataIndex: 'type',
+            dataIndex: 'categoryName',
             filterIcon: <IconSearch />,
             filterDropdown: ({ filterKeys, setFilterKeys, confirm }) => {
                 return (
@@ -58,7 +77,7 @@ const ShopProducts=()=>{
                     </div>
                 );
             },
-            onFilter: (value, row) => (value ? row.type.indexOf(value) !== -1 : true),
+            onFilter: (value, row) => (value ? row.categoryName.indexOf(value) !== -1 : true),
             onFilterDropdownVisibleChange: (visible) => {
                 if (visible) {
                     setTimeout(() => inputRef2.current.focus(), 150);
@@ -78,25 +97,8 @@ const ShopProducts=()=>{
             sorter: (a, b) => a.price - b.price,
         },
         {
-            title: '是否推荐',
-            dataIndex: 'ifRecommend',
-            render: (col, record) =>{
-                return <span style={{color:record.ifRecommend?'green':'red'}}>{record.ifRecommend?'是':'否'}</span>
-            }
-        },
-        {
-            title: '是否打折',
-            dataIndex: 'ifDiscount',
-            render: (col, record) =>{
-                return <span style={{color:record.ifDiscount?'green':'red'}}>{record.ifDiscount?'是':'否'}</span>
-            }
-        },
-        {
-            title: '打折活动说明',
-            dataIndex: 'discountDescription',
-            render: (col, record) =>{
-                return <span>{record.ifDiscount?record.discountDescription:'暂无打折活动！'}</span>
-            }
+            title: '创建时间',
+            dataIndex: 'createdAt'
         },
         {
             title: '操作',
@@ -114,6 +116,20 @@ const ShopProducts=()=>{
                     <Button
                         status={"danger"}
                         style={{marginLeft:20,border:'#F53F3F 1px solid'}}
+                        onClick={()=>{
+                          if(window.confirm('确认删除？')){
+                              axiosInstance.delete('/products/'+record.productId).then(
+                                  res=>{
+                                      Message.info('删除成功！')
+                                      setData([...data.filter(item=>item!==record)])
+                                  }
+                              ).catch(
+                                  err=>{
+                                      Message.error('删除失败！')
+                                  }
+                              )
+                          }
+                        }}
                     >
                         删除
                     </Button>
@@ -121,47 +137,6 @@ const ShopProducts=()=>{
             }
         }
     ];
-
-    const [data,setData]=useState([
-        {
-            name:'a',
-            type:'type1',
-            description:'description',
-            price:12.0,
-            ifRecommend:true,
-            ifDiscount:true,
-            discountDescription:'aaa'
-        },
-        {
-            name:'b',
-            type:'type1',
-            description:'description',
-            price:123.0,
-            ifRecommend:true,
-            ifDiscount:false,
-            discountDescription:null
-        },
-        {
-            name:'c',
-            type:'type2',
-            description:'description',
-            price:13.0,
-            ifRecommend:false,
-            ifDiscount:true,
-            discountDescription:'aaa'
-        },
-    ])
-
-    const [ifAdd,setIfAdd]=useState(false)
-    const [ifEdit,setIfEdit]=useState(false)
-    const [editObject,setEditObject]=useState({})
-    let input=null
-
-    useEffect(()=>{
-        if(!editObject.ifDiscount&&input!==null){
-            input.dom.value='暂无打折活动！'
-        }
-    },[editObject.ifDiscount])
 
     return (
         <div style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
@@ -186,8 +161,28 @@ const ShopProducts=()=>{
                     maskClosable={false}
                     visible={ifAdd}
                     onOk={() => {
-                        setEditObject({})
-                        setIfAdd(false)
+                        axiosInstance.post('/products',{
+                            ...editObject,merchantId:data[0].merchantId
+                        }).then(
+                            res=>{
+                                setEditObject({})
+                                setIfAdd(false)
+                                Message.info('添加成功！')
+                                axiosInstance.get('/products/merchants/accountId/'+localStorage.getItem('accountId')).then(
+                                    res=>{
+                                        setData(res.data.data)
+                                    }
+                                ).catch(
+                                    err=>{
+                                        Message.error('更新信息失败！')
+                                    }
+                                )
+                            }
+                        ).catch(
+                            err=>{
+                                Message.error('添加失败！')
+                            }
+                        )
                     }}
                     onCancel={() => {
                         setEditObject({})
@@ -196,7 +191,7 @@ const ShopProducts=()=>{
                     autoFocus={false}
                 >
                     <div style={{display:'flex',width:'100%',justifyContent:'space-between'}}>
-                        <div style={{width:'27%'}}>
+                        <div style={{width:'20%'}}>
                             <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
                                 商品名称
                             </div>
@@ -209,28 +204,41 @@ const ShopProducts=()=>{
                             <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
                                 单价
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
-                                是否推荐
-                            </div>
-                            <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
-                                是否打折
-                            </div>
-                            <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
-                                打折活动说明
-                            </div>
                         </div>
-                        <div style={{width:'65%'}}>
+                        <div style={{width:'75%'}}>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    onChange={value=>{setEditObject({...editObject,name:value})}}
+                                    onChange={value=>{setEditObject({...editObject,productName:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
-                                <Input
-                                    onChange={value=>{setEditObject({...editObject,type:value})}}
-                                    style={{width:'90%'}}
-                                />
+                                <Radio.Group
+                                    name='button-radio-group'
+                                    style={{display:'flex'}}
+                                    onChange={value => {
+                                        setEditObject({...editObject,
+                                            categoryId:value==='电子产品'?
+                                                1:value==='服装'?
+                                                    2:value==='食品'?
+                                                        3:4
+                                        })
+                                    }}
+                                >
+                                    {['电子产品', '服装', '食品','家具'].map((item) => {
+                                        return (
+                                            <Radio key={item} value={item}>
+                                                {({ checked }) => {
+                                                    return (
+                                                        <Button tabIndex={-1} key={item} type={checked ? 'primary' : 'default'}>
+                                                            {item}
+                                                        </Button>
+                                                    );
+                                                }}
+                                            </Radio>
+                                        );
+                                    })}
+                                </Radio.Group>
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input.TextArea
@@ -249,56 +257,6 @@ const ShopProducts=()=>{
                                     style={{width:'90%'}}
                                 />
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
-                                <Radio.Group
-                                    onChange={value=>{setEditObject({...editObject,ifRecommend:value==='是'})}}
-                                    name='button-radio-group'
-                                >
-                                    {['是','否'].map((item) => {
-                                        return (
-                                            <Radio key={item} value={item}>
-                                                {({ checked }) => {
-                                                    return (
-                                                        <Button tabIndex={-1} key={item} type={checked ? 'primary' : 'default'}>
-                                                            {item}
-                                                        </Button>
-                                                    );
-                                                }}
-                                            </Radio>
-                                        );
-                                    })}
-                                </Radio.Group>
-                            </div>
-                            <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
-                                <Radio.Group
-                                    defaultValue={'否'}
-                                    onChange={value=>{setEditObject({...editObject,ifDiscount:value==='是'})}}
-                                    name='button-radio-group'
-                                >
-                                    {['是','否'].map((item) => {
-                                        return (
-                                            <Radio key={item} value={item}>
-                                                {({ checked }) => {
-                                                    return (
-                                                        <Button tabIndex={-1} key={item} type={checked ? 'primary' : 'default'}>
-                                                            {item}
-                                                        </Button>
-                                                    );
-                                                }}
-                                            </Radio>
-                                        );
-                                    })}
-                                </Radio.Group>
-                            </div>
-                            <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
-                                <Input.TextArea
-                                    ref={(ref) => (input = ref)}
-                                    disabled={!editObject.ifDiscount}
-                                    autoSize={{ minRows: 1, maxRows: 2 }}
-                                    onChange={value=>{setEditObject({...editObject,discountDescription:value})}}
-                                    style={{width:'90%'}}
-                                />
-                            </div>
                         </div>
                     </div>
                 </Modal>
@@ -308,8 +266,26 @@ const ShopProducts=()=>{
                     maskClosable={false}
                     visible={ifEdit}
                     onOk={() => {
-                        setEditObject({})
-                        setIfEdit(false)
+                        axiosInstance.put('/products',editObject).then(
+                            res=>{
+                                setEditObject({})
+                                setIfEdit(false)
+                                Message.info('修改成功！')
+                                axiosInstance.get('/products/merchants/accountId/'+localStorage.getItem('accountId')).then(
+                                    res=>{
+                                        setData(res.data.data)
+                                    }
+                                ).catch(
+                                    err=>{
+                                        Message.error('更新信息失败！')
+                                    }
+                                )
+                            }
+                        ).catch(
+                            err=>{
+                                Message.error('修改失败！')
+                            }
+                        )
                     }}
                     onCancel={() => {
                         setEditObject({})
@@ -318,7 +294,7 @@ const ShopProducts=()=>{
                     autoFocus={false}
                 >
                     <div style={{display:'flex',width:'100%',justifyContent:'space-between'}}>
-                        <div style={{width:'27%'}}>
+                        <div style={{width:'20%'}}>
                             <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
                                 商品名称
                             </div>
@@ -331,30 +307,43 @@ const ShopProducts=()=>{
                             <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
                                 单价
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
-                                是否推荐
-                            </div>
-                            <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
-                                是否打折
-                            </div>
-                            <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
-                                打折活动说明
-                            </div>
                         </div>
-                        <div style={{width:'65%'}}>
+                        <div style={{width:'75%'}}>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input
-                                    defaultValue={editObject.name}
-                                    onChange={value=>{setEditObject({...editObject,name:value})}}
+                                    defaultValue={editObject.productName}
+                                    onChange={value=>{setEditObject({...editObject,productName:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
-                                <Input
-                                    defaultValue={editObject.type}
-                                    onChange={value=>{setEditObject({...editObject,type:value})}}
-                                    style={{width:'90%'}}
-                                />
+                                <Radio.Group
+                                    name='button-radio-group'
+                                    style={{display:'flex'}}
+                                    defaultValue={editObject.categoryName}
+                                    onChange={value => {
+                                        setEditObject({...editObject,
+                                            categoryId:value==='电子产品'?
+                                                1:value==='服装'?
+                                                    2:value==='食品'?
+                                                        3:4
+                                        })
+                                    }}
+                                >
+                                    {['电子产品', '服装', '食品','家具'].map((item) => {
+                                        return (
+                                            <Radio key={item} value={item}>
+                                                {({ checked }) => {
+                                                    return (
+                                                        <Button tabIndex={-1} key={item} type={checked ? 'primary' : 'default'}>
+                                                            {item}
+                                                        </Button>
+                                                    );
+                                                }}
+                                            </Radio>
+                                        );
+                                    })}
+                                </Radio.Group>
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input.TextArea
@@ -371,58 +360,6 @@ const ShopProducts=()=>{
                                     min={0}
                                     step={0.1}
                                     precision={1}
-                                    style={{width:'90%'}}
-                                />
-                            </div>
-                            <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
-                                <Radio.Group
-                                    defaultValue={editObject.ifRecommend?'是':'否'}
-                                    onChange={value=>{setEditObject({...editObject,ifRecommend:value==='是'})}}
-                                    name='button-radio-group'
-                                >
-                                    {['是','否'].map((item) => {
-                                        return (
-                                            <Radio key={item} value={item}>
-                                                {({ checked }) => {
-                                                    return (
-                                                        <Button tabIndex={-1} key={item} type={checked ? 'primary' : 'default'}>
-                                                            {item}
-                                                        </Button>
-                                                    );
-                                                }}
-                                            </Radio>
-                                        );
-                                    })}
-                                </Radio.Group>
-                            </div>
-                            <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
-                                <Radio.Group
-                                    defaultValue={editObject.ifDiscount?'是':'否'}
-                                    onChange={value=>{setEditObject({...editObject,ifDiscount:value==='是'})}}
-                                    name='button-radio-group'
-                                >
-                                    {['是','否'].map((item) => {
-                                        return (
-                                            <Radio key={item} value={item}>
-                                                {({ checked }) => {
-                                                    return (
-                                                        <Button tabIndex={-1} key={item} type={checked ? 'primary' : 'default'}>
-                                                            {item}
-                                                        </Button>
-                                                    );
-                                                }}
-                                            </Radio>
-                                        );
-                                    })}
-                                </Radio.Group>
-                            </div>
-                            <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
-                                <Input.TextArea
-                                    ref={(ref) => (input = ref)}
-                                    disabled={!editObject.ifDiscount}
-                                    autoSize={{ minRows: 1, maxRows: 2 }}
-                                    defaultValue={editObject.discountDescription}
-                                    onChange={value=>{setEditObject({...editObject,discountDescription:value})}}
                                     style={{width:'90%'}}
                                 />
                             </div>
