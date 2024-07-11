@@ -1,26 +1,31 @@
 import {useState} from "react";
-import {Avatar, Button, Descriptions, Input, Message, Modal, Progress, Radio, Upload} from "@arco-design/web-react";
+import {Avatar, Button, DatePicker, Descriptions, Input, Modal, Progress, Radio, Upload} from "@arco-design/web-react";
 import {IconEdit, IconPlus} from "@arco-design/web-react/icon";
 
 const AdminBasicInformation=()=>{
     const [ifEdit,setIfEdit] = useState(false);
     const [initData,setInitData]=useState({
-        userId:'1',
-        name:'管理员',
-        phone:'165155222',
-        email:'1455045838@qq.com',
+        uid:'用户id',
+        name:'名字',
+        sex:'女',
+        phone:'电话',
+        email:'邮件',
         image:'//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp',
-        time:'2024-07-02'
+        time:'创建时间'
     })
     const [editData,setEditData]=useState(initData)
     const column = [
         {
             label: 'uid',
-            value: initData.userId,
+            value: initData.uid,
         },
         {
             label: '用户名',
             value: initData.name,
+        },
+        {
+            label: '性别',
+            value: initData.sex,
         },
         {
             label: '手机号码',
@@ -92,8 +97,6 @@ const AdminBasicInformation=()=>{
                     visible={ifEdit}
                     onOk={() => {
                         setIfEdit(false)
-                        setInitData(editData)
-                        Message.info('修改成功！')
                     }}
                     onCancel={() => {
                         setIfEdit(false)
@@ -107,6 +110,9 @@ const AdminBasicInformation=()=>{
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
                                 用户名
+                            </div>
+                            <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
+                                性别
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
                                 电话
@@ -183,6 +189,29 @@ const AdminBasicInformation=()=>{
                                     }}
                                     style={{width: '90%'}}
                                 />
+                            </div>
+                            <div style={{
+                                height: 50,
+                                width: '100%',
+                                justifyContent: 'left',
+                                display: 'flex',
+                                alignItems: 'center'
+                            }}>
+                                <Radio.Group defaultValue={initData.sex}>
+                                    {['男', '女', '保密'].map((item) => {
+                                        return (
+                                            <Radio key={item} value={item}>
+                                                {({ checked }) => {
+                                                    return (
+                                                        <Button tabIndex={-1} key={item} type={checked ? 'primary' : 'default'}>
+                                                            {item}
+                                                        </Button>
+                                                    );
+                                                }}
+                                            </Radio>
+                                        );
+                                    })}
+                                </Radio.Group>
                             </div>
                             <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
                                 <Input

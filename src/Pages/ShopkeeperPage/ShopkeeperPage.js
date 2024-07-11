@@ -62,6 +62,7 @@ const ShopkeeperPage=()=>{
                         }
                     >
                         <MenuItem key='3_1' onClick={()=>{navigate('/shopkeeper/group')}}>群组</MenuItem>
+                        <MenuItem key='3_2' onClick={()=>{navigate('/shopkeeper/member')}}>群组会员</MenuItem>
                         <MenuItem key='3_3' onClick={()=>{navigate('/shopkeeper/discussion')}}>群组讨论</MenuItem>
                     </SubMenu>
                     <SubMenu

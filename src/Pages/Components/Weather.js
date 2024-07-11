@@ -1,29 +1,101 @@
-//已完成
-
 import {useEffect, useState} from "react";
 import {Descriptions} from "@arco-design/web-react";
 import * as echarts from 'echarts';
-import axiosInstance from "../../api/AxiosApi";
 
 const Weather=()=>{
     const [data,setData]=useState({
-        "date": '',
-        "week":  '',
-        "city":  '',
-        "wea":  '',
-        "tem": '',
-        "tem1": '',
-        "tem2":  '',
-        "win":  '',
-        "win_speed": '',
-        "humidity":  '',
-        "visibility": '',
-        "pressure":  '',
-        "air_level":  '',
-        "air_tips":  '',
-        "hours": [],
-        "tems": [],
-        "weas":[]
+        "date": "2024-07-08",
+        "week": "星期一",
+        "city": "天心",
+        "wea": "多云",
+        "tem": "32.9",
+        "tem1": "35",
+        "tem2": "29",
+        "win": "东南风",
+        "win_speed": "2级",
+        "humidity": "57%",
+        "visibility": "20km",
+        "pressure": "990",
+        "air_level": "优",
+        "air_tips": "各类人群可多参加户外活动，多呼吸一下清新的空气。",
+        "hours": [
+            "19:00",
+            "20:00",
+            "21:00",
+            "22:00",
+            "23:00",
+            "00:00",
+            "01:00",
+            "02:00",
+            "03:00",
+            "04:00",
+            "05:00",
+            "06:00",
+            "07:00",
+            "08:00",
+            "09:00",
+            "10:00",
+            "11:00",
+            "12:00",
+            "13:00",
+            "14:00",
+            "15:00",
+            "16:00",
+            "17:00",
+            "18:00",
+        ],
+        "weaArray": [
+            "阴",
+            "阴",
+            "阴",
+            "阴",
+            "阴",
+            "阴",
+            "阴",
+            "阴",
+            "多云",
+            "多云",
+            "阴",
+            "阴",
+            "多云",
+            "多云",
+            "晴",
+            "晴",
+            "晴",
+            "晴",
+            "多云",
+            "多云",
+            "多云",
+            "多云",
+            "多云",
+            "多云",
+        ],
+        "temArray": [
+            31,
+            30,
+            30,
+            29,
+            29,
+            29,
+            28,
+            28,
+            28,
+            27,
+            27,
+            28,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            33,
+            34,
+            34,
+            34,
+            34,
+            33,
+        ]
     })
 
     const column = [
@@ -74,7 +146,7 @@ const Weather=()=>{
             tooltip:{
                 trigger:'item',
                 formatter: function(param) {
-                    return `${param.marker}&nbsp;${data.hours[param.dataIndex]}<br/>${data.weas[param.dataIndex]}&nbsp;&nbsp;${param.data}℃`;
+                    return `${param.marker}&nbsp;${data.hours[param.dataIndex]}<br/>${data.weaArray[param.dataIndex]}&nbsp;&nbsp;${param.data}℃`;
                 },
                 position:'top',
                 textStyle:{
@@ -87,8 +159,8 @@ const Weather=()=>{
             yAxis: {
                 type: 'value',
                 name:'温度',
-                min:Math.min.apply(null,data.tems)-5,
-                max:Math.max.apply(null,data.tems)+5,
+                min:Math.min.apply(null,data.temArray)-2,
+                max:Math.max.apply(null,data.temArray)+2,
                 axisLabel: {
                     formatter: '{value} °C'
                 },
@@ -97,7 +169,7 @@ const Weather=()=>{
                 }
             },
             grid: {
-                left: 20,
+                left: 0,
                 containLabel: true,
                 bottom: 10,
                 right: 50
@@ -108,132 +180,15 @@ const Weather=()=>{
                         show: true,
                         position: 'bottom',
                         formatter: function(param) {
-                            return `${param.data}℃\n${data.weas[param.dataIndex]}`;
+                            return `${param.data}℃\n${data.weaArray[param.dataIndex]}`;
                         },
                     },
-                    data: data.tems,
+                    data: data.temArray,
                     type: 'line',
                     smooth: true,
                 }
             ]
         });
-    },[data])
-
-    useEffect(()=>{
-        axiosInstance.get('/weather/forecast?location="内江"').then(
-            res=>{
-                setData(res.data.data)
-            }
-        ).catch(
-            err=>{
-                setData({
-                    "date": "2024-07-09",
-                    "tem2": 28,
-                    "air_level": "优",
-                    "week": "星期二",
-                    "tem1": 37,
-                    'tem': 34,
-                    "wea":'多云',
-                    "visibility": "20km",
-                    "city": "天心",
-                    "pressure": "992",
-                    "air_tips": "各类人群可多参加户外活动，多呼吸一下清新的空气。",
-                    "win_speed": "3级",
-                    "humidity": "48%",
-                    "win": "南风",
-                    "hours": [
-                        "12:00",
-                        "13:00",
-                        "14:00",
-                        "15:00",
-                        "16:00",
-                        "17:00",
-                        "18:00",
-                        "19:00",
-                        "20:00",
-                        "21:00",
-                        "22:00",
-                        "23:00",
-                        "00:00",
-                        "01:00",
-                        "02:00",
-                        "03:00",
-                        "04:00",
-                        "05:00",
-                        "06:00",
-                        "07:00",
-                        "08:00",
-                        "09:00",
-                        "10:00",
-                        "11:00",
-                        "12:00",
-                        "13:00",
-                        "14:00",
-                        "15:00"
-                    ],
-                    "weas": [
-                        "晴",
-                        "多云",
-                        "多云",
-                        "多云",
-                        "多云",
-                        "多云",
-                        "多云",
-                        "多云",
-                        "多云",
-                        "阴",
-                        "阴",
-                        "阴",
-                        "阴",
-                        "阴",
-                        "多云",
-                        "晴",
-                        "多云",
-                        "阴",
-                        "阴",
-                        "阴",
-                        "阴",
-                        "阴",
-                        "阴",
-                        "阴",
-                        "阴",
-                        "多云",
-                        "多云",
-                        "多云"
-                    ],
-                    "tems": [
-                        35,
-                        35,
-                        35,
-                        34,
-                        34,
-                        33,
-                        32,
-                        30,
-                        29,
-                        29,
-                        29,
-                        29,
-                        28,
-                        28,
-                        28,
-                        27,
-                        27,
-                        27,
-                        28,
-                        28,
-                        29,
-                        30,
-                        31,
-                        32,
-                        33,
-                        34,
-                        34,
-                        34
-                    ],
-                })
-            }
-        )
     },[])
 
     return (
