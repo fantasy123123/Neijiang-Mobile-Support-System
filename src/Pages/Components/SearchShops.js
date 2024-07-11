@@ -1,7 +1,7 @@
 //已完成
 
 import {Button, Descriptions, Image, Input, Message, Modal, Table} from "@arco-design/web-react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axiosInstance from "../../api/AxiosApi";
 const InputSearch = Input.Search;
 
@@ -9,6 +9,18 @@ const SearchShops=()=>{
     const [data,setData]=useState([])
     const [ifView,setIfView]=useState(false)
     const [viewObject,setViewObject]=useState({})
+
+    useEffect(()=>{
+       axiosInstance.get('/merchants').then(
+           res=>{
+               setData(res.data.data)
+           }
+       ).catch(
+           err=>{
+               console.log(err)
+           }
+       )
+    },[])
 
     const column=[
         {
