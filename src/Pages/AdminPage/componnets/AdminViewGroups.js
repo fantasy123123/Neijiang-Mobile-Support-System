@@ -16,6 +16,10 @@ const AdminViewGroups=()=>{
                 res.data.data.forEach((value,index)=>{
                     tempGroup.push({...value,key:value.groupId})
                 })
+                console.log(tempGroup);
+                tempGroup.forEach((group, index) => {
+                    tempGroup[index].createdAt = formatDate(group.createdAt);
+                });
                 setGroupData(tempGroup)
                 let tempMember=[]
                 res.data.data.forEach((value, index) => {
@@ -159,6 +163,13 @@ const AdminViewGroups=()=>{
             sorter: (a, b) => a.createdAt - b.createdAt,
         },
     ];
+
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short' };
+        return date.toLocaleDateString('en-US', options);
+    };
 
     function expandedRowRender(record,index) {
         return <Table
