@@ -30,6 +30,9 @@ import TouristComment from "./Pages/TouristPage/components/TouristComment";
 import TouristFavorite from "./Pages/TouristPage/components/TouristFavorite";
 
 import ShopDiscount from "./Pages/ShopkeeperPage/components/ShopDiscount";
+import MerchantCategory from "./Pages/TouristPage/components/MerchantCategory";
+import ProductDetail from "./Pages/TouristPage/components/ProductDetail";
+import TouristComment from "./Pages/TouristPage/components/TouristComment";
 
 const routes=[
     {
@@ -100,7 +103,7 @@ const routes=[
             },
             {
                 path: '/tourist/merchant/category/:categoryId',
-                element: <MerchantCatrgory />
+                element: <MerchantCategory />
             },
             {
                 path: '/tourist/merchant/:merchantId',
