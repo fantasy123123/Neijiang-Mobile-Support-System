@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Carousel, Card, Space, Typography, Message } from '@arco-design/web-react';
+import { Layout, Carousel, Card, Space, Typography, Message} from '@arco-design/web-react';
+import { IconStar, IconStarFill } from '@arco-design/web-react/icon';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../../Resquest/axiosInstance'
 import Footer from './Footer';
@@ -43,31 +44,13 @@ const TouristHome = () => {
             });
     }, []);
 
-    const carouselItems = [
-        {
-            image: 'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic1.jpg',
-            title: '商户1',
-        },
-        {
-            image: 'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic2.jpg',
-            title: '商户2',
-        },
-        {
-            image: 'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic3.jpg',
-            title: '商户3',
-        },
-        {
-            image: 'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic4.jpg',
-            title: '商户4',
-        },
-        {
-            image: 'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic5.jpg',
-            title: '商户5',
-        },
-        {
-            image: 'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic6.jpg',
-            title: '商户6',
-        },
+    const imageSrc = [
+        'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic1.jpg',
+        'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic2.jpg',
+        'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic3.jpg',
+        'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic4.jpg',
+        'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic5.jpg',
+        'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic6.jpg',
     ];
 
     return (
@@ -75,14 +58,25 @@ const TouristHome = () => {
             <Header />
             
             <Layout>
-                <div style={{ marginTop: '10px', marginBottom: '20px' }}>
-                    <Carousel autoplay>
-                        {carouselItems.map((item, index) => (
-                            <div key={index} style={{ height: '700px', background: `url(${item.image}) no-repeat center center`, backgroundSize: 'cover' }}>
-                                <h3 style={{ color: '#fff', textAlign: 'center', lineHeight: '600px' }}>{item.title}</h3>
+                <div style={{ marginBottom: '20px' }}>
+                    <Carousel
+                        style={{ width: '100%', height: '700px' }}
+                        autoPlay={true}
+                        autoPlaySpeed={6000}
+                        indicatorType='dot'
+                        showArrow='hover'
+                        >
+                        {imageSrc.map((src, index) => (
+                            <div key={index}>
+                            <img
+                                src={src}
+                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                alt={`carousel-${index}`}
+                            />
                             </div>
                         ))}
                     </Carousel>
+                    
                 </div>
 
                 <Layout style={{ padding: '0 24px 24px' }}>

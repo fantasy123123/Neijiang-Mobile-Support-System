@@ -3,10 +3,16 @@
     background-color: #f0f2f5;
 }
 
-.comment-item {
+.right-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* .favorite-item {
     background-color: #fff;
     padding: 16px;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     margin-bottom: 16px;
-}
+} */
