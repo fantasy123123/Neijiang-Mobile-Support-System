@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import axiosInstance from "../../api/AxiosApi";
 import { Card, List, Typography, Avatar, Badge, Space } from "@arco-design/web-react";
 import "@arco-design/web-react/dist/css/arco.css";
@@ -67,15 +67,24 @@ const ManageDiscussion = () => {
     };
 
     return (
-        <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Card style={{ width: "90%", height: '90%', borderRadius: 12, boxShadow: '0 4px 8px rgba(0,0,0,0.1)', overflow: 'auto' }}>
-                <Title level={2} style={{ textAlign: 'center', color: '#1890ff', marginBottom: 24 }}>群组讨论</Title>
-                <hr style={{ border: '0.25px solid #e8e8e8' }} />
+        <div style={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div style={{marginTop: 35, fontSize: 25, fontWeight: 'bold', color: '#165DFF', textAlign: 'center'}}>
+                群组讨论
+            </div>
+            <Card style={{
+                marginTop: 24,
+                width: "90%",
+                height: 'auto',
+                borderRadius: 12,
+                boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                overflow: 'auto'
+            }}>
+                <hr style={{width: '100%', borderTop: '1px solid #e8e8e8'}}/>
                 <List
                     bordered={false}
                     dataSource={groups}
                     render={(group, index) => (
-                        <List.Item key={index} onClick={() => joinRoom(group.groupId, group.groupName)} style={{
+                        <div key={index} onClick={() => joinRoom(group.groupId, group.groupName)} style={{
                             cursor: 'pointer',
                             padding: '16px',
                             borderBottom: '1px solid #e8e8e8',
@@ -90,14 +99,15 @@ const ManageDiscussion = () => {
                             {counts[index] > 0 ? (
                                 <Space>
                                     <Badge count={counts[index]} maxCount={99}>
-                                        <Avatar size={50} shape="square" style={{ marginRight: 16 }} src={group.imageUrl} />
+                                        <Avatar size={50} shape="square" style={{marginRight: 16}}
+                                                src={group.imageUrl}/>
                                     </Badge>
                                 </Space>
                             ) : (
-                                <Avatar size={50} shape="square" style={{ marginRight: 16 }} src={group.imageUrl} />
+                                <Avatar size={50} shape="square" style={{marginRight: 16}} src={group.imageUrl}/>
                             )}
-                            <Typography.Text style={{ fontSize: 16, color: '#333' }}>{group.groupName}</Typography.Text>
-                        </List.Item>
+                            <Typography.Text style={{fontSize: 16, color: '#333'}}>{group.groupName}</Typography.Text>
+                        </div>
                     )}
                 />
             </Card>
@@ -106,3 +116,4 @@ const ManageDiscussion = () => {
 };
 
 export default ManageDiscussion;
+

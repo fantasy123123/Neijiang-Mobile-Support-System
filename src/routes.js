@@ -7,38 +7,27 @@ import AdminPage from "./Pages/AdminPage/AdminPage";
 import SystemConfiguration from "./Pages/Components/SystemConfiguration";
 import AdminManageFiles from "./Pages/AdminPage/componnets/AdminManageFiles";
 import Weather from "./Pages/Components/Weather";
-import AdminManagePermissions from "./Pages/AdminPage/componnets/AdminManagePermissions";
 import AdminViewShops from "./Pages/AdminPage/componnets/AdminViewShops";
 import PasswordManage from "./Pages/Components/PasswordManage";
 import AdminBasicInformation from "./Pages/AdminPage/componnets/AdminBasicInformation";
 import AdminViewUsers from "./Pages/AdminPage/componnets/AdminViewUsers";
 import AdminViewGroups from "./Pages/AdminPage/componnets/AdminViewGroups";
 import TouristPage from "./Pages/TouristPage/TouristPage";
-import TouristViewShops from "./Pages/TouristPage/components/TouristViewShops";
-import TouristViewProducts from "./Pages/TouristPage/components/TouristViewProducts";
 import SearchShops from "./Pages/Components/SearchShops";
-import TouristCommentShops from "./Pages/TouristPage/components/TouristCommentShops";
-import TouristBasicInformation from "./Pages/TouristPage/components/TouristBasicInformation";
-import TouristFriend from "./Pages/TouristPage/components/TouristFriend";
-import TouristComments from "./Pages/TouristPage/components/TouristComments";
-import TouristCollection from "./Pages/TouristPage/components/TouristCollection";
-import TouristManageGroup from "./Pages/TouristPage/components/TouristManageGroup";
+import TouristHome from "./Pages/TouristPage/components/TouristHome";
+import MerchantDetail from "./Pages/TouristPage/components/MerchantDetail";
 import ManageDiscussion from "./Pages/Components/ManageDiscussion";
 import ChatRoom from './Pages/Components/ChatRoom';
-import TouristManageRecommendation from "./Pages/TouristPage/components/TouristManageRecommendation";
 import ShopkeeperPage from "./Pages/ShopkeeperPage/ShopkeeperPage";
 import ShopInformation from "./Pages/ShopkeeperPage/components/ShopInformation";
 import ShopProducts from "./Pages/ShopkeeperPage/components/ShopProducts";
-import ShopBasicInformation from "./Pages/ShopkeeperPage/components/ShopBasicInformation";
 import ShopManageGroup from "./Pages/ShopkeeperPage/components/ShopManageGroup";
-import ShopManageMember from "./Pages/ShopkeeperPage/components/ShopManageMember";
-import ManagementType from "./Pages/ShopkeeperPage/components/ManagementType";
-import ManagementEnvironment from "./Pages/ShopkeeperPage/components/ManagementEnvironment";
-import ManagementPlace from "./Pages/ShopkeeperPage/components/ManagementPlace";
-import ProductSort from "./Pages/ShopkeeperPage/components/ProductSort";
 import ShopImage from "./Pages/ShopkeeperPage/components/ShopImage";
 import ShopMap from "./Pages/ShopkeeperPage/components/ShopMap";
-
+import ShopDiscount from "./Pages/ShopkeeperPage/components/ShopDiscount";
+import MerchantCatrgory from "./Pages/TouristPage/components/MerchantCategory";
+import ProductDetail from "./Pages/TouristPage/components/ProductDetail";
+import TouristComment from "./Pages/TouristPage/components/TouristComment";
 
 const routes=[
     {
@@ -78,10 +67,6 @@ const routes=[
                 element:<Weather/>
             },
             {
-                path:'/admin/permission',
-                element:<AdminManagePermissions/>
-            },
-            {
                 path:'/admin/viewShop',
                 element:<AdminViewShops/>
             },
@@ -108,61 +93,25 @@ const routes=[
         element:<TouristPage/>,
         children: [
             {
-                path: '/tourist/systemConfiguration',
-                element:<SystemConfiguration/>
+                path: '/tourist/home',
+                element: <TouristHome/>
             },
             {
-                path: '/tourist/weather',
-                element:<Weather/>
+                path: '/tourist/merchant/category/:categoryId',
+                element: <MerchantCatrgory />
             },
             {
-                path: '/tourist/viewShop',
-                element:<TouristViewShops/>
+                path: '/tourist/merchant/:merchantId',
+                element: <MerchantDetail/>
             },
             {
-                path: '/tourist/viewProduct',
-                element:<TouristViewProducts/>
+                path: '/tourist/product/:productId',
+                element: <ProductDetail/>
             },
             {
-                path: '/tourist/search',
-                element:<SearchShops/>
-            },
-            {
-                path: '/tourist/commentShop',
-                element:<TouristCommentShops/>
-            },
-            {
-                path: '/tourist/password',
-                element:<PasswordManage/>
-            },
-            {
-                path: '/tourist/basicInformation',
-                element:<TouristBasicInformation/>
-            },
-            {
-                path: '/tourist/friend',
-                element:<TouristFriend/>
-            },
-            {
-                path: '/tourist/comments',
-                element:<TouristComments/>
-            },
-            {
-                path: '/tourist/collection',
-                element:<TouristCollection/>
-            },
-            {
-                path: '/tourist/group',
-                element:<TouristManageGroup/>
-            },
-            {
-                path: '/tourist/discussion',
-                element:<ManageDiscussion/>
-            },
-            {
-                path: '/tourist/recommendGroup',
-                element:<TouristManageRecommendation/>
-            },
+                path: '/tourist/comment',
+                element: <TouristComment />
+            }
         ]
     },
     {
@@ -194,16 +143,8 @@ const routes=[
                 element:<PasswordManage/>
             },
             {
-                path: '/shopkeeper/basicInformation',
-                element:<ShopBasicInformation/>
-            },
-            {
                 path: '/shopkeeper/group',
                 element:<ShopManageGroup/>
-            },
-            {
-                path: '/shopkeeper/member',
-                element:<ShopManageMember/>
             },
             {
                 path: '/shopkeeper/discussion',
@@ -214,24 +155,12 @@ const routes=[
                 element: <ChatRoom/>
             },
             {
-                path: '/shopkeeper/shopInformation/type',
-                element: <ManagementType/>
-            },
-            {
-                path: '/shopkeeper/shopInformation/environment',
-                element: <ManagementEnvironment/>
-            },
-            {
-                path: '/shopkeeper/shopInformation/place',
-                element: <ManagementPlace/>
-            },
-            {
-                path: '/shopkeeper/shopInformation/product',
-                element: <ProductSort/>
-            },
-            {
                 path: '/shopkeeper/shopInformation/map',
                 element: <ShopMap/>
+            },
+            {
+                path: '/shopkeeper/shopInformation/discount',
+                element: <ShopDiscount/>
             },
             {
                 path: '/shopkeeper/shopInformation/image',
