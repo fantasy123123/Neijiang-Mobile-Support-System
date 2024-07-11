@@ -1,0 +1,18 @@
+.touristBackground {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-size: 100% 100%;
+    display: flex;
+}
+
+.sidebar {
+    width: 15%;
+    background-color: #24292e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}

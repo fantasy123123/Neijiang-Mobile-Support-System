@@ -1,17 +1,18 @@
 import {useNavigate} from "react-router-dom";
 import {Button, Descriptions, Input, Modal, Radio} from "@arco-design/web-react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import axiosInstance from "../../../api/AxiosApi";
 
 const ManagementType=()=>{
     const navigate=useNavigate()
     const [ifEdit,setIfEdit]=useState(false)
 
     const [initData,setInitData]=useState({
-        name:'name',
-        description:'description',
-        ifUse:true,
-        time:'test',
-        person:'test',
+        name:'',
+        description:'',
+        ifUse:null,
+        time:'',
+        person:'',
     })
 
     const [name,setName]=useState(initData.name)

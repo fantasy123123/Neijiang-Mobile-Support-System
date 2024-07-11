@@ -1,6 +1,9 @@
-import {useRef, useState} from "react";
+//已完成
+
+import {useEffect, useRef, useState} from "react";
 import {IconSearch} from "@arco-design/web-react/icon";
 import {Button, Descriptions, Input, Message, Modal, Table} from "@arco-design/web-react";
+import axiosInstance from "../../../api/AxiosApi";
 
 const AdminViewShops=()=>{
     const inputRef1 = useRef(null);
@@ -8,6 +11,19 @@ const AdminViewShops=()=>{
     const inputRef3 = useRef(null);
     const [ifView,setIfView]=useState(false)
     const [editObject,setEditObject]=useState({})
+    const [data,setData]=useState([])
+
+    useEffect(()=>{
+        axiosInstance.get('/merchants').then(
+            res=>{
+                setData(res.data.data)
+            }
+        ).catch(
+            err=>{
+                console.log(err)
+            }
+        )
+    },[])
 
     const columns = [
         {
@@ -41,7 +57,7 @@ const AdminViewShops=()=>{
         },
         {
             title: '地址',
-            dataIndex: 'location',
+            dataIndex: 'address',
         },
         {
             title: '电话',
@@ -49,7 +65,7 @@ const AdminViewShops=()=>{
         },
         {
             title: '经营类型',
-            dataIndex: 'type',
+            dataIndex: 'businessType',
             filterIcon: <IconSearch />,
             filterDropdown: ({ filterKeys, setFilterKeys, confirm }) => {
                 return (
@@ -78,15 +94,15 @@ const AdminViewShops=()=>{
         },
         {
             title: '经营环境',
-            dataIndex: 'environment',
+            dataIndex: 'businessEnvironment',
         },
         {
             title: '经营场所',
-            dataIndex: 'place',
+            dataIndex: 'businessLocation',
         },
         {
             title: '商品类别',
-            dataIndex: 'category',
+            dataIndex: 'productCategory',
             filterIcon: <IconSearch />,
             filterDropdown: ({ filterKeys, setFilterKeys, confirm }) => {
                 return (
@@ -131,53 +147,18 @@ const AdminViewShops=()=>{
         }
     ];
 
-    const [data,setData]=useState([
-        {
-            name:'a',
-            location:'地点',
-            phone:'电话',
-            email:'邮件',
-            type:'type',
-            environment:'环境',
-            place:'地点',
-            category:'类别',
-            time:'创建时间',
-            ifRecommend:false,
-        },
-        {
-            name:'b',
-            location:'地点',
-            phone:'电话',
-            email:'邮件',
-            type:'type',
-            environment:'环境',
-            place:'地点',
-            category:'类别',
-            time:'创建时间',
-            ifRecommend:false,
-        },
-        {
-            name:'c',
-            location:'地点',
-            phone:'电话',
-            email:'邮件',
-            type:'type',
-            environment:'环境',
-            place:'地点',
-            category:'类别',
-            time:'创建时间',
-            ifRecommend:false,
-        },
-    ])
-
     const column2 = [
+        {
+            label: '商户id',
+            value: editObject.merchantId,
+        },
         {
             label: '商户名称',
             value: editObject.name,
         },
         {
             label: '地址',
-            value: editObject.location,
+            value: editObject.address,
         },
         {
             label: '联系方式',
@@ -189,27 +170,23 @@ const AdminViewShops=()=>{
         },
         {
             label: '经营类型',
-            value: editObject.type,
+            value: editObject.businessType,
         },
         {
             label: '经营环境',
-            value: editObject.environment,
+            value: editObject.businessEnvironment,
         },
         {
             label: '经营场所',
-            value: editObject.place,
+            value: editObject.businessLocation,
         },
         {
             label: '商品类别',
-            value: editObject.category,
+            value: editObject.productCategory,
         },
         {
             label: '创建时间',
-            value: editObject.time,
-        },
-        {
-            label: '管理员是否推荐',
-            value: editObject.ifRecommend?<span style={{color:'green'}}>是</span>:<span style={{color:'red'}}>否</span>,
+            value: editObject.createdAt?.substring(0,10),
         },
     ];
 
@@ -223,6 +200,7 @@ const AdminViewShops=()=>{
                     <Table border={true} borderCell={true} columns={columns} data={data} style={{margin:30}}/>
                 </div>
                 <Modal
+                    footer={null}
                     title='商户详情与操作'
                     unmountOnExit={true}
                     maskClosable={false}
@@ -238,7 +216,7 @@ const AdminViewShops=()=>{
                     autoFocus={false}
                 >
                     <Descriptions
-                        style={{width:'80%',marginLeft:'10%'}}
+                        style={{width:'100%'}}
                         labelStyle={{ textAlign: 'right' }}
                         column={2}
                         colon=' : '
@@ -246,20 +224,21 @@ const AdminViewShops=()=>{
                     />
                     <div style={{display:'flex',justifyContent:'right',marginTop:10}}>
                         <Button
-                            style={{marginRight:20}}
-                            type={"primary"}
-                            status={editObject.ifRecommend?'warning':'default'}
-                            onClick={()=>{setEditObject({...editObject,ifRecommend:!editObject.ifRecommend})}}
-                        >
-                            {editObject.ifRecommend?'取消推荐':'推荐'}
-                        </Button>
-                        <Button
                             status={'danger'}
                             type={"primary"}
                             onClick={()=>{
                                 if(window.confirm('确定注销该商户？')) {
-                                    Message.info('注销成功!');
-                                    setIfView(false)
+                                    axiosInstance.delete('/merchants/'+editObject.merchantId).then(
+                                        res=>{
+                                            Message.info('注销成功!')
+                                            setData([...data.filter(item=>item!==editObject)])
+                                            setIfView(false)
+                                        }
+                                    ).catch(
+                                        err=>{
+                                            console.log(err)
+                                        }
+                                    )
                                 }
                             }}>
                             注销
