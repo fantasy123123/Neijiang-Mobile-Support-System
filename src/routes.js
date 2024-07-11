@@ -25,6 +25,9 @@ import ShopManageGroup from "./Pages/ShopkeeperPage/components/ShopManageGroup";
 import ShopImage from "./Pages/ShopkeeperPage/components/ShopImage";
 import ShopMap from "./Pages/ShopkeeperPage/components/ShopMap";
 import ShopDiscount from "./Pages/ShopkeeperPage/components/ShopDiscount";
+import MerchantCategory from "./Pages/TouristPage/components/MerchantCategory";
+import ProductDetail from "./Pages/TouristPage/components/ProductDetail";
+import TouristComment from "./Pages/TouristPage/components/TouristComment";
 
 const routes=[
     {
@@ -95,7 +98,7 @@ const routes=[
             },
             {
                 path: '/tourist/merchant/category/:categoryId',
-                element: <MerchantCatrgory />
+                element: <MerchantCategory />
             },
             {
                 path: '/tourist/merchant/:merchantId',

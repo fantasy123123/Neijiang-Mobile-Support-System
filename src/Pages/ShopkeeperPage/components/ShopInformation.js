@@ -102,9 +102,9 @@ const ShopInformation=()=>{
                 </div>
                 <div style={{width:'100%',display:'flex',justifyContent:'space-around',marginTop:30}}>
                     <Card
-                        onClick={()=>{navigate('/shopkeeper/shopInformation/discount')}}
+                        onClick={()=>{navigate('/shopkeeper/shopInformation/discount',{state:initData.merchantId})}}
                         style={{ width: '28%',cursor:'pointer' }}
-                        title='打折管理'
+                        title='折扣管理'
                         className='card-custom-hover-style'
                         hoverable
                     >
