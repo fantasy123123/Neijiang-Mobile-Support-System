@@ -7,7 +7,6 @@ import AdminPage from "./Pages/AdminPage/AdminPage";
 import SystemConfiguration from "./Pages/Components/SystemConfiguration";
 import AdminManageFiles from "./Pages/AdminPage/componnets/AdminManageFiles";
 import Weather from "./Pages/Components/Weather";
-import AdminManagePermissions from "./Pages/AdminPage/componnets/AdminManagePermissions";
 import AdminViewShops from "./Pages/AdminPage/componnets/AdminViewShops";
 import PasswordManage from "./Pages/Components/PasswordManage";
 import AdminBasicInformation from "./Pages/AdminPage/componnets/AdminBasicInformation";
@@ -31,7 +30,6 @@ import ShopInformation from "./Pages/ShopkeeperPage/components/ShopInformation";
 import ShopProducts from "./Pages/ShopkeeperPage/components/ShopProducts";
 import ShopBasicInformation from "./Pages/ShopkeeperPage/components/ShopBasicInformation";
 import ShopManageGroup from "./Pages/ShopkeeperPage/components/ShopManageGroup";
-import ShopManageMember from "./Pages/ShopkeeperPage/components/ShopManageMember";
 import ManagementType from "./Pages/ShopkeeperPage/components/ManagementType";
 import ManagementEnvironment from "./Pages/ShopkeeperPage/components/ManagementEnvironment";
 import ManagementPlace from "./Pages/ShopkeeperPage/components/ManagementPlace";
@@ -76,10 +74,6 @@ const routes=[
             {
                 path:'/admin/weather',
                 element:<Weather/>
-            },
-            {
-                path:'/admin/permission',
-                element:<AdminManagePermissions/>
             },
             {
                 path:'/admin/viewShop',
@@ -200,10 +194,6 @@ const routes=[
             {
                 path: '/shopkeeper/group',
                 element:<ShopManageGroup/>
-            },
-            {
-                path: '/shopkeeper/member',
-                element:<ShopManageMember/>
             },
             {
                 path: '/shopkeeper/discussion',

@@ -30,7 +30,6 @@ const AdminPage=()=>{
                         }
                     >
                         <MenuItem key='1_1' onClick={()=>{navigate('/admin/file')}}>文章</MenuItem>
-                        <MenuItem key='1_2' onClick={()=>{navigate('/admin/permission')}}>权限</MenuItem>
                         <MenuItem key='1_3' onClick={()=>{navigate('/admin/weather')}}>天气</MenuItem>
                         <MenuItem key='1_4' onClick={()=>{navigate('/admin/systemConfiguration')}}>系统配置</MenuItem>
                     </SubMenu>
