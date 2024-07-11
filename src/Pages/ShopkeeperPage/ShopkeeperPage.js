@@ -3,8 +3,7 @@ import { Menu } from '@arco-design/web-react';
 import {Outlet, useNavigate} from "react-router-dom";
 import shop from './images/shop.png'
 import {
-    IconHome, IconSettings,
-    IconUser, IconUserGroup,
+    IconHome, IconSettings, IconUserGroup,
 } from "@arco-design/web-react/icon";
 import {useEffect} from "react";
 
