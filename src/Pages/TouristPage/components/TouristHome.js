@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Layout, Carousel, Card, Space, Typography, Message } from '@arco-design/web-react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../../Resquest/axiosInstance'
 import Footer from './Footer';
 import Header from './Header';

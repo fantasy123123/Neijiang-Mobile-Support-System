@@ -205,25 +205,25 @@ const MerchantDetail = () => {
                                 <Col span={12}>
                                     <Space direction="vertical" size="large" style={{ width: "100%" }}>
                                         <Text className={styles['merchant-info']}>
-                                            <strong>地址:</strong> {merchant.address}
+                                            <strong>地址: </strong> {merchant.address}
                                         </Text>
                                         <Text className={styles['merchant-info']}>
-                                            <strong>电话:</strong> {merchant.phone}
+                                            <strong>电话: </strong> {merchant.phone}
                                         </Text>
                                         <Text className={styles['merchant-info']}>
-                                            <strong>邮箱:</strong> {merchant.email}
+                                            <strong>邮箱: </strong> {merchant.email}
                                         </Text>
                                         <Text className={styles['merchant-info']}>
-                                            <strong>业务类型:</strong> {merchant.businessType}
+                                            <strong>业务类型: </strong> {merchant.businessType}
                                         </Text>
                                         <Text className={styles['merchant-info']}>
-                                            <strong>业务环境:</strong> {merchant.businessEnvironment}
+                                            <strong>业务环境: </strong> {merchant.businessEnvironment}
                                         </Text>
                                         <Text className={styles['merchant-info']}>
-                                            <strong>业务地点:</strong> {merchant.businessLocation}
+                                            <strong>业务地点: </strong> {merchant.businessLocation}
                                         </Text>
                                         <Text className={styles['merchant-info']}>
-                                            <strong>产品类别:</strong> {merchant.productCategory}
+                                            <strong>产品类别: </strong> {merchant.productCategory}
                                         </Text>
                                         <div className={styles['right-button-container']}>
                                             <Button

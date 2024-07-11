@@ -31,6 +31,7 @@ import ShopImage from "./Pages/ShopkeeperPage/components/ShopImage";
 import ShopMap from "./Pages/ShopkeeperPage/components/ShopMap";
 import ProductDetail from "./Pages/TouristPage/components/ProductDetail";
 import MerchantCatrgory from "./Pages/TouristPage/components/MerchantCategory";
+import TouristComment from "./Pages/TouristPage/components/TouristComment";
 
 
 const routes=[
@@ -111,6 +112,10 @@ const routes=[
             {
                 path: '/tourist/product/:productId',
                 element: <ProductDetail/>
+            },
+            {
+                path: '/tourist/comment',
+                element: <TouristComment />
             }
         ]
     },

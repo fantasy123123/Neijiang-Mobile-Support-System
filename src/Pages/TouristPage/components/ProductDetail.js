@@ -170,16 +170,16 @@ const ProductDetail = () => {
                                 <Col span={12}>
                                     <Space direction="vertical" size="large" style={{ width: "100%" }}>
                                         <Text className={styles['product-info']}>
-                                            <strong>商品名:</strong> {product.productName}
+                                            <strong>商品名: </strong> {product.productName}
                                         </Text>
                                         <Text className={styles['product-info']}>
-                                            <strong>商品类别:</strong> {product.categoryName}
+                                            <strong>商品类别: </strong> {product.categoryName}
                                         </Text>
                                         <Text className={styles['product-info']}>
-                                            <strong>商品售价:</strong> {product.price}
+                                            <strong>商品售价: </strong> {product.price}
                                         </Text>
                                         <Text className={styles['product-info']}>
-                                            <strong>商品描述:</strong> {product.description}
+                                            <strong>商品描述: </strong> {product.description}
                                         </Text>
                                         
                                         <div className={styles['right-button-container']}>
