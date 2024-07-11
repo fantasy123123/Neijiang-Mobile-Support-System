@@ -26,7 +26,9 @@ import { Message } from '@arco-design/web-react';
 
 // 获取 token 的方法，token存至localStorage里
 const getToken = () => {
-    return localStorage.getItem('token');
+    // 返回管理员jwt
+    return "eyJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50SWQiOjEsInJvbGVJZCI6MSwiZXhwIjoxNzIwNzg4NjI5fQ.LhKV6W0PjgoEm6J3qT91V-i3emXSzAKufG2jgzkHB6M"
+    // return localStorage.getItem('token');
 };
 
 // 创建 Axios 实例
@@ -55,7 +57,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
     response => response,
     error => {
-        Message.error(error.response.data.message);
+        Message.error('Network Error!');
         return Promise.reject(error);
     }
 );
