@@ -108,12 +108,15 @@ const ManageDiscussion = () => {
                                         count={counts[index]}
                                         maxCount={99}
                                     >
-                                        <Avatar size={50} shape="square" style={{marginRight: 16}}
-                                                src={group.imageUrl}/>
+                                        <Avatar size={50} shape="square" style={{marginRight: 16}}>
+                                            <img alt='头像' src={group.imageUrl}/>
+                                        </Avatar>
                                     </Badge>
                                 </Space>
                             ) : (
-                                <Avatar size={50} shape="square" style={{marginRight: 16}} src={group.imageUrl}/>
+                                <Avatar size={50} shape="square" style={{marginRight: 16}}>
+                                    <img alt='头像' src={group.imageUrl}/>
+                                </Avatar>
                             )}
                             <Typography.Text style={{fontSize: 16, color: '#333'}}>{group.groupName}</Typography.Text>
                         </div>
