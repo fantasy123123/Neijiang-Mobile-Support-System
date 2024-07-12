@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {useLocation, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import axiosInstance from "../../api/AxiosApi";
 import { Card, List, Typography, Avatar, Badge, Space } from "@arco-design/web-react";
 import "@arco-design/web-react/dist/css/arco.css";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
-
-const { Title } = Typography;
+import store from './store/store'
 
 const ManageDiscussion = () => {
     const [groups, setGroups] = useState([]);
     const [counts, setCounts] = useState([]);
     const clientRef = useRef(null);
     const navigate = useNavigate();
+    const [length,setLength]=useState(0)
 
     useEffect(() => {
         const fetchGroups = async () => {
@@ -20,7 +20,8 @@ const ManageDiscussion = () => {
                 res => {
                     if (res.data.status === 'success') {
                         setGroups(res.data.data);
-                        setCounts(new Array(res.data.data.length).fill(0));
+                        setCounts(store.getState())
+                        setLength(res.data.data.length)
                     }
                 }
             ).catch(
@@ -44,11 +45,8 @@ const ManageDiscussion = () => {
                             const receivedMessage = JSON.parse(message.body);
                             if (receivedMessage.action !== null) {
                                 const index = groups.findIndex(g => g.groupId === group.groupId);
-                                setCounts(prevCounts => {
-                                    const newCounts = [...prevCounts];
-                                    newCounts[index] = newCounts[index] + 1;
-                                    return newCounts;
-                                });
+                                store.dispatch({type:'update',data:index})
+                                setCounts(store.getState())
                             }
                         });
                     });
@@ -84,21 +82,32 @@ const ManageDiscussion = () => {
                     bordered={false}
                     dataSource={groups}
                     render={(group, index) => (
-                        <div key={index} onClick={() => joinRoom(group.groupId, group.groupName)} style={{
-                            cursor: 'pointer',
-                            padding: '16px',
-                            borderBottom: '1px solid #e8e8e8',
-                            backgroundColor: '#fff',
-                            transition: 'background-color 0.3s',
-                            '&:hover': {
-                                backgroundColor: '#e6f7ff',
-                            },
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}>
+                        <div
+                            key={index}
+                            onClick={() => {
+                                joinRoom(group.groupId, group.groupName)
+                                store.dispatch({type:'init',data:length})
+                                setCounts(store.getState())
+                            }}
+                            style={{
+                                cursor: 'pointer',
+                                padding: '16px',
+                                borderBottom: '1px solid #e8e8e8',
+                                backgroundColor: '#fff',
+                                transition: 'background-color 0.3s',
+                                '&:hover': {
+                                    backgroundColor: '#e6f7ff',
+                                },
+                                display: 'flex',
+                                alignItems: 'center'
+                            }}
+                        >
                             {counts[index] > 0 ? (
                                 <Space>
-                                    <Badge count={counts[index]} maxCount={99}>
+                                    <Badge
+                                        count={counts[index]}
+                                        maxCount={99}
+                                    >
                                         <Avatar size={50} shape="square" style={{marginRight: 16}}
                                                 src={group.imageUrl}/>
                                     </Badge>
