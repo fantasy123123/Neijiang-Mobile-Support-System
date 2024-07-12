@@ -5,7 +5,7 @@ import shop from './images/shop.png'
 import {
     IconHome, IconSettings, IconUserGroup,
 } from "@arco-design/web-react/icon";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 
 const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;

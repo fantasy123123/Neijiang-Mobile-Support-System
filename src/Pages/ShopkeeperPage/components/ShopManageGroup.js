@@ -243,6 +243,7 @@ const ShopManageGroup = () => {
                 </div>
 
                 <Modal
+                    unmountOnExit={true}
                     title="创建群组"
                     visible={visible}
                     onOk={handleOk}
@@ -260,6 +261,7 @@ const ShopManageGroup = () => {
                     </Form>
                 </Modal>
                 <Modal
+                    unmountOnExit={true}
                     title="添加成员"
                     visible={addMemberVisible}
                     onOk={handleAddMemberOk}
