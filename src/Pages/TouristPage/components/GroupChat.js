@@ -169,24 +169,28 @@ const GroupChat = () => {
                                             src={memberInfo?.imageUrl}
                                             onClick={() => handleAvatarClick(memberInfo)}
                                         />
-                                        <div style={{
-                                            fontSize:12,
-                                            color:'grey',
-                                            textAlign:message.accountId == accountId ? 'right':'left'
-                                        }}
-                                        >
-                                            {memberInfo?.name}
+                                        <div>
+                                            <div style={{
+                                                fontSize: 12,
+                                                color:'grey',
+                                                textAlign: message.accountId == accountId ? 'right':'left',
+                                                marginBottom: 2
+                                            }}
+                                            >
+                                                {memberInfo?.name}
+                                            </div>
+                                            <div style={{
+                                                backgroundColor: message.accountId == accountId ? '#7bee51' : '#ffffff',
+                                                borderRadius: '16px',
+                                                padding: '8px 12px',
+                                                maxWidth: '70%',
+                                                wordBreak: 'break-word',
+                                                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+                                            }}>
+                                                {message.details}
+                                            </div>
                                         </div>
-                                        <div style={{
-                                            backgroundColor: message.accountId == accountId ? '#7bee51' : '#ffffff',
-                                            borderRadius: '16px',
-                                            padding: '8px 12px',
-                                            maxWidth: '70%',
-                                            wordBreak: 'break-word',
-                                            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
-                                        }}>
-                                            {message.details}
-                                        </div>
+                                        
                                     </div>
                                 </List.Item>
                             );
