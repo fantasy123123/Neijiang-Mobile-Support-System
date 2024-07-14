@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { Card, List, Typography, Layout, Avatar, Space, Spin, Message } from "@arco-design/web-react";
+import { Card, List, Typography, Layout, Avatar, Modal, Spin, Message, Button, Icon } from "@arco-design/web-react";
+import { IconMinusCircle } from '@arco-design/web-react/icon';
 import axiosInstance from '../../../Resquest/axiosInstance';
 import styles from './TouristGroup.module.css';
 import Footer from './Footer';
@@ -11,6 +12,8 @@ const { Title } = Typography;
 const TouristGroup = () => {
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [visible, setVisible] = useState(false);
+    const [currentGroup, setCurrentGroup] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -36,11 +39,42 @@ const TouristGroup = () => {
         navigate(`/tourist/group/chat/${groupId}`, { state: { groupName } });
     };
 
+    const confirmLeaveGroup = (group) => {
+        setCurrentGroup(group);
+        setVisible(true);
+    };
+
+    const leaveGroup = async () => {
+        const leaveGroupData = {
+            accountId: localStorage.getItem('accountId'),
+            groupId: currentGroup.groupId
+        }
+
+        if (currentGroup) {
+            try {
+                const res = await axiosInstance.delete('/groups/members', { data: leaveGroupData });
+                if (res.data.status === 'success') {
+                    setGroups(groups.filter(group => group.groupId !== currentGroup.groupId));
+                    Message.success('Successfully left the group');
+                    navigate('/tourist/group');
+                } else {
+                    Message.error('Failed to leave group');
+                }
+            } catch (error) {
+                Message.error('Failed to leave group');
+                console.log(error);
+            } finally {
+                setVisible(false);
+                setCurrentGroup(null);
+            }
+        }
+    };
+
     return (
         <Layout className={styles['whole-page']} style={{ display: 'flex', overflow: 'auto' }}>
             <Header />
             <div style={{ display: 'flex', width: '100%' }}>
-                <div style={{ width : '25%', display: 'flex' }}>
+                <div style={{ width: '26%', display: 'flex' }}>
                     <Layout style={{ padding: '0 24px 24px', display: 'flex', flexDirection: 'column' }}>
                         <Title heading={2}>群组列表</Title>
                         {loading ? (
@@ -54,6 +88,16 @@ const TouristGroup = () => {
                                         key={index}
                                         style={{ backgroundColor: '#fff' }}
                                         onClick={() => joinRoom(item.groupId, item.groupName)}
+                                        actions={[
+                                            <Button type="text" 
+                                                status='danger'
+                                                onClick={(e) => {
+                                                e.stopPropagation();
+                                                confirmLeaveGroup(item);
+                                            }}>
+                                                <IconMinusCircle />
+                                            </Button>
+                                        ]}
                                     >
                                         <List.Item.Meta
                                             avatar={<Avatar src={item.imageUrl} />}
@@ -66,11 +110,22 @@ const TouristGroup = () => {
                         )}
                     </Layout>
                 </div>
-                <div style={{ width: '75%', display: 'flex' }}>
+                <div style={{ width: '74%', display: 'flex' }}>
                     <Outlet />
                 </div>
             </div>
             <Footer />
+
+            <Modal
+                title="确认退出"
+                visible={visible}
+                onOk={leaveGroup}
+                onCancel={() => setVisible(false)}
+                okText="确认"
+                cancelText="取消"
+            >
+                <p>你确定要退出 {currentGroup?.groupName} 群组吗？</p>
+            </Modal>
         </Layout>
     );
 };

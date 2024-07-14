@@ -3,12 +3,12 @@ import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import axiosInstance from '../../../Resquest/axiosInstance';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import { Card, List, Input, Button, Typography, Avatar } from "@arco-design/web-react";
+import { Card, List, Input, Button, Typography, Avatar, Modal, Form } from "@arco-design/web-react";
 import { IconArrowLeft } from "@arco-design/web-react/icon";
 import { useUser } from "../../../Context/UserContext";
 import styles from "./GroupChat.module.css";
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 const { TextArea } = Input;
 
 const GroupChat = () => {
@@ -22,6 +22,8 @@ const GroupChat = () => {
     const location = useLocation();
     const { groupId } = useParams();
     const groupName = location.state?.groupName;
+    const [memberInfoModalVisible, setMemberInfoModalVisible] = useState(false);
+    const [selectedMember, setSelectedMember] = useState({});
 
     useEffect(() => {
         const fetchRoomInfo = async () => {
@@ -98,8 +100,15 @@ const GroupChat = () => {
         return members.find(member => member.accountId === accountId);
     };
 
+    const handleAvatarClick = (friend) => {
+        setSelectedMember(friend);
+        setMemberInfoModalVisible(true);
+    };
+
     return (
-        <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', width: '100%' }}>
+        <div style={{width : '100%'}}>
+
+        <div style={{ padding: '24px', display: 'flex', flexDirection: 'column' }}>
             <Button 
                 icon={<IconArrowLeft />} 
                 onClick={() => navigate(-1)} 
@@ -154,7 +163,12 @@ const GroupChat = () => {
                                         alignItems: 'center',
                                         margin: 4
                                     }}>
-                                        <Avatar size={32} style={{margin: '0 8px'}} src={memberInfo?.imageUrl}/>
+                                        <Avatar 
+                                            size={32} 
+                                            style={{margin: '0 8px'}} 
+                                            src={memberInfo?.imageUrl}
+                                            onClick={() => handleAvatarClick(memberInfo)}
+                                        />
                                         <div style={{
                                             backgroundColor: message.accountId == accountId ? '#7bee51' : '#ffffff',
                                             borderRadius: '16px',
@@ -184,6 +198,29 @@ const GroupChat = () => {
                     发送
                 </Button>
             </div>
+        </div>
+
+        <Modal
+            title="成员信息"
+            visible={memberInfoModalVisible}
+            onOk={() => setMemberInfoModalVisible(false)}
+            onCancel={() => setMemberInfoModalVisible(false)}
+        >
+            <Form wrapperCol={{ span: 16, offset: 0 }}>
+                <Form.Item label="昵称">
+                    <Text>{selectedMember.name}</Text>
+                </Form.Item>
+                <Form.Item label="头像">
+                    <Avatar size={100}>
+                        <img
+                            alt='avatar'
+                            src={selectedMember.imageUrl}
+                        />
+                    </Avatar>
+                </Form.Item>
+            </Form>
+        </Modal>
+            
         </div>
     );
 };

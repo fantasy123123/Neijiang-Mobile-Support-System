@@ -16,7 +16,7 @@ const Header = () => {
         <Layout className="header">
             <div className={styles['logo']}>RStarHub</div>
             <div className={styles['search-bar']}>
-                <Input.Search placeholder="搜索商户、地点" style={{ width: 300 }} />
+                <Input.Search placeholder="搜索商户、商品" style={{ width: 300 }} />
             </div>
             <div className={styles['user-info']}>
                 <Space size="middle">
