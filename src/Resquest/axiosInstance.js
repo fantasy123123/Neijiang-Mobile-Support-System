@@ -4,7 +4,7 @@ import { Message } from '@arco-design/web-react';
 
 // 获取 token 的方法，可以根据实际情况调整
 const getToken = () => {
-  return "eyJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50SWQiOjUsInJvbGVJZCI6MywiZXhwIjoxNzIwNzM5NDEzfQ.l1MpG66zbWiyOUO5CjV1P_3rMdVb-zzNr5rBf632SsM"
+  return "eyJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50SWQiOjUsInJvbGVJZCI6MywiZXhwIjoxNzIxMTMwNzcyfQ.BioCic6UatreLv2WdLVlihJncMEtUbXEzBjRm7c5ML8"
   // return localStorage.getItem('token');
 };
 

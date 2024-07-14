@@ -148,7 +148,14 @@ const TouristComment = () => {
                                         <Comment
                                             style={{width : '100%'}}
                                             author={`用户${item.userId}`}
-                                            avatar={<Avatar src={user.imageUrl} />}
+                                            avatar={
+                                                <Avatar size={100}>
+                                                    <img
+                                                        alt='avatar'
+                                                        src={user.imageUrl}
+                                                    />
+                                                </Avatar>
+                                            }
                                             content={item.content}
                                             datetime={new Date(item.createdAt).toLocaleString()}
                                             actions={[
@@ -196,7 +203,14 @@ const TouristComment = () => {
                                         <Comment
                                             style={{width : '100%'}}
                                             author={`用户${item.userId}`}
-                                            avatar={<Avatar src={user.imageUrl} />}
+                                            avatar={
+                                                <Avatar size={100}>
+                                                    <img
+                                                        alt='avatar'
+                                                        src={user.imageUrl}
+                                                    />
+                                                </Avatar>
+                                            }
                                             content={item.content}
                                             datetime={new Date(item.createdAt).toLocaleString()}
                                             actions={[

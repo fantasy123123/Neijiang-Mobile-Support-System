@@ -10,7 +10,7 @@ const Header = () => {
 
     useEffect(() => {
         // 任何需要在加载时执行的操作
-    }, []);
+    }, [user, setUser]);
 
     return (
         <Layout className="header">
@@ -20,7 +20,14 @@ const Header = () => {
             </div>
             <div className={styles['user-info']}>
                 <Space size="middle">
-                    {user?.imageUrl && <Avatar size={32} src={user.imageUrl} />}
+                    {user?.imageUrl && 
+                        <Avatar size={32}>
+                            <img
+                                alt='avatar'
+                                src={user.imageUrl}
+                            />
+                        </Avatar>
+                    }
                     <Text style={{ fontSize: '15px', color: '#fff', paddingRight : 5 }}>Hi, {user?.name}</Text>
                     <Button type="primary">登出</Button>
                 </Space>
