@@ -170,6 +170,14 @@ const GroupChat = () => {
                                             onClick={() => handleAvatarClick(memberInfo)}
                                         />
                                         <div style={{
+                                            fontSize:12,
+                                            color:'grey',
+                                            textAlign:message.accountId == accountId ? 'right':'left'
+                                        }}
+                                        >
+                                            {memberInfo?.name}
+                                        </div>
+                                        <div style={{
                                             backgroundColor: message.accountId == accountId ? '#7bee51' : '#ffffff',
                                             borderRadius: '16px',
                                             padding: '8px 12px',
