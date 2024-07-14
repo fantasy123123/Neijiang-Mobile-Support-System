@@ -1,7 +1,7 @@
 import {Button, Card, Input,DatePicker,Message, Modal,} from "@arco-design/web-react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import axiosInstance from "../../../api/AxiosApi";
+import axiosInstance from "../../api/AxiosApi";
 import {IconInfoCircle} from "@arco-design/web-react/icon";
 import {dayjs} from "@arco-design/web-react/es/_util/dayjs";
 

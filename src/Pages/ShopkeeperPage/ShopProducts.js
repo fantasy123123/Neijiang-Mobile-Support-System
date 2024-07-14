@@ -1,7 +1,7 @@
 import {Button, Input, InputNumber, Message, Modal, Radio, Table} from "@arco-design/web-react";
 import {useEffect, useRef, useState} from "react";
 import {IconSearch} from "@arco-design/web-react/icon";
-import axiosInstance from "../../../api/AxiosApi";
+import axiosInstance from "../../api/AxiosApi";
 
 
 const ShopProducts=()=>{

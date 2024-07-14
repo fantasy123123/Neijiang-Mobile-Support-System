@@ -1,8 +1,8 @@
 import {Button, Card, Descriptions, Input, Message, Modal, Upload} from "@arco-design/web-react";
-import '../ShopkeeperPage.css'
+import './ShopkeeperPage.css'
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import axiosInstance from "../../../api/AxiosApi";
+import axiosInstance from "../../api/AxiosApi";
 
 const ShopInformation=()=>{
     const navigate=useNavigate()
