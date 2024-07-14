@@ -103,18 +103,18 @@ const ManageDiscussion = () => {
                             }}
                         >
                             {counts[index] > 0 ? (
-                                <Space>
+                                <div style={{marginRight: 16}}>
                                     <Badge
                                         count={counts[index]}
                                         maxCount={99}
                                     >
-                                        <Avatar size={50} shape="square" style={{marginRight: 16}}>
+                                        <Avatar size={50} shape="square" style={{backgroundColor:'white'}}>
                                             <img alt='头像' src={group.imageUrl}/>
                                         </Avatar>
                                     </Badge>
-                                </Space>
+                                </div>
                             ) : (
-                                <Avatar size={50} shape="square" style={{marginRight: 16}}>
+                                <Avatar size={50} shape="square" style={{marginRight: 16 ,backgroundColor:'white'}}>
                                     <img alt='头像' src={group.imageUrl}/>
                                 </Avatar>
                             )}
