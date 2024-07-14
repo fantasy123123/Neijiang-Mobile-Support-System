@@ -19,13 +19,15 @@ import MerchantDetail from "./Pages/TouristPage/components/MerchantDetail";
 import ManageDiscussion from "./Pages/Components/ManageDiscussion";
 import ChatRoom from './Pages/Components/ChatRoom';
 import ShopkeeperPage from "./Pages/ShopkeeperPage/ShopkeeperPage";
-import ShopInformation from "./Pages/ShopkeeperPage/components/ShopInformation";
-import ShopProducts from "./Pages/ShopkeeperPage/components/ShopProducts";
-import ShopManageGroup from "./Pages/ShopkeeperPage/components/ShopManageGroup";
-import ShopImage from "./Pages/ShopkeeperPage/components/ShopImage";
-import ShopMap from "./Pages/ShopkeeperPage/components/ShopMap";
+import ShopInformation from "./Pages/ShopkeeperPage/ShopInformation";
+import ShopProducts from "./Pages/ShopkeeperPage/ShopProducts";
+import ShopManageGroup from "./Pages/ShopkeeperPage/ShopManageGroup";
+import ShopImage from "./Pages/ShopkeeperPage/ShopImage";
+import ShopMap from "./Pages/ShopkeeperPage/ShopMap";
+import TouristFavorite from "./Pages/TouristPage/components/TouristFavorite";
+import ShopDiscount from "./Pages/ShopkeeperPage/ShopDiscount";
+import MerchantCategory from "./Pages/TouristPage/components/MerchantCategory";
 import ProductDetail from "./Pages/TouristPage/components/ProductDetail";
-import MerchantCatrgory from "./Pages/TouristPage/components/MerchantCategory";
 import TouristComment from "./Pages/TouristPage/components/TouristComment";
 import TouristFavorite from "./Pages/TouristPage/components/TouristFavorite";
 import ShopDiscount from "./Pages/ShopkeeperPage/components/ShopDiscount";
@@ -102,7 +104,7 @@ const routes=[
             },
             {
                 path: '/tourist/merchant/category/:categoryId',
-                element: <MerchantCatrgory />
+                element: <MerchantCategory />
             },
             {
                 path: '/tourist/merchant/:merchantId',

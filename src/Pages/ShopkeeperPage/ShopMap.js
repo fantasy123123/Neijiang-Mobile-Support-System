@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Button, Descriptions, Input, Message, Modal} from "@arco-design/web-react";
 import AMapLoader from '@amap/amap-jsapi-loader';
-import axiosInstance from "../../../api/AxiosApi";
+import axiosInstance from "../../api/AxiosApi";
 
 
 const ShopMap=()=>{
