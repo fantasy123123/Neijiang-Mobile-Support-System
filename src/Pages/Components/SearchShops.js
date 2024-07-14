@@ -130,7 +130,6 @@ const SearchShops=()=>{
                                 }).then(
                                     res=>{
                                         setData(res.data.data)
-                                        Message.info('搜索成功！')
                                     }
                                 ).catch(
                                     err=>{

@@ -124,10 +124,6 @@ const routes=[
         element:<ShopkeeperPage/>,
         children: [
             {
-                path: '/shopkeeper/systemConfiguration',
-                element:<SystemConfiguration/>
-            },
-            {
                 path: '/shopkeeper/weather',
                 element:<Weather/>
             },

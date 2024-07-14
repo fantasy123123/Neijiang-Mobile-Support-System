@@ -1,5 +1,5 @@
 import './AdminPage.css'
-import { Menu } from '@arco-design/web-react';
+import {Button, Menu} from '@arco-design/web-react';
 import {Outlet, useNavigate} from "react-router-dom";
 import admin from './images/admin.png'
 import {IconHome, IconInfoCircle, IconLock, IconSettings, IconUser, IconUserGroup} from "@arco-design/web-react/icon";
@@ -38,6 +38,21 @@ const AdminPage=()=>{
                     <MenuItem key='4' onClick={()=>{navigate('/admin/viewGroup')}}><IconUserGroup />群组管理</MenuItem>
                     <MenuItem key='5' onClick={()=>{navigate('/admin/password')}}><IconLock />密码</MenuItem>
                     <MenuItem key='6' onClick={()=>{navigate('/admin/basicInformation')}}><IconInfoCircle />基本信息</MenuItem>
+                    <Button
+                        size={'large'}
+                        status={'danger'}
+                        style={{border:'#F53F3F 1px solid',marginTop:10,float:'right',marginRight:15}}
+                        onClick={()=>{
+                            if(window.confirm('确认登出？')){
+                                localStorage.removeItem('token')
+                                localStorage.removeItem('accountId')
+                                localStorage.removeItem('roleId')
+                                navigate('/signIn')
+                            }
+                        }}
+                    >
+                        登出
+                    </Button>
                 </Menu>
             </div>
             <div style={{height:'100%',width:'87%'}}>
