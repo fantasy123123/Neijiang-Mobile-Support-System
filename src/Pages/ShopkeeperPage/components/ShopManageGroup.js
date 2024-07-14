@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Button, Input, Message, Table, Modal, Form, Upload, Avatar } from '@arco-design/web-react';
-import { IconSearch, IconEdit, IconDelete } from '@arco-design/web-react/icon';
+import { IconSearch,  IconDelete } from '@arco-design/web-react/icon';
 import axiosInstance from '../../../api/AxiosApi';
+import initGroup from '../images/initGroup.png'
+import initPerson from '../images/initPerson.png'
 
 const ShopManageGroup = () => {
     const [groupData, setGroupData] = useState([]);
@@ -157,7 +159,7 @@ const ShopManageGroup = () => {
         {
             title: '头像',
             dataIndex: 'imageUrl',
-            render: (imageUrl) => <img src={imageUrl} alt="member" style={{ width: 50, height: 50 }} />,
+            render: (imageUrl) => <img src={imageUrl?imageUrl:initPerson} alt="member" style={{ width: 50, height: 50,backgroundColor:'white' }} />,
             align: 'center',
         },
         {
@@ -240,6 +242,7 @@ const ShopManageGroup = () => {
         try {
             const values = await form.validate();
             values.ownerId = localStorage.getItem("accountId");
+            values.imageUrl=initGroup
             const response = await axiosInstance.post('/groups', values);
             if (response.data.status === 'success') {
                 Message.success('群组创建成功');

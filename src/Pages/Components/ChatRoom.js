@@ -6,6 +6,7 @@ import axiosInstance from "../../api/AxiosApi";
 import { List, Input, Button, Typography, Avatar,Notification } from "@arco-design/web-react";
 import "@arco-design/web-react/dist/css/arco.css";
 import { IconArrowLeft } from "@arco-design/web-react/icon";
+import initPerson from './images/initPerson.png'
 
 const { Title } = Typography;
 
@@ -270,8 +271,18 @@ const ChatRoom = () => {
                                                 flexDirection: message.accountId === username ? 'row-reverse' : 'row',
                                                 alignItems: 'center'
                                             }}>
-                                                <Avatar size={32} style={{margin: '0 8px'}} src={memberInfo?.imageUrl}/>
-                                                <div style={{maxWidth: '70%'}}>
+                                                <Avatar size={40} style={{margin: '0 8px',backgroundColor:'white'}} shape={"square"}>
+                                                    <img
+                                                        alt='头像'
+                                                        src={memberInfo?.imageUrl?memberInfo.imageUrl:initPerson}
+                                                    />
+                                                </Avatar>
+                                                <div
+                                                    style={{
+                                                        maxWidth: '70%',
+                                                        marginLeft:message.accountId === username ?0:5,
+                                                        marginRight:message.accountId === username ?5:0
+                                                }}>
                                                     <div style={{
                                                         fontSize:12,
                                                         color:'grey',
@@ -281,8 +292,9 @@ const ChatRoom = () => {
                                                         {memberInfo?.name}
                                                     </div>
                                                     <div style={{
-                                                        backgroundColor: message.accountId === username ? '#e6f7ff' : '#ffffff',
-                                                        borderRadius: '16px',
+                                                        backgroundColor: message.accountId === username ? '#165DFF' : '#ffffff',
+                                                        color:message.accountId === username ?'white':'black',
+                                                        borderRadius: '3px',
                                                         padding: '8px 12px',
                                                         maxWidth: '100%',
                                                         wordBreak: 'break-word',
