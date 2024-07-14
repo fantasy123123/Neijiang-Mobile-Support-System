@@ -61,8 +61,7 @@ const TouristHome = () => {
                 <div style={{ marginBottom: '20px' }}>
                     <Carousel
                         style={{ width: '100%', height: '700px' }}
-                        autoPlay={true}
-                        autoPlaySpeed={5000}
+                        autoPlay={{interval : 5000}}
                         indicatorType='dot'
                         showArrow='hover'
                         >

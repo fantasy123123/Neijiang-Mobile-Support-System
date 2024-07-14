@@ -30,6 +30,8 @@ import TouristComment from "./Pages/TouristPage/components/TouristComment";
 import TouristFavorite from "./Pages/TouristPage/components/TouristFavorite";
 import ShopDiscount from "./Pages/ShopkeeperPage/components/ShopDiscount";
 import TouristInfo from "./Pages/TouristPage/components/TouristInfo";
+import TouristGroup from "./Pages/TouristPage/components/TouristGroup";
+import GroupChat from "./Pages/TouristPage/components/GroupChat";
 
 const routes=[
     {
@@ -121,6 +123,16 @@ const routes=[
             {
                 path: '/tourist/profile',
                 element: <TouristInfo />
+            },
+            {
+                path: '/tourist/group',
+                element: <TouristGroup />,
+                children: [
+                    {
+                        path: '/tourist/group/chat/:groupId',
+                        element: <GroupChat />
+                    }
+                ]
             }
         ]
     },
