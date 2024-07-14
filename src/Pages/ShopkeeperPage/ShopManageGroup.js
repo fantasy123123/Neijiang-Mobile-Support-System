@@ -99,6 +99,9 @@ const ShopManageGroup = () => {
             title: '创建时间',
             dataIndex: 'createdAt',
             sorter: (a, b) => a.createdAt - b.createdAt,
+            render:(col,record)=>{
+                return <span>{record.createdAt.substring(0,10)}</span>
+            },
             align: 'center',
         },
         {
@@ -145,7 +148,7 @@ const ShopManageGroup = () => {
                                 );
                             }
                         }}>
-                        注销
+                        解散
                     </Button>
                 </div>
             },
