@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { Button, Input, Message, Table, Modal, Form, Upload, Avatar } from '@arco-design/web-react';
 import { IconSearch,  IconDelete } from '@arco-design/web-react/icon';
-import axiosInstance from '../../../api/AxiosApi';
-import initGroup from '../images/initGroup.png'
-import initPerson from '../images/initPerson.png'
+import axiosInstance from '../../api/AxiosApi';
+import initGroup from './images/initGroup.png'
+import initPerson from './images/initPerson.png'
+import store from '../store/store'
 
 const ShopManageGroup = () => {
     const [groupData, setGroupData] = useState([]);
@@ -36,6 +37,8 @@ const ShopManageGroup = () => {
                 tempMember.push(memberResponse.data.data);
             }
             setMemberData(tempMember);
+
+            return tempGroup
         } catch (error) {
             console.error(error);
         }
@@ -133,6 +136,7 @@ const ShopManageGroup = () => {
                                     res => {
                                         setGroupData([...groupData.filter(item => item !== record)]);
                                         Message.info('注销成功!');
+                                        store.dispatch({type:'delete',groupId:record.groupId})
                                     }
                                 ).catch(
                                     err => {
@@ -248,7 +252,8 @@ const ShopManageGroup = () => {
                 Message.success('群组创建成功');
                 setVisible(false);
                 form.resetFields();
-                fetchGroups(); // 重新获取群组数据
+                const tempData=await fetchGroups(); // 重新获取群组数据
+                store.dispatch({type:'add',groupId:tempData[tempData.length-1].groupId})
             } else {
                 Message.error('群组创建失败');
             }

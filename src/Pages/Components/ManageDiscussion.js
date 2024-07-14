@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {useNavigate} from 'react-router-dom';
 import axiosInstance from "../../api/AxiosApi";
-import { Card, List, Typography, Avatar, Badge, Space } from "@arco-design/web-react";
+import { Card, List, Typography, Avatar, Badge} from "@arco-design/web-react";
 import "@arco-design/web-react/dist/css/arco.css";
 import SockJS from "sockjs-client";
 import { Client } from "@stomp/stompjs";
-import store from './store/store'
+import store from '../store/store'
 
 const ManageDiscussion = () => {
     const [groups, setGroups] = useState([]);
@@ -20,7 +20,12 @@ const ManageDiscussion = () => {
                 res => {
                     if (res.data.status === 'success') {
                         setGroups(res.data.data);
-                        setCounts(store.getState())
+                        const tempCounts=[]
+                        store.dispatch({type:'init'})
+                        for(let i=0;i<store.getState().length;i++){
+                            tempCounts.push(store.getState()[i].counts)
+                        }
+                        setCounts(tempCounts)
                         setLength(res.data.data.length)
                     }
                 }
@@ -45,8 +50,12 @@ const ManageDiscussion = () => {
                             const receivedMessage = JSON.parse(message.body);
                             if (receivedMessage.action !== null) {
                                 const index = groups.findIndex(g => g.groupId === group.groupId);
-                                store.dispatch({type:'update',data:index})
-                                setCounts(store.getState())
+                                store.dispatch({type:'update',data:index,groupId:group.groupId})
+                                const tempCounts=[]
+                                for(let i=0;i<store.getState().length;i++){
+                                    tempCounts.push(store.getState()[i].counts)
+                                }
+                                setCounts(tempCounts)
                             }
                         });
                     });
@@ -86,8 +95,12 @@ const ManageDiscussion = () => {
                             key={index}
                             onClick={() => {
                                 joinRoom(group.groupId, group.groupName)
-                                store.dispatch({type:'init',data:length})
-                                setCounts(store.getState())
+                                store.dispatch({type:'toZero',data:length,groupId:group.groupId})
+                                const tempCounts=[]
+                                for(let i=0;i<store.getState().length;i++){
+                                    tempCounts.push(store.getState()[i].counts)
+                                }
+                                setCounts(tempCounts)
                             }}
                             style={{
                                 cursor: 'pointer',
