@@ -188,7 +188,7 @@ const TouristArticle = () => {
                                 (
                                     filterArticles.map(article => (
                                         <Card style={{ margin: "0 0 12px", backgroundColor: '#fff' }}
-                                              key={article.articleId} title={
+                                            key={article.articleId} title={
                                             <>
                                                 {article.title}
                                                 <Typography.Text code style={{margin: '0 10px'}}>{article.categoryName}</Typography.Text>
