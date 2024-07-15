@@ -33,6 +33,8 @@ import TouristArticle from "./Pages/TouristPage/components/TouristArticle";
 import TouristArticleEdit from "./Pages/TouristPage/components/TouristArticleEdit.tsx";
 
 import TouristComment from "./Pages/TouristPage/components/TouristComment";
+import ShopComments from "./Pages/ShopkeeperPage/ShopComments";
+import ProductComments from "./Pages/ShopkeeperPage/ProductComments";
 
 const routes=[
     {
@@ -150,6 +152,14 @@ const routes=[
             {
                 path: '/shopkeeper/product',
                 element:<ShopProducts/>
+            },
+            {
+                path: '/shopkeeper/shopComments',
+                element:<ShopComments/>
+            },
+            {
+                path: '/shopkeeper/productComments',
+                element:<ProductComments/>
             },
             {
                 path: '/shopkeeper/password',
