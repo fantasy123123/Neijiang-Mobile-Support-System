@@ -1,4 +1,4 @@
-import {Avatar, Button, Input, InputNumber, Message, Modal, Radio, Table, Upload} from "@arco-design/web-react";
+import {Avatar, Button, Input, InputNumber, Message, Modal, Radio, Table, Upload, Select} from "@arco-design/web-react";
 import {useEffect, useRef, useState} from "react";
 import {IconSearch} from "@arco-design/web-react/icon";
 import axiosInstance from "../../api/AxiosApi";
@@ -7,12 +7,23 @@ const ShopProducts = () => {
     const inputRef1 = useRef(null);
     const inputRef2 = useRef(null);
     const [data, setData] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [currentGroupId, setCurrentGroupId] = useState(null); // 新增字段
 
     useEffect(() => {
         axiosInstance.get('/products/merchants/accountId/' + localStorage.getItem('accountId')).then(
             res => {
                 setData(res.data.data)
+            }
+        ).catch(
+            err => {
+                console.log(err)
+            }
+        )
+
+        axiosInstance.get('/products/categories').then(
+            res => {
+                setCategories(res.data.data)
             }
         ).catch(
             err => {
@@ -194,7 +205,7 @@ const ShopProducts = () => {
                     <Table columns={columns} data={data} style={{margin: 20}} />
                 </div>
                 <Modal
-                    title='新增商品分类'
+                    title='新增商品'
                     unmountOnExit={true}
                     maskClosable={false}
                     visible={ifAdd}
@@ -266,32 +277,19 @@ const ShopProducts = () => {
                                 />
                             </div>
                             <div style={{height: 50, width: '100%', justifyContent: 'left', display: 'flex', alignItems: 'center'}}>
-                                <Radio.Group
-                                    name='button-radio-group'
-                                    style={{display: 'flex'}}
+                                <Select
+                                    style={{width: '90%'}}
+                                    placeholder="请选择商品类型"
                                     onChange={value => {
-                                        setEditObject({...editObject,
-                                            categoryId: value === '电子产品' ?
-                                                1 : value === '服装' ?
-                                                    2 : value === '食品' ?
-                                                        3 : 4
-                                        })
+                                        setEditObject({...editObject, categoryId: value})
                                     }}
                                 >
-                                    {['电子产品', '服装', '食品', '家具'].map((item) => {
-                                        return (
-                                            <Radio key={item} value={item}>
-                                                {({checked}) => {
-                                                    return (
-                                                        <Button tabIndex={-1} key={item} type={checked ? 'primary' : 'default'}>
-                                                            {item}
-                                                        </Button>
-                                                    );
-                                                }}
-                                            </Radio>
-                                        );
-                                    })}
-                                </Radio.Group>
+                                    {categories.map(category => (
+                                        <Select.Option key={category.categoryId} value={category.categoryId}>
+                                            {category.categoryName}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
                             </div>
                             <div style={{height: 50, width: '100%', justifyContent: 'left', display: 'flex', alignItems: 'center'}}>
                                 <Input.TextArea
@@ -326,23 +324,20 @@ const ShopProducts = () => {
                     </div>
                 </Modal>
                 <Modal
-                    title='修改商品分类'
+                    title='修改商品信息'
                     unmountOnExit={true}
                     maskClosable={false}
                     visible={ifEdit}
                     onOk={() => {
                         const formData = new FormData();
+                        formData.append('productId', editObject.productId);
+                        formData.append('merchantId', editObject.merchantId);
                         formData.append('productName', editObject.productName);
                         formData.append('categoryId', editObject.categoryId);
                         formData.append('description', editObject.description);
                         formData.append('price', editObject.price);
-                        formData.append('image', editObject.image);
 
-                        axiosInstance.put('/products', formData, {
-                            headers: {
-                                'Content-Type': 'multipart/form-data'
-                            }
-                        }).then(
+                        axiosInstance.put('/products', formData).then(
                             res => {
                                 setEditObject({})
                                 setIfEdit(false)
@@ -398,33 +393,20 @@ const ShopProducts = () => {
                                 />
                             </div>
                             <div style={{height: 50, width: '100%', justifyContent: 'left', display: 'flex', alignItems: 'center'}}>
-                                <Radio.Group
-                                    name='button-radio-group'
-                                    style={{display: 'flex'}}
-                                    defaultValue={editObject.categoryName}
+                                <Select
+                                    style={{width: '90%'}}
+                                    placeholder="请选择商品类型"
+                                    defaultValue={editObject.categoryId}
                                     onChange={value => {
-                                        setEditObject({...editObject,
-                                            categoryId: value === '电子产品' ?
-                                                1 : value === '服装' ?
-                                                    2 : value === '食品' ?
-                                                        3 : 4
-                                        })
+                                        setEditObject({...editObject, categoryId: value})
                                     }}
                                 >
-                                    {['电子产品', '服装', '食品', '家具'].map((item) => {
-                                        return (
-                                            <Radio key={item} value={item}>
-                                                {({checked}) => {
-                                                    return (
-                                                        <Button tabIndex={-1} key={item} type={checked ? 'primary' : 'default'}>
-                                                            {item}
-                                                        </Button>
-                                                    );
-                                                }}
-                                            </Radio>
-                                        );
-                                    })}
-                                </Radio.Group>
+                                    {categories.map(category => (
+                                        <Select.Option key={category.categoryId} value={category.categoryId}>
+                                            {category.categoryName}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
                             </div>
                             <div style={{height: 50, width: '100%', justifyContent: 'left', display: 'flex', alignItems: 'center'}}>
                                 <Input.TextArea
@@ -457,9 +439,6 @@ const ShopProducts = () => {
                                     beforeUpload={handleImageUpload}
                                     showUploadList={true}
                                 >
-                                    <Avatar>
-                                        <img src={editObject.image} />
-                                    </Avatar>
                                 </Upload>
                             </div>
                         </div>
