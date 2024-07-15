@@ -32,7 +32,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
     response => response,
     error => {
-        // Message.error(error.response.data.message);
+        Message.error(error.response.data.message);
         return Promise.reject(error);
     }
 );
