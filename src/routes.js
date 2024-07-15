@@ -29,6 +29,8 @@ import ShopDiscount from "./Pages/ShopkeeperPage/ShopDiscount";
 import MerchantCategory from "./Pages/TouristPage/components/MerchantCategory";
 import ProductDetail from "./Pages/TouristPage/components/ProductDetail";
 import TouristComment from "./Pages/TouristPage/components/TouristComment";
+import ShopComments from "./Pages/ShopkeeperPage/ShopComments";
+import ProductComments from "./Pages/ShopkeeperPage/ProductComments";
 
 const routes=[
     {
@@ -138,6 +140,14 @@ const routes=[
             {
                 path: '/shopkeeper/product',
                 element:<ShopProducts/>
+            },
+            {
+                path: '/shopkeeper/shopComments',
+                element:<ShopComments/>
+            },
+            {
+                path: '/shopkeeper/productComments',
+                element:<ProductComments/>
             },
             {
                 path: '/shopkeeper/password',
