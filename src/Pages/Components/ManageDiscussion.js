@@ -21,7 +21,7 @@ const ManageDiscussion = () => {
                     if (res.data.status === 'success') {
                         setGroups(res.data.data);
                         const tempCounts=[]
-                        store.dispatch({type:'init'})
+                        store.dispatch({type:'view'})
                         for(let i=0;i<store.getState().length;i++){
                             tempCounts.push(store.getState()[i].counts)
                         }
