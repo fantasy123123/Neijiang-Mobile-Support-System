@@ -123,7 +123,7 @@ const TouristGroup = () => {
                     <Outlet />
                     {isEmpty && (
                         <Empty
-                            style={{display: 'felx', alignItems: 'center', height: 400}}
+                            style={{display: 'flex', alignItems: 'center', height: 400}}
                             description="请选择一个群组进行聊天"
                         />
                     )}

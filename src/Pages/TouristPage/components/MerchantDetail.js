@@ -320,8 +320,8 @@ const MerchantDetail = () => {
                                         >
                                             <Card.Meta
                                                 title={product.productName}
-                                                description={`${product.price} ${product.description}`}
-                                            />
+                                                description={`${product.price}￥  ${product.description}`}
+                                            /> 
                                         </Card>
                                     ))}
                                 </Space>
