@@ -1,36 +1,32 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import { Image, Button} from "@arco-design/web-react";
 import {useNavigate} from "react-router-dom";
+import axiosInstance from "../../api/AxiosApi";
 
 const ShopImage=()=>{
     const navigate=useNavigate()
-    const [initData,setInitData]=useState([
-            {
-                uid:"1",
-                name:'照片',
-                url:'//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp'
-            },
-            {
-                uid:"2",
-                name:'照片',
-                url:'//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp'
-            },
-            {
-                uid:"3",
-                name:'照片',
-                url:'//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/e278888093bef8910e829486fb45dd69.png~tplv-uwbnlip3yd-webp.webp'
-            },
-            {
-                uid:"4",
-                name:'照片',
-                url:'//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/e278888093bef8910e829486fb45dd69.png~tplv-uwbnlip3yd-webp.webp'
-            },
-            {
-                uid:"5",
-                name:'照片',
-                url:'//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/e278888093bef8910e829486fb45dd69.png~tplv-uwbnlip3yd-webp.webp'
-            },
-        ])
+    const [initData, setInitData] = useState([]);
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const accountId = localStorage.getItem("accountId");
+                const response = await axiosInstance.get(`/products/merchants/accountId/${accountId}`);
+                if (response.data.status === "success") {
+                    const images = response.data.data.map(product => ({
+                        uid: product.productId.toString(),
+                        name: product.productName,
+                        url: product.imageUrl
+                    }));
+                    setInitData(images);
+                }
+            } catch (error) {
+                console.error("Error fetching images:", error);
+            }
+        };
+
+        fetchImages();
+    }, []);
     return (
         <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
             <div style={{width:"90%",height:'90%'}}>
