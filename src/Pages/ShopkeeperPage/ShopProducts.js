@@ -263,9 +263,6 @@ const ShopProducts = () => {
                             <div style={{height: 50, width: '100%', justifyContent: 'right', display: 'flex', alignItems: 'center'}}>
                                 单价
                             </div>
-                            <div style={{height: 50, width: '100%', justifyContent: 'right', display: 'flex', alignItems: 'center'}}>
-                                商品图片
-                            </div>
                         </div>
                         <div style={{width: '75%'}}>
                             <div style={{height: 50, width: '100%', justifyContent: 'left', display: 'flex', alignItems: 'center'}}>
@@ -312,14 +309,7 @@ const ShopProducts = () => {
                                     style={{width: '90%'}}
                                 />
                             </div>
-                            <div style={{height: 50, width: '100%', justifyContent: 'left', display: 'flex', alignItems: 'center'}}>
-                                <Upload
-                                    onChange={file => {
-                                        setEditObject({...editObject, image: file.file})
-                                    }}
-                                    style={{width: '90%'}}
-                                />
-                            </div>
+
                         </div>
                     </div>
                 </Modal>
