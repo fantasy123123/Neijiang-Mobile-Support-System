@@ -29,10 +29,10 @@
 }
 
 .product-card {
-    min-width: 400px;
-    max-width: 400px;
-    min-height: 330px;
-    max-height: 330px;
+    min-width: 390px;
+    max-width: 390px;
+    min-height: 320px;
+    max-height: 320px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 

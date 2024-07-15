@@ -306,7 +306,7 @@ const MerchantDetail = () => {
                         {productsCategories.map((category) => (
                             <div key={category.categoryId} style={{ marginBottom: "20px" }}>
                                 <Title className="product-category-title" heading={2}>{category.categoryName}</Title>
-                                <Space wrap size="large" style={{ width: "100%" }}>
+                                <Space wrap size="medium" style={{ width: "100%" }}>
                                     {(productsMap.get(category) || []).map((product, index) => (
                                         <Card
                                             key={product.productId}

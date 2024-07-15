@@ -43,7 +43,7 @@ const Header = () => {
 
     return (
         <Layout className="header">
-            <div className={styles['logo']} onClick={() => navigate('/')}>RStarHub</div>
+            <div className={styles['logo']} onClick={() => navigate('/tourist/home')}>RStarHub</div>
             <div className={styles['search-bar']}>
                 <Input.Search
                     placeholder="搜索商户、商品"

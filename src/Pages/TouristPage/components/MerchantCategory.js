@@ -43,7 +43,7 @@ const MerchantCatrgory = () => {
                             <div style={{ marginBottom: '20px' }}>
                                 <Title heading={2}>{categoryName}</Title>
 
-                                <Space wrap size="large" style={{ width: '100%' }}>
+                                <Space wrap size="medium" style={{ width: '100%' }}>
                                     {merchants.map((merchant, index) => (
                                         <Card
                                             key={merchant.merchantId}

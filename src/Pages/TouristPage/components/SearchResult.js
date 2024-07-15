@@ -42,7 +42,7 @@ const SearchResult = () => {
                                     </Button>
                                 </span>
                                 
-                                <Space wrap size="large" style={{ width: '100%' }}>
+                                <Space wrap size="medium" style={{ width: '100%' }}>
                                     {results.map((merchant, index) => (
                                         <Card
                                             key={index}

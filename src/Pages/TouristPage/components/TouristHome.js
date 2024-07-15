@@ -85,7 +85,7 @@ const TouristHome = () => {
                             {merchantsCategories.map(category => (
                                 <div key={category.categoryId} style={{ marginBottom: '20px' }}>
                                     <Title className="category-title" heading={2}>{category.categoryName}</Title>
-                                    <Space wrap size="large" style={{ width: '100%' }}>
+                                    <Space wrap size="medium" style={{ width: '100%' }}>
                                         {(merchantsMap.get(category) || []).map((merchant, index) => (
                                             <Card
                                                 key={merchant.merchantId}
