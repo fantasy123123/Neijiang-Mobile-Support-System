@@ -1,5 +1,5 @@
 import './ShopkeeperPage.css'
-import { Menu } from '@arco-design/web-react';
+import {Button, Menu} from '@arco-design/web-react';
 import {Outlet, useNavigate} from "react-router-dom";
 import shop from './images/shop.png'
 import {
@@ -38,8 +38,10 @@ const ShopkeeperPage=()=>{
                     >
                         <MenuItem key='1_1' onClick={()=>{navigate('/shopkeeper/shopInformation')}}>商户信息</MenuItem>
                         <MenuItem key='1_2' onClick={()=>{navigate('/shopkeeper/product')}}>商户产品</MenuItem>
-                        <MenuItem key='1_3' onClick={()=>{navigate('/shopkeeper/search')}}>搜索商户</MenuItem>
-                        <MenuItem key='1_4' onClick={()=>{navigate('/shopkeeper/password')}}>密码</MenuItem>
+                        <MenuItem key='1_3' onClick={()=>{navigate('/shopkeeper/shopComments')}}>商户评价</MenuItem>
+                        <MenuItem key='1_4' onClick={()=>{navigate('/shopkeeper/productComments')}}>商户评价</MenuItem>
+                        <MenuItem key='1_5' onClick={()=>{navigate('/shopkeeper/search')}}>搜索商户</MenuItem>
+                        <MenuItem key='1_6' onClick={()=>{navigate('/shopkeeper/password')}}>密码</MenuItem>
                     </SubMenu>
 
                     <SubMenu
@@ -62,8 +64,22 @@ const ShopkeeperPage=()=>{
                         }
                     >
                         <MenuItem key='4_1' onClick={()=>{navigate('/shopkeeper/weather')}}>天气</MenuItem>
-                        <MenuItem key='4_2' onClick={()=>{navigate('/shopkeeper/systemConfiguration')}}>系统配置</MenuItem>
                     </SubMenu>
+                    <Button
+                        size={'large'}
+                        status={'danger'}
+                        style={{border:'#F53F3F 1px solid',marginTop:10,float:'right',marginRight:15}}
+                        onClick={()=>{
+                            if(window.confirm('确认登出？')){
+                                localStorage.removeItem('token')
+                                localStorage.removeItem('accountId')
+                                localStorage.removeItem('roleId')
+                                navigate('/signIn')
+                            }
+                        }}
+                    >
+                        登出
+                    </Button>
                 </Menu>
             </div>
             <div style={{height: '100%', width: '87%'}}>

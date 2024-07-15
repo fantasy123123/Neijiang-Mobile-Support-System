@@ -28,12 +28,18 @@ import TouristFavorite from "./Pages/TouristPage/components/TouristFavorite";
 import ShopDiscount from "./Pages/ShopkeeperPage/ShopDiscount";
 import MerchantCategory from "./Pages/TouristPage/components/MerchantCategory";
 import ProductDetail from "./Pages/TouristPage/components/ProductDetail";
+import MerchantCatrgory from "./Pages/TouristPage/components/MerchantCategory";
+import TouristArticle from "./Pages/TouristPage/components/TouristArticle";
+import TouristArticleEdit from "./Pages/TouristPage/components/TouristArticleEdit.tsx";
+
 import TouristComment from "./Pages/TouristPage/components/TouristComment";
 import TouristInfo from "./Pages/TouristPage/components/TouristInfo";
 import TouristGroup from "./Pages/TouristPage/components/TouristGroup";
 import GroupChat from "./Pages/TouristPage/components/GroupChat";
 import SearchResult from "./Pages/TouristPage/components/SearchResult"
 import TouristWeather from "./Pages/TouristPage/components/TouristWeather";
+import ShopComments from "./Pages/ShopkeeperPage/ShopComments";
+import ProductComments from "./Pages/ShopkeeperPage/ProductComments";
 
 const routes=[
     {
@@ -115,6 +121,14 @@ const routes=[
                 element: <ProductDetail/>
             },
             {
+                path: '/tourist/article',
+                element: <TouristArticle/>
+            },
+            {
+                path: '/tourist/article/edit',
+                element: <TouristArticleEdit/>
+            },
+            {
                 path: '/tourist/comment',
                 element: <TouristComment />
             },
@@ -151,10 +165,6 @@ const routes=[
         element:<ShopkeeperPage/>,
         children: [
             {
-                path: '/shopkeeper/systemConfiguration',
-                element:<SystemConfiguration/>
-            },
-            {
                 path: '/shopkeeper/weather',
                 element:<Weather/>
             },
@@ -169,6 +179,14 @@ const routes=[
             {
                 path: '/shopkeeper/product',
                 element:<ShopProducts/>
+            },
+            {
+                path: '/shopkeeper/shopComments',
+                element:<ShopComments/>
+            },
+            {
+                path: '/shopkeeper/productComments',
+                element:<ProductComments/>
             },
             {
                 path: '/shopkeeper/password',
