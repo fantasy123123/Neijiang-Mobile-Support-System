@@ -27,6 +27,7 @@ const ShopInformation = () => {
         axiosInstance.get('/merchants/categories').then(
             res => {
                 setCategories(res.data.data);
+                console.log(res.data.data)
             }
         ).catch(
             err => {
@@ -77,6 +78,10 @@ const ShopInformation = () => {
             value: initData.address,
         },
     ];
+    function getCategoryIdByName(categoryName) {
+        const category = categories.find(cat => cat.categoryName === categoryName);
+        return category ? category.categoryId : null;
+    }
 
     return (
         <div style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
@@ -292,7 +297,7 @@ const ShopInformation = () => {
                                     placeholder="请选择商户类别"
                                     defaultValue={initData.categoryName}
                                     onChange={value => {
-                                        setEditData({...editData, categoryName: value})
+                                        setEditData({...editData, categoryName: value,categoryId: getCategoryIdByName(value)})
                                     }}
                                 >
                                     {categories.map(category => (
