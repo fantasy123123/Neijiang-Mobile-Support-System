@@ -32,6 +32,7 @@ import TouristComment from "./Pages/TouristPage/components/TouristComment";
 import TouristInfo from "./Pages/TouristPage/components/TouristInfo";
 import TouristGroup from "./Pages/TouristPage/components/TouristGroup";
 import GroupChat from "./Pages/TouristPage/components/GroupChat";
+import SearchResult from "./Pages/TouristPage/components/SearchResult"
 
 const routes=[
     {
@@ -133,6 +134,10 @@ const routes=[
                         element: <GroupChat />
                     }
                 ]
+            },
+            {
+                path: '/tourist/search',
+                element: <SearchResult />
             }
         ]
     },

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Carousel, Card, Space, Typography, Message } from '@arco-design/web-react';
+import { Layout, Card, Space, Typography, Message } from '@arco-design/web-react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axiosInstance from '../../../Resquest/axiosInstance'
 import Footer from './Footer';
@@ -41,7 +41,7 @@ const MerchantCatrgory = () => {
                         <Space direction="vertical" size="large" style={{ width: '100%' }}>
                             
                             <div style={{ marginBottom: '20px' }}>
-                                <Title className="category-title" heading={2}>{categoryName}</Title>
+                                <Title heading={2}>{categoryName}</Title>
 
                                 <Space wrap size="large" style={{ width: '100%' }}>
                                     {merchants.map((merchant, index) => (

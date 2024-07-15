@@ -118,8 +118,8 @@ const GroupChat = () => {
             </Button>
             <Card
                 title={<Title heading={4} style={{margin : 'auto'}}>{groupName}</Title>} 
-                style={{ flex: 1, overflow: 'auto' }}
-                bodyStyle={{backgroundColor: '#fbfbfb'}}
+                style={{ flex: 1 }}
+                bodyStyle={{backgroundColor: '#fbfbfb', maxHeight: 600, overflow: 'auto'}}
             >
                 <List
                     bordered={false}

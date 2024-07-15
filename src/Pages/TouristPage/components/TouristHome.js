@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Layout, Carousel, Card, Space, Typography, Message} from '@arco-design/web-react';
+import pic1 from '../images/pic1.jpg';
+import pic2 from '../images/pic2.jpg';
+import pic3 from '../images/pic3.jpg';
+import pic4 from '../images/pic4.jpg';
+import pic5 from '../images/pic5.jpg';
+import pic6 from '../images/pic6.jpg';
 import { IconStar, IconStarFill } from '@arco-design/web-react/icon';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axiosInstance from '../../../Resquest/axiosInstance'
 import Footer from './Footer';
 import Header from './Header';
@@ -12,6 +18,7 @@ const { Title } = Typography;
 
 const TouristHome = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const [merchantsCategories, setMerchantsCategories] = useState([]);
     const [merchantsMap, setMerchantsMap] = useState(new Map());
 
@@ -42,15 +49,10 @@ const TouristHome = () => {
                 console.error('Failed to fetch categories:', error);
                 Message.error('Failed to fetch categories');
             });
-    }, []);
+    }, [location]);
 
     const imageSrc = [
-        'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic1.jpg',
-        'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic2.jpg',
-        'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic3.jpg',
-        'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic4.jpg',
-        'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic5.jpg',
-        'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic6.jpg',
+        pic1, pic2, pic3, pic4, pic5, pic6
     ];
 
     return (

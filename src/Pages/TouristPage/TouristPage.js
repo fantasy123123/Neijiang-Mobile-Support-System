@@ -12,6 +12,8 @@ const TouristPage = () => {
     const [merchantsCategories, setMerchantsCategories] = useState([]);
 
     useEffect(() => {
+        navigate('/tourist/home');
+
         axiosInstance.get('/users/accounts/3')
             .then(res => {
                 setUser(res.data.data);
@@ -29,8 +31,6 @@ const TouristPage = () => {
                 console.error(error);
                 Message.error('Failed to fetch categories');
             });
-        
-        navigate('/tourist/home');
     }, [setUser]);
 
     return (
