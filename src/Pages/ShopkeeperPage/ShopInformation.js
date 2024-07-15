@@ -1,4 +1,4 @@
-import {Button, Card, Descriptions, Input, Message, Modal, Upload} from "@arco-design/web-react";
+import {Avatar, Button, Card, Descriptions, Input, Message, Modal, Upload} from "@arco-design/web-react";
 import './ShopkeeperPage.css'
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
@@ -30,8 +30,8 @@ const ShopInformation=()=>{
             value: initData.name,
         },
         {
-            label: '地址',
-            value: initData.address,
+            label: '创建时间',
+            value: initData.createdAt?.substring(0,10),
         },
         {
             label: '电话',
@@ -62,8 +62,8 @@ const ShopInformation=()=>{
             value: initData.categoryName,
         },
         {
-            label: '创建时间',
-            value: initData.createdAt?.substring(0,10),
+            label: '地址',
+            value: initData.address,
         },
     ];
     return (
@@ -92,12 +92,17 @@ const ShopInformation=()=>{
                     <div style={{paddingLeft:50,paddingRight:50,paddingBottom:30}}>
                         <div style={{color:'#86909C',marginBottom:10}}>商户照片</div>
                         <Upload
-                            action={'/merchants/images/'+initData.merchantId}
+                            action={`${axiosInstance.defaults.baseURL}/merchants/images/` + initData.merchantId}
+                            headers={{ token: localStorage.getItem("token") }}
+                            limit={1}
                             multiple
                             imagePreview
-                            defaultFileList={initData.imageUrl}
                             listType='picture-card'
-                        />
+                        >
+                            <Avatar size={80} shape={'square'}>
+                                <img src={initData.imageUrl}/>
+                            </Avatar>
+                        </Upload>
                     </div>
                 </div>
                 <div style={{width:'100%',display:'flex',justifyContent:'space-around',marginTop:30}}>
