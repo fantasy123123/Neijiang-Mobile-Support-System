@@ -6,6 +6,7 @@ import {
     IconHome, IconSettings, IconUserGroup,
 } from "@arco-design/web-react/icon";
 import {useEffect} from "react";
+import store from "../store/store";
 
 const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;
@@ -13,6 +14,7 @@ const ShopkeeperPage=()=>{
     const navigate=useNavigate()
     useEffect(()=>{
         navigate('/shopkeeper')
+        store.dispatch({type:'init'})
     },[])
 
     return (

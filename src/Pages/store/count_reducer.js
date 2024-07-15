@@ -1,19 +1,22 @@
 import axiosInstance from "../../api/AxiosApi";
 
 const countGroups=[]
-axiosInstance.get('/groups').then(
-    res=>{
-        res.data.data.forEach((value)=>{
-            countGroups.push({
-                groupId:value.groupId,
-                counts:0
-            })
-        })
-    }
-)
 
 export default function countReducer(preState=[],action){
     switch (action.type) {
+        case 'init':{
+            axiosInstance.get('/groups').then(
+                res=>{
+                    res.data.data.forEach((value)=>{
+                        countGroups.push({
+                            groupId:value.groupId,
+                            counts:0
+                        })
+                    })
+                }
+            )
+            break;
+        }
         case 'toZero':
             countGroups.forEach(value => {
                 if(value.groupId===action.groupId){
@@ -48,7 +51,7 @@ export default function countReducer(preState=[],action){
             console.log(countGroups)
             break
         }
-        case 'init':return countGroups
+        case 'view':return countGroups
         default:return countGroups
     }
 }

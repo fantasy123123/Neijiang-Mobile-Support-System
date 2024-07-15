@@ -1,29 +1,6 @@
 import axios from 'axios';
 import { Message } from '@arco-design/web-react';
 
-// 使用封装的 axiosInstance 发起请求
-// axiosInstance.get('/merchants/categories')
-//     .then(res => {
-//         console.log(res);
-//     })
-//     .catch(error => {
-//         console.error(error);
-//     });
-
-// 发送 POST 请求的示例
-// const postData = {
-//     key1: 'value1',
-//     key2: 'value2',
-// };
-//
-// axiosInstance.post('/merchants/add', postData)
-//     .then(res => {
-//         console.log(res);
-//     })
-//     .catch(error => {
-//         console.error(error);
-//     });
-
 // 获取 token 的方法，token存至localStorage里
 const getToken = () => {
     return localStorage.getItem('token');
@@ -55,7 +32,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
     response => response,
     error => {
-        Message.error(error.response.data.message);
+        // Message.error(error.response.data.message);
         return Promise.reject(error);
     }
 );
