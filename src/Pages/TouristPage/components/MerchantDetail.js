@@ -38,6 +38,10 @@ const MerchantDetail = () => {
     const [commentRating, setCommentRating] = useState(0);
     const [favoriteId, setFavoriteId] = useState(null);
     const [isFavorite, setIsFavorite] = useState(false);
+    const [disableButton, setDisableButton] = useState(true);
+    const [isJoinGroup, setIsJoinGroup] = useState(false);
+    const [groupInfo, setGroupInfo] = useState(null);
+    const [members, setMembers] = useState([]);
 
     useEffect(() => {
         axiosInstance
@@ -45,6 +49,7 @@ const MerchantDetail = () => {
             .then((res) => {
                 setMerchant(res.data.data);
                 setLoading(false);
+                fetchGroupData(res.data.data.ownerId);
             })
             .catch((error) => {
                 console.error(
@@ -98,12 +103,39 @@ const MerchantDetail = () => {
                 console.error("Failed to fetch comments:", error);
                 Message.error("Failed to fetch comments");
             });
+        
+        // 检查是否加入群组
+        const fetchGroupData = async (ownerId) => {
+            try {
+                // 获取群组信息
+                const groupRes = await axiosInstance.get(`/groups/owners/${ownerId}`);
+                const groupData = groupRes.data.data;
+                if (!groupData) {
+                    setDisableButton(true);
+                    return;
+                }
+                setGroupInfo(groupData);
+                setDisableButton(false);
+                
+                // 获取群组成员信息
+                const membersRes = await axiosInstance.get(`/groups/members/${groupData.groupId}`);
+                const memberList = membersRes.data.data;
+                setMembers(memberList);
+                
+                // 检查用户是否已经加入群组
+                const isMember = memberList.some(member => member.accountId == localStorage.getItem('accountId'));
+                setIsJoinGroup(isMember);
+            } catch (error) {
+                console.error("Failed to get merchant group:", error);
+                Message.error("Failed to get merchant group");
+            }
+        };
 
         // 检查是否已收藏
         axiosInstance
             .get(`/users/favorite_merchants/${user.userId}/${merchantId}`)
             .then((res) => {
-                let result = res.data.data;
+                const result = res.data.data;
                 if (result != 0){
                     setFavoriteId(result);
                     setIsFavorite(true);
@@ -174,6 +206,27 @@ const MerchantDetail = () => {
         }
     };
 
+    const handleJoinGroup = async () => {
+        if (!isJoinGroup && groupInfo) {
+            try {
+                const response = await axiosInstance.post(`/groups/members`, {
+                    groupId: groupInfo.groupId,
+                    accountId: localStorage.getItem('accountId'),
+                    role: '成员'
+                });
+                if (response.data.status === 'success') {
+                    Message.success("Successfully joined the group");
+                    setIsJoinGroup(true);
+                } else {
+                    Message.error("Failed to join the group");
+                }
+            } catch (error) {
+                console.error("Failed to join the group:", error);
+                Message.error("Failed to join the group");
+            }
+        }
+    };
+
     return (
         <Layout className={styles['whole-page']}>
             <Header />
@@ -227,6 +280,14 @@ const MerchantDetail = () => {
                                         </Text>
                                         <div className={styles['right-button-container']}>
                                             <Button
+                                                type={isJoinGroup ? "primary" : "default"}
+                                                onClick={handleJoinGroup}
+                                                disabled={isJoinGroup}
+                                            >
+                                                {isJoinGroup ? "已加入群组" : "加入商家群"}
+                                            </Button>
+                                            <Button
+                                                style={{marginLeft : 20}}
                                                 type={isFavorite ? "primary" : "default"}
                                                 onClick={handleFavoriteToggle}
                                             >

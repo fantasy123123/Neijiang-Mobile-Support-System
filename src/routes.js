@@ -29,8 +29,6 @@ import ShopDiscount from "./Pages/ShopkeeperPage/ShopDiscount";
 import MerchantCategory from "./Pages/TouristPage/components/MerchantCategory";
 import ProductDetail from "./Pages/TouristPage/components/ProductDetail";
 import TouristComment from "./Pages/TouristPage/components/TouristComment";
-import TouristFavorite from "./Pages/TouristPage/components/TouristFavorite";
-import ShopDiscount from "./Pages/ShopkeeperPage/components/ShopDiscount";
 import TouristInfo from "./Pages/TouristPage/components/TouristInfo";
 import TouristGroup from "./Pages/TouristPage/components/TouristGroup";
 import GroupChat from "./Pages/TouristPage/components/GroupChat";
