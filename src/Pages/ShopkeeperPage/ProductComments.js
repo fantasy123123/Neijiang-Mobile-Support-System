@@ -1,9 +1,10 @@
 import {useEffect, useRef, useState} from "react";
 import axiosInstance from "../../api/AxiosApi";
-import {Button, Input, List, Comment, Modal, Rate, Table} from "@arco-design/web-react";
+import {Button, Input, List, Comment, Modal, Rate, Table, Card} from "@arco-design/web-react";
 import {IconHeart, IconHeartFill, IconSearch} from "@arco-design/web-react/icon";
 import avatar from './images/initPerson.png'
 import './ShopkeeperPage.css'
+import async from "async";
 
 const ProductComments=()=>{
     const [productData,setProductData]=useState([])
@@ -13,22 +14,19 @@ const ProductComments=()=>{
     const [likes, setLikes] =useState([]);
 
     useEffect(()=>{
-        axiosInstance.get('/products/merchants/accountId/'+localStorage.getItem('accountId')).then(
-            res=>{
-                const tempLikes=[]
-                res.data.data.forEach(value => {
-                    tempLikes.push(false)
-                    const tempData=[]
+         axiosInstance.get('/products/merchants/accountId/'+localStorage.getItem('accountId')).then(
+            async res=>{
+                await res.data.data.forEach(value => {
+                    likes.push(false)
                     axiosInstance.get('/comments/product_comments/products/'+value.productId).then(
                         res=>{
-                            tempData.push({
+                            productData.push({
                                 name:value.productName,
                                 description:value.description,
                                 category:value.categoryName,
                                 price:value.price,
                                 comments:res.data.data
                             })
-                            setProductData(tempData)
                         }
                     ).catch(
                         err=>{
@@ -36,7 +34,8 @@ const ProductComments=()=>{
                         }
                     )
                 })
-                setLikes(tempLikes)
+                setProductData([...productData])
+                setLikes([...likes])
             }
         ).catch(
             err=>{
@@ -96,6 +95,17 @@ const ProductComments=()=>{
                     sum+=value.rating
                 })
                 return <Rate allowHalf readonly value={sum/record.comments.length}/>
+            },
+            sorter: (a, b) => {
+                let sumA=0;
+                let sumB=0;
+                a.comments.forEach(value => {
+                    sumA+=value.rating
+                })
+                b.comments.forEach(value => {
+                    sumB+=value.rating
+                })
+                return sumA/a.comments.length - sumB/a.comments.length
             }
         },
         {
