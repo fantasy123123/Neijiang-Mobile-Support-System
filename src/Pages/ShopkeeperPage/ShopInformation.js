@@ -1,28 +1,39 @@
-import {Avatar, Button, Card, Descriptions, Input, Message, Modal, Upload} from "@arco-design/web-react";
+import {Avatar, Button, Card, Descriptions, Input, Message, Modal, Upload, Select} from "@arco-design/web-react";
 import './ShopkeeperPage.css'
 import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axiosInstance from "../../api/AxiosApi";
 
-const ShopInformation=()=>{
-    const navigate=useNavigate()
-    const [ifEdit,setIfEdit]=useState(false)
-    const [initData,setInitData]=useState({})
-    const [editData,setEditData]=useState(initData)
+const ShopInformation = () => {
+    const navigate = useNavigate();
+    const [ifEdit, setIfEdit] = useState(false);
+    const [initData, setInitData] = useState({});
+    const [editData, setEditData] = useState(initData);
+    const [categories, setCategories] = useState([]);
 
-    useEffect(()=>{
-        axiosInstance.get('/merchants/accountId/'+localStorage.getItem('accountId')).then(
-            res=>{
-                setInitData(res.data.data)
-                setEditData(res.data.data)
+    useEffect(() => {
+        axiosInstance.get('/merchants/accountId/' + localStorage.getItem('accountId')).then(
+            res => {
+                setInitData(res.data.data);
+                setEditData(res.data.data);
+                console.log(res.data.data);
             }
         ).catch(
-            err=>{
-                console.log(err)
+            err => {
+                console.log(err);
             }
-        )
-    },[])
+        );
 
+        axiosInstance.get('/merchants/categories').then(
+            res => {
+                setCategories(res.data.data);
+            }
+        ).catch(
+            err => {
+                console.log(err);
+            }
+        );
+    }, []);
 
     const column = [
         {
@@ -31,7 +42,7 @@ const ShopInformation=()=>{
         },
         {
             label: '创建时间',
-            value: initData.createdAt?.substring(0,10),
+            value: initData.createdAt?.substring(0, 10),
         },
         {
             label: '电话',
@@ -66,34 +77,37 @@ const ShopInformation=()=>{
             value: initData.address,
         },
     ];
+
     return (
-        <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
-            <div style={{width:"90%",height:'90%'}}>
-                <div style={{fontSize:25,fontWeight:'bold',color:'#165DFF',textAlign:'center'}}>
+        <div style={{width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <div style={{width: "90%", height: '90%'}}>
+                <div style={{fontSize: 25, fontWeight: 'bold', color: '#165DFF', textAlign: 'center'}}>
                     设置商户信息
                 </div>
-                <div style={{width:'90%',background:'white',marginLeft:'5%',marginTop:'2%',borderRadius:10,border:'1px solid grey',maxHeight:'80%',overflow:'auto'}}>
+                <div style={{width: '90%', background: 'white', marginLeft: '5%', marginTop: '2%', borderRadius: 10, border: '1px solid grey', maxHeight: '80%', overflow: 'auto'}}>
                     <Button
                         type={'primary'}
                         size={"large"}
-                        style={{marginRight:50,float:"right",marginTop:30}}
-                        onClick={()=>{setIfEdit(true)}}
+                        style={{marginRight: 50, float: "right", marginTop: 30}}
+                        onClick={() => {
+                            setIfEdit(true)
+                        }}
                     >
                         修改
                     </Button>
                     <Descriptions
                         column={3}
                         size={'large'}
-                        style={{paddingLeft:50,paddingRight:50,paddingTop:30}}
+                        style={{paddingLeft: 50, paddingRight: 50, paddingTop: 30}}
                         title='商家信息'
                         data={column}
-                        labelStyle={{ textAlign: 'right' }}
+                        labelStyle={{textAlign: 'right'}}
                     />
-                    <div style={{paddingLeft:50,paddingRight:50,paddingBottom:30}}>
-                        <div style={{color:'#86909C',marginBottom:10}}>商户照片</div>
+                    <div style={{paddingLeft: 50, paddingRight: 50, paddingBottom: 30}}>
+                        <div style={{color: '#86909C', marginBottom: 10}}>商户照片</div>
                         <Upload
                             action={`${axiosInstance.defaults.baseURL}/merchants/images/` + initData.merchantId}
-                            headers={{ token: localStorage.getItem("token") }}
+                            headers={{token: localStorage.getItem("token")}}
                             limit={1}
                             multiple
                             imagePreview
@@ -105,37 +119,43 @@ const ShopInformation=()=>{
                         </Upload>
                     </div>
                 </div>
-                <div style={{width:'100%',display:'flex',justifyContent:'space-around',marginTop:30}}>
+                <div style={{width: '100%', display: 'flex', justifyContent: 'space-around', marginTop: 30}}>
                     <Card
-                        onClick={()=>{navigate('/shopkeeper/shopInformation/discount',{state:initData.merchantId})}}
-                        style={{ width: '28%',cursor:'pointer' }}
+                        onClick={() => {
+                            navigate('/shopkeeper/shopInformation/discount', {state: initData.merchantId})
+                        }}
+                        style={{width: '28%', cursor: 'pointer'}}
                         title='折扣管理'
                         className='card-custom-hover-style'
                         hoverable
                     >
-                        <div style={{fontSize:17}}>
+                        <div style={{fontSize: 17}}>
                             管理商户的打折活动。
                         </div>
                     </Card>
                     <Card
-                        onClick={()=>{navigate('/shopkeeper/shopInformation/map')}}
-                        style={{ width: '28%',cursor:'pointer' }}
+                        onClick={() => {
+                            navigate('/shopkeeper/shopInformation/map')
+                        }}
+                        style={{width: '28%', cursor: 'pointer'}}
                         title='商户地图'
                         className='card-custom-hover-style'
                         hoverable
                     >
-                        <div style={{fontSize:17}}>
+                        <div style={{fontSize: 17}}>
                             将商户所在的地理位置在地图上标示出来。
                         </div>
                     </Card>
                     <Card
-                        onClick={()=>{navigate('/shopkeeper/shopInformation/image')}}
-                        style={{ width: '28%',cursor:'pointer' }}
+                        onClick={() => {
+                            navigate('/shopkeeper/shopInformation/image')
+                        }}
+                        style={{width: '28%', cursor: 'pointer'}}
                         title='商户相册'
                         className='card-custom-hover-style'
                         hoverable
                     >
-                        <div style={{fontSize:17}}>
+                        <div style={{fontSize: 17}}>
                             为商户提供的照片管理系统。
                         </div>
                     </Card>
@@ -146,122 +166,146 @@ const ShopInformation=()=>{
                     maskClosable={false}
                     visible={ifEdit}
                     onOk={() => {
-                        axiosInstance.put('/merchants',editData).then(
-                            res=>{
-                                Message.info('修改成功！')
-                                setIfEdit(false)
-                                setInitData(editData)
+                        axiosInstance.put('/merchants', editData).then(
+                            res => {
+                                Message.info('修改成功！');
+                                setIfEdit(false);
+                                setInitData(editData);
                             }
                         ).catch(
-                            err=>{
-                                Message.error('修改失败！')
+                            err => {
+                                Message.error('修改失败！');
                             }
                         )
                     }}
                     onCancel={() => {
-                        setIfEdit(false)
+                        setIfEdit(false);
                     }}
                     autoFocus={false}
                 >
-                    <div style={{display:'flex',width:'100%',justifyContent:'space-between'}}>
-                        <div style={{width:'27%'}}>
-                            <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
+                    <div style={{display: 'flex', width: '100%', justifyContent: 'space-between'}}>
+                        <div style={{width: '27%'}}>
+                            <div style={{height: 50, width: '100%', justifyContent: 'right', display: 'flex', alignItems: 'center'}}>
                                 名称
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
+                            <div style={{height: 50, width: '100%', justifyContent: 'right', display: 'flex', alignItems: 'center'}}>
                                 地址
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
+                            <div style={{height: 50, width: '100%', justifyContent: 'right', display: 'flex', alignItems: 'center'}}>
                                 电话
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
+                            <div style={{height: 50, width: '100%', justifyContent: 'right', display: 'flex', alignItems: 'center'}}>
                                 电子邮件
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
+                            <div style={{height: 50, width: '100%', justifyContent: 'right', display: 'flex', alignItems: 'center'}}>
                                 商户经营类型
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
+                            <div style={{height: 50, width: '100%', justifyContent: 'right', display: 'flex', alignItems: 'center'}}>
                                 商户经营环境
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
+                            <div style={{height: 50, width: '100%', justifyContent: 'right', display: 'flex', alignItems: 'center'}}>
                                 商户经营场所
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
+                            <div style={{height: 50, width: '100%', justifyContent: 'right', display: 'flex', alignItems: 'center'}}>
                                 商户产品类别
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'right',display:'flex',alignItems:'center'}}>
+                            <div style={{height: 50, width: '100%', justifyContent: 'right', display: 'flex', alignItems: 'center'}}>
                                 商户类别
                             </div>
                         </div>
-                        <div style={{width:'65%'}}>
-                            <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
+                        <div style={{width: '65%'}}>
+                            <div style={{height: 50, width: '100%', justifyContent: 'left', display: 'flex', alignItems: 'center'}}>
                                 <Input
                                     defaultValue={initData.name}
-                                    onChange={value=>{setEditData({...editData,name:value})}}
-                                    style={{width:'90%'}}
+                                    onChange={value => {
+                                        setEditData({...editData, name: value})
+                                    }}
+                                    style={{width: '90%'}}
                                 />
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
+                            <div style={{height: 50, width: '100%', justifyContent: 'left', display: 'flex', alignItems: 'center'}}>
                                 <Input
                                     defaultValue={initData.address}
-                                    onChange={value=>{setEditData({...editData,address:value})}}
-                                    style={{width:'90%'}}
+                                    onChange={value => {
+                                        setEditData({...editData, address: value})
+                                    }}
+                                    style={{width: '90%'}}
                                 />
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
+                            <div style={{height: 50, width: '100%', justifyContent: 'left', display: 'flex', alignItems: 'center'}}>
                                 <Input
                                     defaultValue={initData.phone}
-                                    onChange={value=>{setEditData({...editData,phone:value})}}
-                                    style={{width:'90%'}}
+                                    onChange={value => {
+                                        setEditData({...editData, phone: value})
+                                    }}
+                                    style={{width: '90%'}}
                                 />
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
+                            <div style={{height: 50, width: '100%', justifyContent: 'left', display: 'flex', alignItems: 'center'}}>
                                 <Input
                                     defaultValue={initData.email}
-                                    onChange={value=>{setEditData({...editData,email:value})}}
-                                    style={{width:'90%'}}
+                                    onChange={value => {
+                                        setEditData({...editData, email: value})
+                                    }}
+                                    style={{width: '90%'}}
                                 />
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
+                            <div style={{height: 50, width: '100%', justifyContent: 'left', display: 'flex', alignItems: 'center'}}>
                                 <Input
                                     defaultValue={initData.businessType}
-                                    onChange={value=>{setEditData({...editData,type:value})}}
-                                    style={{width:'90%'}}
+                                    onChange={value => {
+                                        setEditData({...editData, businessType: value})
+                                    }}
+                                    style={{width: '90%'}}
                                 />
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
+                            <div style={{height: 50, width: '100%', justifyContent: 'left', display: 'flex', alignItems: 'center'}}>
                                 <Input
                                     defaultValue={initData.businessEnvironment}
-                                    onChange={value=>{setEditData({...editData,environment:value})}}
-                                    style={{width:'90%'}}
+                                    onChange={value => {
+                                        setEditData({...editData, businessEnvironment: value})
+                                    }}
+                                    style={{width: '90%'}}
                                 />
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
+                            <div style={{height: 50, width: '100%', justifyContent: 'left', display: 'flex', alignItems: 'center'}}>
                                 <Input
                                     defaultValue={initData.businessLocation}
-                                    onChange={value=>{setEditData({...editData,place:value})}}
-                                    style={{width:'90%'}}
+                                    onChange={value => {
+                                        setEditData({...editData, businessLocation: value})
+                                    }}
+                                    style={{width: '90%'}}
                                 />
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
+                            <div style={{height: 50, width: '100%', justifyContent: 'left', display: 'flex', alignItems: 'center'}}>
                                 <Input
                                     defaultValue={initData.productCategory}
-                                    onChange={value=>{setEditData({...editData,category:value})}}
-                                    style={{width:'90%'}}
+                                    onChange={value => {
+                                        setEditData({...editData, productCategory: value})
+                                    }}
+                                    style={{width: '90%'}}
                                 />
                             </div>
-                            <div style={{height:50,width:'100%',justifyContent:'left',display:'flex',alignItems:'center'}}>
-                                <Input
+                            <div style={{height: 50, width: '100%', justifyContent: 'left', display: 'flex', alignItems: 'center'}}>
+                                <Select
+                                    style={{width: 280}}
+                                    placeholder="请选择商户类别"
                                     defaultValue={initData.categoryName}
-                                    onChange={value=>{setEditData({...editData,categoryName:value})}}
-                                    style={{width:'90%'}}
-                                />
+                                    onChange={value => {
+                                        setEditData({...editData, categoryName: value})
+                                    }}
+                                >
+                                    {categories.map(category => (
+                                        <Select.Option key={category.categoryId} value={category.categoryName}>
+                                            {category.categoryName}
+                                        </Select.Option>
+                                    ))}
+                                </Select>
                             </div>
                         </div>
                     </div>
                     <br />
-                    <div style={{textAlign:'right',color:'grey',marginRight:20}}>
-                        (无法修改创建时间)
+                    <div style={{textAlign: 'right', color: 'grey', marginRight: 20}}>
                     </div>
                 </Modal>
             </div>
@@ -269,4 +313,4 @@ const ShopInformation=()=>{
     )
 }
 
-export default ShopInformation
+export default ShopInformation;
