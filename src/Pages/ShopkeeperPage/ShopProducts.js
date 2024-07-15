@@ -218,11 +218,7 @@ const ShopProducts = () => {
                         formData.append('merchantId', data[0].merchantId);
                         formData.append('image', editObject.image);
 
-                        axiosInstance.post('/products', formData, {
-                            headers: {
-                                'Content-Type': 'multipart/form-data'
-                            }
-                        }).then(
+                        axiosInstance.post('/products', formData).then(
                             res => {
                                 setEditObject({})
                                 setIfAdd(false)
