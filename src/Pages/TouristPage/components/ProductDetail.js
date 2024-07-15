@@ -140,7 +140,7 @@ const ProductDetail = () => {
     };
 
     return (
-        <Layout className={styles['whole-page']}>
+        <Layout className={styles['whole-page']} style={{ height: '100vh', overflow: 'auto' }}>
             <Header />
 
             <Layout style={{ padding: "0 24px 24px" }}>

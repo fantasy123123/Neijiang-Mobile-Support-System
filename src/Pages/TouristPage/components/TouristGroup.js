@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import { Card, List, Typography, Layout, Avatar, Modal, Spin, Message, Button, Icon } from "@arco-design/web-react";
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Card, List, Typography, Layout, Avatar, Modal, Spin, Message, Button, Empty } from "@arco-design/web-react";
 import { IconMinusCircle } from '@arco-design/web-react/icon';
 import axiosInstance from '../../../Resquest/axiosInstance';
 import styles from './TouristGroup.module.css';
@@ -14,7 +14,9 @@ const TouristGroup = () => {
     const [loading, setLoading] = useState(true);
     const [visible, setVisible] = useState(false);
     const [currentGroup, setCurrentGroup] = useState(null);
+    const [isEmpty, setIsEmpty] = useState(true);
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const fetchGroups = async () => {
@@ -35,7 +37,14 @@ const TouristGroup = () => {
         fetchGroups();
     }, []);
 
+    useEffect(() => {
+        if (location.pathname === '/tourist/group') {
+            setIsEmpty(true);
+        }
+    }, [location]);
+
     const joinRoom = (groupId, groupName) => {
+        setIsEmpty(false);
         navigate(`/tourist/group/chat/${groupId}`, { state: { groupName } });
     };
 
@@ -71,7 +80,7 @@ const TouristGroup = () => {
     };
 
     return (
-        <Layout className={styles['whole-page']} style={{ display: 'flex', overflow: 'auto' }}>
+        <Layout className={styles['whole-page']} style={{ overflow: 'auto' }}>
             <Header />
             <div style={{ display: 'flex', width: '100%' }}>
                 <div style={{ width: '26%', display: 'flex' }}>
@@ -112,6 +121,12 @@ const TouristGroup = () => {
                 </div>
                 <div style={{ width: '74%', display: 'flex' }}>
                     <Outlet />
+                    {isEmpty && (
+                        <Empty
+                            style={{display: 'felx', alignItems: 'center', height: 400}}
+                            description="请选择一个群组进行聊天"
+                        />
+                    )}
                 </div>
             </div>
             <Footer />

@@ -6,7 +6,7 @@ const Footer = () => {
         <footer className={styles['footer']}>
             <div className={styles['footer-content']}>
                 <div className={styles['footer-section']}>
-                    <h4>Related Resources</h4>
+                    <h3>Related Resources</h3>
                     <ul>
                         <li><a href="https://spring.io/projects/spring-boot" target="_blank" rel="noopener noreferrer">Spring Boot</a></li>
                         <li><a href="https://spring.io/guides" target="_blank" rel="noopener noreferrer">Spring Boot Guides</a></li>
@@ -20,7 +20,7 @@ const Footer = () => {
                     </ul>
                 </div>
                 <div className={styles['footer-section']}>
-                    <h4>Community Support</h4>
+                    <h3>Community Support</h3>
                     <ul>
                         <li><a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a></li>
                         <li><a href="https://github.com/websemantics/awesome-ant-design" target="_blank" rel="noopener noreferrer">Awesome Ant Design</a></li>
@@ -31,7 +31,7 @@ const Footer = () => {
                     </ul>
                 </div>
                 <div className={styles['footer-section']}>
-                    <h4>Help & Feedback</h4>
+                    <h3>Help & Feedback</h3>
                     <ul>
                         <li><a href="https://stackoverflow.com/questions/tagged/spring-boot" target="_blank" rel="noopener noreferrer">Common Questions</a></li>
                         <li><a href="https://github.com/spring-projects/spring-boot/issues" target="_blank" rel="noopener noreferrer">Report Bug</a></li>
@@ -42,7 +42,7 @@ const Footer = () => {
                     </ul>
                 </div>
                 <div className={styles['footer-section']}>
-                    <h4>More Services</h4>
+                    <h3>More Services</h3>
                     <ul>
                         <li><a href="https://www.aliyun.com/product/enterprise" target="_blank" rel="noopener noreferrer">Enterprise Solutions</a></li>
                         <li><a href="https://dataplatform.cloud.tencent.com" target="_blank" rel="noopener noreferrer">Data Analysis Platform</a></li>
