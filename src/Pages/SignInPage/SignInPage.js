@@ -10,7 +10,6 @@ import axiosInstance from "../../api/AxiosApi";
 
 const FormItem = Form.Item;
 
-
 const SignInPage = () => {
     let name=''
     let password=''

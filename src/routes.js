@@ -28,6 +28,10 @@ import TouristFavorite from "./Pages/TouristPage/components/TouristFavorite";
 import ShopDiscount from "./Pages/ShopkeeperPage/ShopDiscount";
 import MerchantCategory from "./Pages/TouristPage/components/MerchantCategory";
 import ProductDetail from "./Pages/TouristPage/components/ProductDetail";
+import MerchantCatrgory from "./Pages/TouristPage/components/MerchantCategory";
+import TouristArticle from "./Pages/TouristPage/components/TouristArticle";
+import TouristArticleEdit from "./Pages/TouristPage/components/TouristArticleEdit.tsx";
+
 import TouristComment from "./Pages/TouristPage/components/TouristComment";
 
 const routes=[
@@ -108,6 +112,14 @@ const routes=[
             {
                 path: '/tourist/product/:productId',
                 element: <ProductDetail/>
+            },
+            {
+                path: '/tourist/article',
+                element: <TouristArticle/>
+            },
+            {
+                path: '/tourist/article/edit',
+                element: <TouristArticleEdit/>
             },
             {
                 path: '/tourist/comment',
