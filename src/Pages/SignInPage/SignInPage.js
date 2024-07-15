@@ -219,6 +219,15 @@ const SignInPage = () => {
                                                     localStorage.removeItem('roleId')
                                                 }
                                                 localStorage.setItem('roleId',res.data.data.roleId)
+                                                if(localStorage.getItem('roleId') === '3'){
+                                                    axiosInstance.get(`/users/accounts/${localStorage.getItem('accountId')}`)
+                                                        .then(res=>{
+                                                            if(localStorage.getItem('userId')){
+                                                                localStorage.removeItem('userId')
+                                                            }
+                                                            localStorage.setItem('userId',res.data.data.userId)
+                                                        })
+                                                }
                                                 switch (res.data.data.roleId){
                                                     case 1: navigate('/admin');
                                                     break;
