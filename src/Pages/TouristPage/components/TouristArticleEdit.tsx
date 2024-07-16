@@ -2,7 +2,7 @@
 import React, {useEffect, useState } from "react";
 import Vditor from "vditor";
 import "vditor/dist/index.css";
-import {Button, Layout, Message, Modal, Select} from "@arco-design/web-react";
+import {Button, Layout, Message, Modal, Select, Typography} from "@arco-design/web-react";
 import Footer from "./Footer";
 import Header from "./Header";
 import {Input} from "@arco-design/web-react/lib";
@@ -11,6 +11,7 @@ import {marked} from "marked";
 import {useDispatch, useSelector} from "react-redux";
 import { setEditedArticle, clearEditedArticle } from '../../../store/articleSlice'
 import {useNavigate} from "react-router-dom";
+const { Title } = Typography;
 
 interface Category {
     // Define your category structure here
@@ -113,8 +114,10 @@ const TouristArticleEdit = () => {
             "backgroundColor": "#ffffff",
         }}>
             <Header/>
+
+            <Title heading={2} style={{margin: '24px 24px 0 24px'}}>编辑文章</Title>
             <div style={{
-                margin: "12px 12px 12px 0",
+                margin: 24,
                 display: "flex",
                 justifyContent: "space-between",
             }}>
@@ -218,7 +221,7 @@ const TouristArticleEdit = () => {
                 {/*@ts-ignore*/}
                 <div dangerouslySetInnerHTML={{__html: marked(vdContent)}}/>
             </Modal>
-            <Layout style={{paddingTop: "12px 12px 12px 12px"}}>
+            <Layout style={{margin: "0 24px 24px 24px"}}>
                 <div  id="vditor" className="vditor"/>
             </Layout>
             <Footer/>

@@ -32,6 +32,11 @@ import TouristArticle from "./Pages/TouristPage/components/TouristArticle";
 import TouristArticleEdit from "./Pages/TouristPage/components/TouristArticleEdit.tsx";
 
 import TouristComment from "./Pages/TouristPage/components/TouristComment";
+import TouristInfo from "./Pages/TouristPage/components/TouristInfo";
+import TouristGroup from "./Pages/TouristPage/components/TouristGroup";
+import GroupChat from "./Pages/TouristPage/components/GroupChat";
+import SearchResult from "./Pages/TouristPage/components/SearchResult"
+import TouristWeather from "./Pages/TouristPage/components/TouristWeather";
 import ShopComments from "./Pages/ShopkeeperPage/ShopComments";
 import ProductComments from "./Pages/ShopkeeperPage/ProductComments";
 
@@ -129,6 +134,28 @@ const routes=[
             {
                 path: '/tourist/favorite',
                 element: <TouristFavorite />
+            },
+            {
+                path: '/tourist/profile',
+                element: <TouristInfo />
+            },
+            {
+                path: '/tourist/group',
+                element: <TouristGroup />,
+                children: [
+                    {
+                        path: '/tourist/group/chat/:groupId',
+                        element: <GroupChat />
+                    }
+                ]
+            },
+            {
+                path: '/tourist/search',
+                element: <SearchResult />
+            },
+            {
+                path: '/tourist/weather',
+                element: <TouristWeather />
             }
         ]
     },

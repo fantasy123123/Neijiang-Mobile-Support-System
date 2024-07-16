@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Layout, Carousel, Card, Space, Typography, Message} from '@arco-design/web-react';
-import { IconStar, IconStarFill } from '@arco-design/web-react/icon';
-import { useNavigate } from 'react-router-dom';
+import pic1 from '../images/pic1.jpg';
+import pic2 from '../images/pic2.jpg';
+import pic3 from '../images/pic3.jpg';
+import pic4 from '../images/pic4.jpg';
+import pic5 from '../images/pic5.jpg';
+import pic6 from '../images/pic6.jpg';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axiosInstance from '../../../Resquest/axiosInstance'
 import Footer from './Footer';
 import Header from './Header';
@@ -12,6 +17,7 @@ const { Title } = Typography;
 
 const TouristHome = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const [merchantsCategories, setMerchantsCategories] = useState([]);
     const [merchantsMap, setMerchantsMap] = useState(new Map());
 
@@ -45,12 +51,7 @@ const TouristHome = () => {
     }, []);
 
     const imageSrc = [
-        'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic1.jpg',
-        'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic2.jpg',
-        'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic3.jpg',
-        'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic4.jpg',
-        'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic5.jpg',
-        'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/pic6.jpg',
+        pic1, pic2, pic3, pic4, pic5, pic6
     ];
 
     return (
@@ -61,8 +62,7 @@ const TouristHome = () => {
                 <div style={{ marginBottom: '20px' }}>
                     <Carousel
                         style={{ width: '100%', height: '700px' }}
-                        autoPlay={true}
-                        autoPlaySpeed={6000}
+                        autoPlay={{interval : 5000}}
                         indicatorType='dot'
                         showArrow='hover'
                         >
@@ -85,14 +85,17 @@ const TouristHome = () => {
                             {merchantsCategories.map(category => (
                                 <div key={category.categoryId} style={{ marginBottom: '20px' }}>
                                     <Title className="category-title" heading={2}>{category.categoryName}</Title>
-                                    <Space wrap size="large" style={{ width: '100%' }}>
+                                    <Space wrap size="medium" style={{ width: '100%' }}>
                                         {(merchantsMap.get(category) || []).map((merchant, index) => (
                                             <Card
                                                 key={merchant.merchantId}
                                                 hoverable
                                                 className={styles['shop-card']}
-                                                cover={<img alt={merchant.name} src={merchant.imageUrl} />}
-                                                onClick={() => navigate(`/tourist/merchant/${merchant.merchantId}`)}
+                                                cover={
+                                                    <img alt={merchant.name} src={merchant.imageUrl} 
+                                                    onClick={() => navigate(`/tourist/merchant/${merchant.merchantId}`)}
+                                                    />
+                                                }
                                             >
                                                 <Card.Meta title={merchant.name} description={`${merchant.businessType} ${merchant.address}`} />
                                             </Card>
@@ -107,8 +110,6 @@ const TouristHome = () => {
 
             <Footer />
         </Layout>
-
-        
     );
 }
 

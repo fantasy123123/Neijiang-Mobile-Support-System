@@ -4,8 +4,7 @@ import { Message } from '@arco-design/web-react';
 
 // 获取 token 的方法，可以根据实际情况调整
 const getToken = () => {
-    // return "eyJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50SWQiOjQsInJvbGVJZCI6MywiZXhwIjoxNzIxMTM4NzI2fQ.UgG_CRsEpfk_hPqHCNWKUXlJ0OLX4sIeJeeZqn7yPJw"
-    return localStorage.getItem('token');
+  return localStorage.getItem('token');
 };
 
 // 创建 Axios 实例

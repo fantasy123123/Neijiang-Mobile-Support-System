@@ -13,7 +13,6 @@ import {
     Switch,
     Menu, Dropdown, Select
 } from "@arco-design/web-react";
-import {IconDown} from "@arco-design/web-react/icon";
 import axiosInstance from "../../../Resquest/axiosInstance";
 import {marked} from 'marked'
 import {format} from 'date-fns'
@@ -22,6 +21,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import NetworkError from "../../../common/error";
 const {Meta} = Card;
+const { Title } = Typography;
 
 const TouristArticle = () => {
     const navigate = useNavigate();
@@ -138,51 +138,57 @@ const TouristArticle = () => {
 
     return (
         <Layout style={{
-            "width" : "100%",
-            "background-color": "#ffffff",
+            width : "100%",
+            backgroundColor : "#fbfbfb",
+            overflow : 'auto'
         }}>
             <Header />
-            <Layout style={{ padding: " 12px 12px 12px 12px" }}>
-                <div>
-                    <div style={{
-                        border: "1px solid #ccc",
-                        padding: "2px",
-                        borderRadius: "5px",
-                        backgroundColor: "#ffffff",
-                        display: "inline-block",
-                    }}>
-                        文章分类:
-                        <Select
-                            allowClear
-                            style={{
-                                width: 150,
+            <Layout style={{ paddingLeft: 24, paddingRight: 24 }}>
+                <span>
+                    <Title heading={2}>社区文章</Title>
+                    <div style={{display: 'flex', width: '100%', justifyContent: 'end', alignItems: 'center', marginBottom: "10px"}}>
+                        <div style={{
+                            border: "1px solid #ccc",
+                            padding: "2px",
+                            borderRadius: "5px",
+                            backgroundColor: "#ffffff",
+                            display: "inline-block",
+                        }}>
+                            文章分类: 
+                            <Select
+                                allowClear
+                                style={{
+                                    width: 150,
+                                    marginLeft: 5
+                                }}
+                                placeholder={'选择文章分类'}
+                                    onChange={(value)=>{
+                                        setSelectedCategory(value);
+                                    }}>
+                                {
+                                    category.map((item, index) => (
+                                        <Select.Option key={item.categoryId} value={item.categoryName}>{item.categoryName}</Select.Option>
+                                    ))
+                                }
+                            </Select>
+                        </div>
+                        <Switch style={{margin: "0 12px 0" }} uncheckedText={'仅查看好友'} checkedText={'仅查看好友'}
+                            onChange={()=> {
+                                setOnlyFriend(!onlyFriend);
                             }}
-                            placeholder={'选择文章分类'}
-                                onChange={(value)=>{
-                                    setSelectedCategory(value);
-                                }}>
-                            {
-                                category.map((item, index) => (
-                                    <Select.Option key={item.categoryId} value={item.categoryName}>{item.categoryName}</Select.Option>
-                                ))
-                            }
-                        </Select>
+                        />
+                        <Button onClick={()=>navigate('/tourist/article/edit')} type="outline">编辑文章</Button>
                     </div>
-                    <Switch style={{margin: "0 12px 0" }} uncheckedText={'仅查看好友'} checkedText={'仅查看好友'}
-                        onChange={()=> {
-                            setOnlyFriend(!onlyFriend);
-                        }}
-                    />
-                    <Button onClick={()=>navigate('/tourist/article/edit')} style={{margin: "0 12px 12px" }} type="outline">编辑文章</Button>
-                </div>
+                </span>
+                
                 {
                     !loading ? <NetworkError/> :
                         (
                             filterArticles.length > 0 ?
                                 (
                                     filterArticles.map(article => (
-                                        <Card style={{ margin: "0 0 12px" }}
-                                              key={article.articleId} title={
+                                        <Card style={{ margin: "0 0 12px", backgroundColor: '#fff' }}
+                                            key={article.articleId} title={
                                             <>
                                                 {article.title}
                                                 <Typography.Text code style={{margin: '0 10px'}}>{article.categoryName}</Typography.Text>
