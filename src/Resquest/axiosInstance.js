@@ -33,7 +33,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   response => response,
   error => {
-    Message.error('Network Error!');
+    // Message.error('Network Error!');
     return Promise.reject(error);
   }
 );

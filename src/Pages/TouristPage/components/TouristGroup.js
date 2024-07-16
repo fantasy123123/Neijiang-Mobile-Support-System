@@ -87,15 +87,15 @@ const TouristGroup = () => {
                     <Layout style={{ padding: '0 24px 24px', display: 'flex', flexDirection: 'column' }}>
                         <Title heading={2}>群组列表</Title>
                         {loading ? (
-                            <Spin style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70vh' }} />
+                            <Spin style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} />
                         ) : (
                             <List
                                 dataSource={groups}
-                                style={{ width: '100%' }}
+                                style={{ width: '100%',height:670,overflow:'auto' }}
                                 render={(item, index) => (
                                     <List.Item
                                         key={index}
-                                        style={{ backgroundColor: '#fff' }}
+                                        style={{ backgroundColor: '#fff' ,cursor:'pointer'}}
                                         onClick={() => joinRoom(item.groupId, item.groupName)}
                                         actions={[
                                             <Button type="text" 

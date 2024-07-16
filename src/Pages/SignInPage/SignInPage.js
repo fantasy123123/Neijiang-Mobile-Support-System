@@ -89,7 +89,7 @@ const SignInPage = () => {
             ctx.textBaseline = 'alphabetic'
             let x = (i + 1) * (config.contentWidth / (identifyCode.length + 1))
             let y = randomNum(config.fontSizeMax, config.contentHeight - 12)
-            let deg = randomNum(-45, 45)
+            let deg = randomNum(-20, 20)
             ctx.translate(x, y)
             ctx.rotate(deg * Math.PI / 180)
             ctx.fillText(txt, 0, 0)
