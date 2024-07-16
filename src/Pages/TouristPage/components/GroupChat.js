@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import {  useLocation, useParams } from 'react-router-dom';
 import axiosInstance from '../../../Resquest/axiosInstance';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { Card, List, Input, Button, Typography, Avatar, Modal, Form } from "@arco-design/web-react";
-import { IconArrowLeft, IconMore } from "@arco-design/web-react/icon";
+import {IconMore } from "@arco-design/web-react/icon";
 import { useUser } from "../../../Context/UserContext";
 import styles from "./GroupChat.module.css";
 
@@ -18,13 +18,13 @@ const GroupChat = () => {
     const [accountId, setAccountId] = useState(localStorage.getItem('accountId'));
     const [members, setMembers] = useState([]);
     const clientRef = useRef(null);
-    const navigate = useNavigate();
     const location = useLocation();
     const { groupId } = useParams();
     const groupName = location.state?.groupName;
     const [memberInfoModalVisible, setMemberInfoModalVisible] = useState(false);
     const [selectedMember, setSelectedMember] = useState({});
     const [groupMembersModalVisible, setGroupMembersModalVisible] = useState(false);
+    const listRef = useRef(null);
 
     useEffect(() => {
         const fetchRoomInfo = async () => {
@@ -56,6 +56,12 @@ const GroupChat = () => {
             );
         };
         fetchGroupMembers();
+
+        setTimeout(()=>{
+            if(listRef.current){
+                listRef.current.scrollTop = listRef.current.scrollHeight;
+            }
+        },15)
     }, [groupId, user]);
 
     useEffect(() => {
@@ -111,115 +117,110 @@ const GroupChat = () => {
     };
 
     return (
-        <div style={{ width: '100%' }}>
+        <div style={{ width: '100%'}}>
             <div style={{ padding: '24px', display: 'flex', flexDirection: 'column' }}>
-                <Button 
-                    icon={<IconArrowLeft />} 
-                    onClick={() => navigate(-1)} 
-                    style={{ marginBottom: '16px', width: 120 }}
-                >
-                    返回
-                </Button>
-                <Card
-                    title={
-                        <span>
-                            <Title heading={4} style={{ margin: 'auto', display: 'inline' }}>{groupName}</Title>
-                            <IconMore 
+                <div style={{ flex: 1,boxShadow: '0 0 8px 2px #aaa',borderRadius:10}}>
+                    <div style={{backgroundColor:'white',height:50,display:'flex',borderTopRightRadius:10,borderTopLeftRadius:10}}>
+                        <Title heading={4} style={{ margin: 'auto'}}>
+                            {groupName}
+                            <IconMore
                                 style={{ marginLeft: 14 }}
                                 onClick={handleMoreClick}
                             />
-                        </span>
-                    } 
-                    style={{ flex: 1 }}
-                    bodyStyle={{ backgroundColor: '#fbfbfb', maxHeight: 600, overflow: 'auto' }}
-                >
-                    <List
-                        bordered={false}
-                        split={false}
-                        dataSource={messages}
-                        render={(message, index) => {
-                            const memberInfo = getMemberInfo(message.accountId);
+                        </Title>
+                    </div>
+                    <div
+                        style={{ backgroundColor: 'whitesmoke', maxHeight: 600, overflow: 'auto' }}
+                        ref={listRef}
+                    >
+                        <List
+                            bordered={false}
+                            split={false}
+                            dataSource={messages}
+                            render={(message, index) => {
+                                const memberInfo = getMemberInfo(message.accountId);
 
-                            if (message.action === 'create') {
-                                return (
-                                    <List.Item 
-                                        key={index} 
-                                        style={{ display: 'flex', justifyContent: 'center', padding: '4px 0' }}
-                                    >
-                                        <div style={{ color: '#888', textAlign: 'center', margin: 4 }}>
-                                            {message.details}
-                                        </div>
-                                    </List.Item>
-                                );
-                            } else if (message.action === 'add') {
-                                return (
-                                    <List.Item 
-                                        key={index}
-                                        style={{ display: 'flex', justifyContent: 'center', padding: '4px 0' }}
-                                    >
-                                        <div style={{ color: '#888', textAlign: 'center', margin: 4 }}>
-                                            {message.details} {memberInfo?.name}
-                                        </div>
-                                    </List.Item>
-                                );
-                            } else {
-                                return (
-                                    <List.Item key={index} style={{
-                                        display: 'flex',
-                                        justifyContent: message.accountId == accountId ? 'flex-end' : 'flex-start',
-                                        padding: '4px 0'
-                                    }}>
-                                        <div style={{
+                                if (message.action === 'create') {
+                                    return (
+                                        <List.Item
+                                            key={index}
+                                            style={{ display: 'flex', justifyContent: 'center', padding: '4px 0' }}
+                                        >
+                                            <div style={{ color: '#888', textAlign: 'center', margin: 4 }}>
+                                                {message.details}
+                                            </div>
+                                        </List.Item>
+                                    );
+                                } else if (message.action === 'add') {
+                                    return (
+                                        <List.Item
+                                            key={index}
+                                            style={{ display: 'flex', justifyContent: 'center', padding: '4px 0' }}
+                                        >
+                                            <div style={{ color: '#888', textAlign: 'center', margin: 4 }}>
+                                                {message.details} {memberInfo?.name}
+                                            </div>
+                                        </List.Item>
+                                    );
+                                } else {
+                                    return (
+                                        <List.Item key={index} style={{
                                             display: 'flex',
-                                            flexDirection: message.accountId == accountId ? 'row-reverse' : 'row',
-                                            alignItems: 'center',
-                                            margin: 4
+                                            justifyContent: message.accountId == accountId ? 'flex-end' : 'flex-start',
+                                            padding: '4px 0'
                                         }}>
-                                            <Avatar 
-                                                size={32} 
-                                                style={{ margin: '0 8px' }} 
-                                                onClick={() => handleAvatarClick(memberInfo)}
-                                            >
-                                                <img src={memberInfo?.imageUrl} />
-                                            </Avatar>
-                                            <div>
-                                                <div style={{
-                                                    fontSize: 12,
-                                                    color: 'grey',
-                                                    textAlign: message.accountId == accountId ? 'right' : 'left',
-                                                    marginBottom: 2
-                                                }}>
-                                                    {memberInfo?.name}
-                                                </div>
-                                                <div style={{
-                                                    backgroundColor: message.accountId == accountId ? '#7bee51' : '#ffffff',
-                                                    borderRadius: '16px',
-                                                    padding: '8px 12px',
-                                                    maxWidth: '300px',
-                                                    wordBreak: 'break-word',
-                                                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
-                                                }}>
-                                                    {message.details}
+                                            <div style={{
+                                                display: 'flex',
+                                                flexDirection: message.accountId == accountId ? 'row-reverse' : 'row',
+                                                alignItems: 'center',
+                                                margin: 4
+                                            }}>
+                                                <Avatar
+                                                    size={32}
+                                                    style={{ margin: '0 8px' }}
+                                                    onClick={() => handleAvatarClick(memberInfo)}
+                                                >
+                                                    <img src={memberInfo?.imageUrl} />
+                                                </Avatar>
+                                                <div>
+                                                    <div style={{
+                                                        fontSize: 12,
+                                                        color: 'grey',
+                                                        textAlign: message.accountId == accountId ? 'right' : 'left',
+                                                        marginBottom: 2
+                                                    }}>
+                                                        {memberInfo?.name}
+                                                    </div>
+                                                    <div style={{
+                                                        backgroundColor: message.accountId == accountId ? '#7bee51' : '#ffffff',
+                                                        borderRadius: '16px',
+                                                        padding: '8px 12px',
+                                                        maxWidth: '300px',
+                                                        wordBreak: 'break-word',
+                                                        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+                                                    }}>
+                                                        {message.details}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </List.Item>
-                                );
-                            }
-                        }}
-                    />
-                </Card>
-                <div style={{ display: 'flex', marginTop: '16px' }}>
-                    <TextArea
-                        value={content}
-                        onChange={(e) => setContent(e)}
-                        rows={3}
-                        placeholder="输入消息..."
-                        style={{ flex: 1, marginRight: '8px' }}
-                    />
-                    <Button type="primary" onClick={sendMessage}>
-                        发送
-                    </Button>
+                                        </List.Item>
+                                    );
+                                }
+                            }}
+                        />
+                    </div>
+                    <div style={{ display: 'flex',backgroundColor:'white',padding:15,borderBottomLeftRadius:10,borderBottomRightRadius:10}}>
+                        <TextArea
+                            value={content}
+                            onChange={(e) => setContent(e)}
+                            autoSize={{minRows:1,maxRows:2}}
+                            placeholder="输入消息..."
+                            style={{ flex: 1, marginRight: '8px' }}
+                        />
+                        <Button type="primary" onClick={sendMessage}>
+                            发送
+                        </Button>
+                    </div>
                 </div>
             </div>
 
