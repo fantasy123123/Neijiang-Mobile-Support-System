@@ -336,8 +336,8 @@ const MerchantDetail = () => {
                             render={(item, index) => (
                                 <List.Item key={index} className={styles['comment-item']}>
                                     <Comment
-                                        author={`用户${item.userId}`}
-                                        avatar="https://via.placeholder.com/40"
+                                        author={item.name}
+                                        avatar={item.imageUrl}
                                         content={item.content}
                                         datetime={new Date(item.createdAt).toLocaleString()}
                                         actions={[<Rate disabled value={item.rating} />]}
