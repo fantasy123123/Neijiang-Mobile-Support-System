@@ -89,7 +89,7 @@ const TouristArticle = () => {
                             return {
                                 ...article,
                                 authorName:  authorData.name,
-                                authorImageUrl: 'https://mobile-support-platform.oss-cn-chengdu.aliyuncs.com/user/' + authorData.imageUrl,
+                                authorImageUrl: authorData.imageUrl,
                                 createdAt: formattedDate,
                                 userId: authorData.userId,
                                 isFriend: friendIdList.includes(authorData.userId),
@@ -121,7 +121,7 @@ const TouristArticle = () => {
             isOmitted = true;
             firstParagraph = firstParagraph.substring(0, length) + '...';
         }
-        else if(match.length > 2){
+        else if(content.length > 100){
             isOmitted = true;
         }
         // console.log(firstParagraph) 

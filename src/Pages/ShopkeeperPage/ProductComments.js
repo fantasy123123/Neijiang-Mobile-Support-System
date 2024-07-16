@@ -4,7 +4,6 @@ import {Button, Input, List, Comment, Modal, Rate, Table, Card} from "@arco-desi
 import {IconHeart, IconHeartFill, IconSearch} from "@arco-design/web-react/icon";
 import avatar from './images/initPerson.png'
 import './ShopkeeperPage.css'
-import async from "async";
 
 const ProductComments=()=>{
     const [productData,setProductData]=useState([])
