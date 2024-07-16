@@ -109,7 +109,7 @@ const TouristGroup = () => {
                                         ]}
                                     >
                                         <List.Item.Meta
-                                            avatar={<Avatar src={item.imageUrl} />}
+                                            avatar={<Avatar><img src={item.imageUrl} /></Avatar>}
                                             title={item.groupName}
                                             description={item.description}
                                         />

@@ -14,9 +14,10 @@ const TouristPage = () => {
     useEffect(() => {
         navigate('/tourist/home');
 
-        axiosInstance.get('/users/accounts/3')
+        axiosInstance.get(`/users/accounts/${localStorage.getItem('accountId')}`)
             .then(res => {
                 setUser(res.data.data);
+                console.log(res.data.data)
             })
             .catch(error => {
                 console.error(error);

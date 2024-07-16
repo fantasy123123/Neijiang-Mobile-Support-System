@@ -109,7 +109,7 @@ const MerchantDetail = () => {
             try {
                 // 获取群组信息
                 const groupRes = await axiosInstance.get(`/groups/owners/${ownerId}`);
-                const groupData = groupRes.data.data;
+                const groupData = groupRes.data.data[0];
                 if (!groupData) {
                     setDisableButton(true);
                     return;

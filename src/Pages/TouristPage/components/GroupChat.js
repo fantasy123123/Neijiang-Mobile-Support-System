@@ -178,9 +178,10 @@ const GroupChat = () => {
                                             <Avatar 
                                                 size={32} 
                                                 style={{ margin: '0 8px' }} 
-                                                src={memberInfo?.imageUrl}
                                                 onClick={() => handleAvatarClick(memberInfo)}
-                                            />
+                                            >
+                                                <img src={memberInfo?.imageUrl} />
+                                            </Avatar>
                                             <div>
                                                 <div style={{
                                                     fontSize: 12,
@@ -194,7 +195,7 @@ const GroupChat = () => {
                                                     backgroundColor: message.accountId == accountId ? '#7bee51' : '#ffffff',
                                                     borderRadius: '16px',
                                                     padding: '8px 12px',
-                                                    maxWidth: '70%',
+                                                    maxWidth: '300px',
                                                     wordBreak: 'break-word',
                                                     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
                                                 }}>
@@ -254,7 +255,7 @@ const GroupChat = () => {
                     render={(member, index) => (
                         <List.Item key={index}>
                             <List.Item.Meta
-                                avatar={<Avatar src={member.imageUrl} />}
+                                avatar={<Avatar><img  src={member.imageUrl}/></Avatar>}
                                 title={member.name}
                                 description={member.role}
                             />

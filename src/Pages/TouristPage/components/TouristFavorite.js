@@ -65,7 +65,7 @@ const TouristFavorite = () => {
             <Header />
             <Layout style={{ padding: '0 24px 24px' }}>
                 <Tabs defaultActiveTab="merchant-favorites" style={{paddingTop : 5}}>
-                    <Tabs.TabPane key="merchant-favorites" title="商户收藏">
+                    <Tabs.TabPane key="merchant-favorites" title="商户收藏" style={{minHeight : 400}}>
                         {loading ? (
                             <Spin style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>Loading...</Spin>
                         ) : (
@@ -108,7 +108,7 @@ const TouristFavorite = () => {
                             />
                         )}
                     </Tabs.TabPane>
-                    <Tabs.TabPane key="product-favorites" title="商品收藏">
+                    <Tabs.TabPane key="product-favorites" title="商品收藏" style={{minHeight : 400}}>
                         {loading ? (
                             <Spin style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>Loading...</Spin>
                         ) : (
