@@ -4,6 +4,7 @@ import {Button, Input, List, Comment, Modal, Rate, Table, Card} from "@arco-desi
 import {IconHeart, IconHeartFill, IconSearch} from "@arco-design/web-react/icon";
 import avatar from './images/initPerson.png'
 import './ShopkeeperPage.css'
+import async from "async";
 
 const ProductComments=()=>{
     const [productData,setProductData]=useState([])
@@ -13,7 +14,7 @@ const ProductComments=()=>{
     const [likes, setLikes] =useState([]);
 
     useEffect(()=>{
-         axiosInstance.get('/products/merchants/accountId/'+localStorage.getItem('accountId')).then(
+        axiosInstance.get('/products/merchants/accountId/'+localStorage.getItem('accountId')).then(
             async res=>{
                 await res.data.data.forEach(value => {
                     likes.push(false)
