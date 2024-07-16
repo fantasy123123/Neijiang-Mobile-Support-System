@@ -36,7 +36,7 @@ const TouristPage = () => {
 
     return (
         <div className={styles['touristBackground']}>
-            <div className={styles['sideBar']} style={{ height: '100%', width: '15%'}}>
+            <div className={styles['sideBar']} style={{ height: '100%', width: '15%',position:'fixed',top:0,left:0}}>
                 <div style={{ width: '100%', height: '10%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <img src='' alt='' height="100%" />
                 </div>
@@ -60,7 +60,7 @@ const TouristPage = () => {
                     </Menu>
                 </Layout>
             </div>
-            <div style={{ height: '100%', width: '85%' }}>
+            <div style={{ height: '100%', width: '85%',position:'absolute',top:0,left:'15%' }}>
                 <Outlet />
             </div>
         </div>
