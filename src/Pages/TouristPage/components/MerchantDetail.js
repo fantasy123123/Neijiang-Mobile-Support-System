@@ -198,6 +198,21 @@ const MerchantDetail = () => {
                 .then(() => {
                     setIsFavorite(true);
                     Message.success("Added to favorites");
+
+                    axiosInstance
+                        .get(`/users/favorite_merchants/${user.userId}/${merchantId}`)
+                        .then((res) => {
+                            const result = res.data.data;
+                            if (result != 0){
+                                setFavoriteId(result);
+                            } else {
+                                setIsFavorite(false);
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Failed to check favorite status:", error);
+                            Message.error("Failed to check favorite status");
+                        });
                 })
                 .catch((error) => {
                     console.error("Failed to add to favorites:", error);
