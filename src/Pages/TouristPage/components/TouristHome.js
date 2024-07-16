@@ -48,7 +48,7 @@ const TouristHome = () => {
                 console.error('Failed to fetch categories:', error);
                 Message.error('Failed to fetch categories');
             });
-    }, []);
+    }, [location]);
 
     const imageSrc = [
         pic1, pic2, pic3, pic4, pic5, pic6
