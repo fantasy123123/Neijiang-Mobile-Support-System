@@ -199,22 +199,6 @@ const ProductDetail = () => {
                     )}
 
                     <div className={styles['comments-section']}>
-                        <Title heading={3}>评论</Title>
-                        <List
-                            dataSource={comments}
-                            render={(item, index) => (
-                                <List.Item key={index} className={styles['comment-item']}>
-                                    <Comment
-                                        author={`用户${item.userId}`}
-                                        avatar="https://via.placeholder.com/40"
-                                        content={item.content}
-                                        datetime={new Date(item.createdAt).toLocaleString()}
-                                        actions={[<Rate disabled value={item.rating} />]}
-                                    />
-                                </List.Item>
-                            )}
-                        />
-
                         <div className={styles['comment-form']}>
                             <Title className="add-comment-title" heading={4}>
                                 添加评论
@@ -237,6 +221,23 @@ const ProductDetail = () => {
                                 </div>
                             </Space>
                         </div>
+
+                        <Title heading={3}>评论</Title>
+                        <List
+                            dataSource={comments}
+                            render={(item, index) => (
+                                <List.Item key={index} className={styles['comment-item']}>
+                                    <Comment
+                                        author={item.name}
+                                        avatar={item.imageUrl}
+                                        content={item.content}
+                                        datetime={new Date(item.createdAt).toLocaleString()}
+                                        actions={[<Rate disabled value={item.rating} />]}
+                                    />
+                                </List.Item>
+                            )}
+                        />
+
                     </div>
                 </Content>
             </Layout>

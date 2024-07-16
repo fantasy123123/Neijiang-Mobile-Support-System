@@ -330,22 +330,6 @@ const MerchantDetail = () => {
                     </Space>
 
                     <div className={styles['comments-section']}>
-                        <Title heading={3}>评论</Title>
-                        <List
-                            dataSource={comments}
-                            render={(item, index) => (
-                                <List.Item key={index} className={styles['comment-item']}>
-                                    <Comment
-                                        author={item.name}
-                                        avatar={item.imageUrl}
-                                        content={item.content}
-                                        datetime={new Date(item.createdAt).toLocaleString()}
-                                        actions={[<Rate disabled value={item.rating} />]}
-                                    />
-                                </List.Item>
-                            )}
-                        />
-
                         <div className={styles['comment-form']}>
                             <Title className="add-comment-title" heading={4}>
                                 添加评论
@@ -368,6 +352,22 @@ const MerchantDetail = () => {
                                 </div>
                             </Space>
                         </div>
+
+                        <Title heading={3}>评论</Title>
+                        <List
+                            dataSource={comments}
+                            render={(item, index) => (
+                                <List.Item key={index} className={styles['comment-item']}>
+                                    <Comment
+                                        author={item.name}
+                                        avatar={item.imageUrl}
+                                        content={item.content}
+                                        datetime={new Date(item.createdAt).toLocaleString()}
+                                        actions={[<Rate disabled value={item.rating} />]}
+                                    />
+                                </List.Item>
+                            )}
+                        />
                     </div>
                 </Content>
             </Layout>
