@@ -17,8 +17,13 @@ const Header = () => {
     }, [user, setUser]);
 
     const handleLogOut = () => {
-        setUser({});
-        navigate('/');
+        if(window.confirm('确认登出？')){
+            setUser({});
+            navigate('/signIn');
+            localStorage.removeItem('token')
+            localStorage.removeItem('roleId')
+            localStorage.removeItem('accountId')
+        }
     }
 
     const handleSearch = async () => {

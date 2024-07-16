@@ -13,10 +13,10 @@ const ProductComments=()=>{
     const [viewObject,setViewObject]=useState({})
     const [likes, setLikes] =useState([]);
 
-    useEffect(()=>{
-        axiosInstance.get('/products/merchants/accountId/'+localStorage.getItem('accountId')).then(
-            async res=>{
-                await res.data.data.forEach(value => {
+    async function init(){
+        await  axiosInstance.get('/products/merchants/accountId/'+localStorage.getItem('accountId')).then(
+            res=>{
+                res.data.data.forEach(value => {
                     likes.push(false)
                     axiosInstance.get('/comments/product_comments/products/'+value.productId).then(
                         res=>{
@@ -34,14 +34,18 @@ const ProductComments=()=>{
                         }
                     )
                 })
-                setProductData([...productData])
-                setLikes([...likes])
             }
         ).catch(
             err=>{
                 console.log(err)
             }
         )
+        setProductData([...productData])
+        setLikes([...likes])
+    }
+
+    useEffect(()=>{
+        init()
     },[])
 
     const column=[
