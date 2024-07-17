@@ -61,7 +61,7 @@ const GroupChat = () => {
             if(listRef.current){
                 listRef.current.scrollTop = listRef.current.scrollHeight;
             }
-        },15)
+        }, 15)
     }, [groupId, user]);
 
     useEffect(() => {
@@ -89,6 +89,12 @@ const GroupChat = () => {
             return () => client.deactivate();
         }
     }, [groupId, user]);
+
+    useEffect(() => {
+        if(listRef.current){
+            listRef.current.scrollTop = listRef.current.scrollHeight;
+        }
+    }, [messages]);
 
     const sendMessage = () => {
         if (accountId && content && groupId) {
