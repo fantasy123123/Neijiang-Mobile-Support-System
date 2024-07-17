@@ -104,10 +104,6 @@ const TouristArticleEdit = () => {
         };
     }, []);
 
-    // @ts-ignore
-    // @ts-ignore
-    // @ts-ignore
-    // @ts-ignore
     return (
         <Layout style={{
             "width" : "100%",
@@ -218,7 +214,6 @@ const TouristArticleEdit = () => {
                     handleUploadArticle();
                 }}
             >
-                {/*@ts-ignore*/}
                 <div dangerouslySetInnerHTML={{__html: marked(vdContent)}}/>
             </Modal>
             <Layout style={{margin: "0 24px 24px 24px"}}>

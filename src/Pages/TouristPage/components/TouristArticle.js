@@ -216,7 +216,7 @@ const TouristArticle = () => {
                                         </Card>
                                     ))
                                 ) : (
-                                    <Empty/>
+                                    <Empty style={{minHeight: 400}}/>
                                 )
                         )
                 }
