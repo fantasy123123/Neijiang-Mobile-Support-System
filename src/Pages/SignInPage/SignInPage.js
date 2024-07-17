@@ -149,7 +149,7 @@ const SignInPage = () => {
             textAlign: 'center',
           }}
         >
-            <div style={{fontSize:25,fontWeight:"bold",color:'deepskyblue'}}>登录</div>
+            <div style={{fontSize:25,fontWeight:"bold",color:'deepskyblue'}}>内江移动支撑平台</div>
             <Form autoComplete="off" ref={formRef} style={{marginTop:'7.5%'}}>
 
                 <FormItem field="用户名" rules={[{ required: true }]} style={{marginTop:'2.5%'}}>
