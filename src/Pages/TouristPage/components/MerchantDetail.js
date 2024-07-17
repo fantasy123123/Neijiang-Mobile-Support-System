@@ -158,6 +158,8 @@ const MerchantDetail = () => {
                 content: commentContent,
                 rating: commentRating,
                 createdAt: new Date().toISOString(),
+                name: user.name,
+                imageUrl: user.imageUrl
             };
 
             axiosInstance
@@ -166,14 +168,14 @@ const MerchantDetail = () => {
                     setComments([...comments, newComment]);
                     setCommentContent("");
                     setCommentRating(0);
-                    Message.success("Comment added successfully");
+                    Message.success("添加评论成功");
                 })
                 .catch((error) => {
                     console.error("Failed to add comment:", error);
                     Message.error("Failed to add comment");
                 });
         } else {
-            Message.error("Please enter content and rating for the comment");
+            Message.error("请输入评论内容或评分");
         }
     };
 
@@ -183,7 +185,7 @@ const MerchantDetail = () => {
                 .delete(`/users/favorite_merchants/${favoriteId}`)
                 .then(() => {
                     setIsFavorite(false);
-                    Message.success("Removed from favorites");
+                    Message.success("收藏移除成功");
                 })
                 .catch((error) => {
                     console.error("Failed to remove from favorites:", error);
@@ -197,7 +199,7 @@ const MerchantDetail = () => {
                 })
                 .then(() => {
                     setIsFavorite(true);
-                    Message.success("Added to favorites");
+                    Message.success("添加收藏成功");
 
                     axiosInstance
                         .get(`/users/favorite_merchants/${user.userId}/${merchantId}`)
@@ -230,7 +232,7 @@ const MerchantDetail = () => {
                     role: '成员'
                 });
                 if (response.data.status === 'success') {
-                    Message.success("Successfully joined the group");
+                    Message.success("加入群组成功");
                     setIsJoinGroup(true);
                 } else {
                     Message.error("Failed to join the group");

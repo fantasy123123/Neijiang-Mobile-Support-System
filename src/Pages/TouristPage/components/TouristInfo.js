@@ -161,14 +161,22 @@ const TouristInfo = () => {
             onOk: () => {
                 const deleteFriendData = {
                     userId: user.userId,
-                    friendId: friendId,
+                    friendId: friendId
                 };
     
-                axiosInstance.delete('/users/friends/', { data: deleteFriendData })
+                axiosInstance.delete('/users/friends', { data: deleteFriendData })
                     .then(() => {
-                        Message.success('好友删除成功');
+                        const deleteData = {
+                            userId: friendId,
+                            friendId: user.userId
+                        };
+
+                        axiosInstance.delete('/users/friends', { data: deleteData })
+                        .then(() => {
+                            Message.success('好友删除成功');
                         // 更新好友列表
                         setFriends(friends.filter(friend => friend.userId !== friendId));
+                        });
                     })
                     .catch(() => {
                         Message.error('好友删除失败');
@@ -468,7 +476,7 @@ const TouristInfo = () => {
                                                 ]}
                                             >
                                                 <List.Item.Meta
-                                                    avatar={<Avatar src={item.imageUrl} />}
+                                                    avatar={<Avatar><img src={item.imageUrl} /></Avatar>}
                                                     title={item.name}
                                                     description={`邮箱: ${item.email}, 电话: ${item.phone}`}
                                                 />
@@ -503,7 +511,7 @@ const TouristInfo = () => {
                                             ]}
                                         >
                                             <List.Item.Meta
-                                                avatar={<Avatar src={item.imageUrl} />}
+                                                avatar={<Avatar><img src={item.imageUrl}/></Avatar>}
                                                 title={`${item.name} 请求添加你为好友`}
                                                 description={`邮箱: ${item.email}, 电话: ${item.phone}`}
                                             />

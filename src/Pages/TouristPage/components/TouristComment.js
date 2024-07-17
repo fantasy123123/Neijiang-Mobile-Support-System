@@ -68,7 +68,7 @@ const TouristComment = () => {
         const url = type === 'merchant' ? `/comments/merchant_comments/${commentId}` : `/comments/product_comments/${commentId}`;
         axiosInstance.delete(url)
             .then(() => {
-                Message.success('Comment deleted successfully');
+                Message.success('评论删除成功');
                 if (type === 'merchant') {
                     setMerchantComments(comments => comments.filter(comment => comment.commentId !== commentId));
                 } else {
@@ -85,7 +85,7 @@ const TouristComment = () => {
         axiosInstance.put(url, updatedComment)
             .then((res) => {
                 if (res.status === 200) {
-                    Message.success('Comment updated successfully');
+                    Message.success('评论更新成功');
                     setMerchantComments(comments => 
                         comments.map(comment => 
                             comment.commentId === editingComment.commentId ? { ...comment, content: newContent, rating: newRating } : comment

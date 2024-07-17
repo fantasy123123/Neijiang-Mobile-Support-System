@@ -100,9 +100,16 @@ const TouristArticle = () => {
                 );
 
                 // 更新文章列表状态
-                setArticles(updatedArticles);
-                setFilterArticles(updatedArticles)
-                console.log('updatedArticles', updatedArticles);
+
+                const sortedArticles = updatedArticles.sort((a, b) => {
+                    const dateA = new Date(a.createdAt);
+                    const dateB = new Date(b.createdAt);
+                    return dateB - dateA;
+                });
+                  
+                setArticles(sortedArticles);
+                setFilterArticles(sortedArticles)
+                console.log('updatedArticles', sortedArticles);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -141,7 +148,7 @@ const TouristArticle = () => {
             width : "100%",
             backgroundColor : "#fbfbfb",
             overflow : 'auto',
-            height: '100vh'
+            minHeight : 400
         }}>
             <Header />
             <Layout style={{ paddingLeft: 24, paddingRight: 24 }}>

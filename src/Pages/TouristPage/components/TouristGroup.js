@@ -64,7 +64,7 @@ const TouristGroup = () => {
                 const res = await axiosInstance.delete('/groups/members', { data: leaveGroupData });
                 if (res.data.status === 'success') {
                     setGroups(groups.filter(group => group.groupId !== currentGroup.groupId));
-                    Message.success('Successfully left the group');
+                    Message.success('离开群组成功');
                     navigate('/tourist/group');
                 } else {
                     Message.error('Failed to leave group');
