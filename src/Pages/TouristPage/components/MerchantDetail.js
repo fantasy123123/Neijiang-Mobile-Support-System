@@ -158,6 +158,8 @@ const MerchantDetail = () => {
                 content: commentContent,
                 rating: commentRating,
                 createdAt: new Date().toISOString(),
+                name: user.name,
+                imageUrl: user.imageUrl
             };
 
             axiosInstance

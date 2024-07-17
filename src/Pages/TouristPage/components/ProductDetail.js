@@ -91,12 +91,14 @@ const ProductDetail = () => {
                 content: commentContent,
                 rating: commentRating,
                 createdAt: new Date().toISOString(),
+                name: user.name,
+                imageUrl: user.imageUrl
             };
 
             axiosInstance
                 .post("/comments/product_comments", newComment)
                 .then((res) => {
-                    setComments([...comments, newComment]);
+                    setComments([newComment, ...comments ]);
                     setCommentContent("");
                     setCommentRating(0);
                     Message.success("添加评论成功");
@@ -131,6 +133,22 @@ const ProductDetail = () => {
                 .then(() => {
                     setIsFavorite(true);
                     Message.success("收藏成功");
+
+                    axiosInstance
+                        .get(`/users/favorite_products/${user.userId}/${productId}`)
+                        .then((res) => {
+                            let result = res.data.data;
+                            if (result != 0){
+                                setFavoriteId(result);
+                                setIsFavorite(true);
+                            } else {
+                                setIsFavorite(false);
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Failed to check favorite status:", error);
+                            Message.error("Failed to check favorite status");
+                        });
                 })
                 .catch((error) => {
                     console.error("Failed to add to favorites:", error);

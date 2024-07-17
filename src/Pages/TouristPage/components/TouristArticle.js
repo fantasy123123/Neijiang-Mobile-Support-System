@@ -141,7 +141,7 @@ const TouristArticle = () => {
             width : "100%",
             backgroundColor : "#fbfbfb",
             overflow : 'auto',
-            height: '100vh'
+            minHeight : 400
         }}>
             <Header />
             <Layout style={{ paddingLeft: 24, paddingRight: 24 }}>
