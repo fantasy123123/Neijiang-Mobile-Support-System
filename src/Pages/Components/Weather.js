@@ -123,6 +123,7 @@ const Weather=()=>{
         axiosInstance.get('/weather/forecast?location="内江"').then(
             res=>{
                 setData(res.data.data)
+                console.log(res.data.data)
             }
         ).catch(
             err=>{
@@ -250,25 +251,24 @@ const Weather=()=>{
                             </div>
                             <br/>
                             <div>
-                                {data.week}
+                                星期：{data.week}
                             </div>
                             <br/>
                             <div>
                                 城市：{data.city}
                             </div>
                         </div>
-                        <div style={{width:'20%'}}>
+                        <div>
                             <div style={{color:'darkgray',fontSize:17}}>
                                 现在的气温：
                             </div>
-                            <div style={{fontSize:60,display:'flex',justifyContent:'space-around',color:'#165DFF'}}>
-                                <div>{data.tem}</div>
-                                <div>°C</div>
+                            <div style={{fontSize:60,display:'flex',justifyContent:'center',color:'#165DFF'}}>
+                                <div>{data.tem}°C</div>
                             </div>
                             <div style={{fontSize:25,display:'flex',justifyContent:'space-between'}}>
                                 <div style={{color:'deepskyblue'}}>{data.wea}</div>
 
-                                <div style={{color:'#6692ff'}}>{data.tem2} ~ {data.tem1} °C</div>
+                                <div style={{color:'#6692ff',marginLeft:35}}>{data.tem2} ~ {data.tem1} °C</div>
                             </div>
                         </div>
                         <div style={{border:'1.5px solid deepskyblue',borderRadius:10,display:'flex',justifyContent:'center',alignItems:'center',backgroundColor:'#f5fdff'}}>
