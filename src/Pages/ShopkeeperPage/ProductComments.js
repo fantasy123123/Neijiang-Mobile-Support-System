@@ -5,6 +5,7 @@ import {IconHeart, IconHeartFill, IconSearch} from "@arco-design/web-react/icon"
 import avatar from './images/initPerson.png'
 import './ShopkeeperPage.css'
 
+
 const ProductComments=()=>{
     const [productData,setProductData]=useState([])
     const inputRef1 = useRef(null);

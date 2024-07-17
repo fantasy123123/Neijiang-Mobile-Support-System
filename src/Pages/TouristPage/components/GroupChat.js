@@ -61,7 +61,7 @@ const GroupChat = () => {
             if(listRef.current){
                 listRef.current.scrollTop = listRef.current.scrollHeight;
             }
-        },15)
+        }, 15)
     }, [groupId, user]);
 
     useEffect(() => {
@@ -89,6 +89,12 @@ const GroupChat = () => {
             return () => client.deactivate();
         }
     }, [groupId, user]);
+
+    useEffect(() => {
+        if(listRef.current){
+            listRef.current.scrollTop = listRef.current.scrollHeight;
+        }
+    }, [messages]);
 
     const sendMessage = () => {
         if (accountId && content && groupId) {
@@ -118,7 +124,7 @@ const GroupChat = () => {
 
     return (
         <div style={{ width: '100%'}}>
-            <div style={{ padding: '24px', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ padding: '32px 24px 24px 24px', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ flex: 1,boxShadow: '0 0 8px 2px #aaa',borderRadius:10}}>
                     <div style={{backgroundColor:'white',height:50,display:'flex',borderTopRightRadius:10,borderTopLeftRadius:10}}>
                         <Title heading={4} style={{ margin: 'auto'}}>

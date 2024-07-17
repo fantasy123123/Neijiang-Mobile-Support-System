@@ -113,7 +113,7 @@ const TouristComment = () => {
     };
 
     return (
-        <Layout className={styles['whole-page']} style={{ height: '100vh', overflow: 'auto' }}>
+        <Layout className={styles['whole-page']} style={{ height: '100vh', overflow: 'auto', minHeight: 400 }}>
             <Header />
             
             <Layout style={{ padding: '0 24px 24px' }}>
