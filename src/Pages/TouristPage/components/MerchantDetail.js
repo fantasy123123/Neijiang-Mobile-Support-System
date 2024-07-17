@@ -175,7 +175,7 @@ const MerchantDetail = () => {
                     Message.error("Failed to add comment");
                 });
         } else {
-            Message.error("Please enter content and rating for the comment");
+            Message.error("请输入评论内容或评分");
         }
     };
 

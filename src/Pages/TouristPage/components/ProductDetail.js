@@ -98,7 +98,7 @@ const ProductDetail = () => {
             axiosInstance
                 .post("/comments/product_comments", newComment)
                 .then((res) => {
-                    setComments([newComment, ...comments ]);
+                    setComments([...comments, newComment ]);
                     setCommentContent("");
                     setCommentRating(0);
                     Message.success("添加评论成功");
@@ -108,7 +108,7 @@ const ProductDetail = () => {
                     Message.error("Failed to add comment");
                 });
         } else {
-            Message.error("Please enter content and rating for the comment");
+            Message.error("请输入评论内容或评分");
         }
     };
 
