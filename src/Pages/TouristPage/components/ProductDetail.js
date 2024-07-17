@@ -99,7 +99,7 @@ const ProductDetail = () => {
                     setComments([...comments, newComment]);
                     setCommentContent("");
                     setCommentRating(0);
-                    Message.success("Comment added successfully");
+                    Message.success("添加评论成功");
                 })
                 .catch((error) => {
                     console.error("Failed to add comment:", error);
@@ -116,7 +116,7 @@ const ProductDetail = () => {
                 .delete(`/users/favorite_products/${favoriteId}`)
                 .then(() => {
                     setIsFavorite(false);
-                    Message.success("Removed from favorites");
+                    Message.success("取消收藏成功");
                 })
                 .catch((error) => {
                     console.error("Failed to remove from favorites:", error);
@@ -130,7 +130,7 @@ const ProductDetail = () => {
                 })
                 .then(() => {
                     setIsFavorite(true);
-                    Message.success("Added to favorites");
+                    Message.success("收藏成功");
                 })
                 .catch((error) => {
                     console.error("Failed to add to favorites:", error);
