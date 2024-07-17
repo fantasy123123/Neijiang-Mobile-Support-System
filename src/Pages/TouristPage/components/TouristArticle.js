@@ -51,7 +51,7 @@ const TouristArticle = () => {
         const fetchArticles = async () => {
             try {
                 const friendList = await
-                    axiosInstance.get(`/users/friends/${localStorage.getItem('accountId')}`)
+                    axiosInstance.get(`/users/friends/${localStorage.getItem('userId')}`)
                         .catch(()=>{Message.error('Failed to fetch userInfo');setLoading(false)});
                 const friendIdList = friendList.data.data.map(item => item.friendId);
                 const response =
@@ -216,7 +216,7 @@ const TouristArticle = () => {
                                         </Card>
                                     ))
                                 ) : (
-                                    <Empty/>
+                                    <Empty style={{minHeight: 400}}/>
                                 )
                         )
                 }

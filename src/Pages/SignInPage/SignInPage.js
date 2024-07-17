@@ -201,7 +201,7 @@ const SignInPage = () => {
                             if (formRef.current) {
                                 try {
                                     await formRef.current.validate();
-                                    if(inputCode===code) {
+                                    if(inputCode.toLocaleLowerCase===code.toLocaleLowerCase) {
                                         axiosInstance.post('/accounts/tokens',{
                                             username:name,
                                             password:password

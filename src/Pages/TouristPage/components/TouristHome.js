@@ -27,21 +27,39 @@ const TouristHome = () => {
             .then(res => {
                 const categories = res.data.data;
                 setMerchantsCategories(categories);
-
+    
                 // 根据每个分类的ID获取对应的商户信息
                 const fetchMerchantInfo = async () => {
-                    const newMerchantsMap = new Map();
-                    for (const category of categories) {
-                        try {
-                            const response = await axiosInstance.get(`merchants/categories/${category.categoryId}`);
-                            newMerchantsMap.set(category, response.data.data);
-                        } catch (error) {
-                            console.error(`Failed to fetch merchants for category ${category.categoryId}:`, error);
-                            Message.error('Failed to fetch merchants');
-                        }
+                    try {
+                        // 创建一个Promise数组
+                        const promises = categories.map(category => {
+                            return axiosInstance.get(`merchants/categories/${category.categoryId}`)
+                                .then(response => ({ category, merchants: response.data.data }))
+                                .catch(error => {
+                                    console.error(`Failed to fetch merchants for category ${category.categoryId}:`, error);
+                                    Message.error('Failed to fetch merchants');
+                                    return null; // 返回null以便处理错误
+                                });
+                        });
+    
+                        // 使用Promise.all并行执行所有请求
+                        const results = await Promise.all(promises);
+    
+                        // 过滤掉失败的请求
+                        const newMerchantsMap = new Map();
+                        results.forEach(result => {
+                            if (result) {
+                                newMerchantsMap.set(result.category, result.merchants);
+                            }
+                        });
+    
+                        setMerchantsMap(newMerchantsMap);
+                    } catch (error) {
+                        console.error('Failed to fetch merchants info:', error);
+                        Message.error('Failed to fetch merchants info');
                     }
-                    setMerchantsMap(newMerchantsMap);
                 };
+    
                 fetchMerchantInfo();
             })
             .catch(error => {
@@ -49,6 +67,7 @@ const TouristHome = () => {
                 Message.error('Failed to fetch categories');
             });
     }, [location]);
+    
 
     const imageSrc = [
         pic1, pic2, pic3, pic4, pic5, pic6
