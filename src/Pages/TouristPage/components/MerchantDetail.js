@@ -297,7 +297,7 @@ const MerchantDetail = () => {
                                             <Button
                                                 type={isJoinGroup ? "primary" : "default"}
                                                 onClick={handleJoinGroup}
-                                                disabled={isJoinGroup}
+                                                disabled={disableButton || isJoinGroup}
                                             >
                                                 {isJoinGroup ? "已加入群组" : "加入商家群"}
                                             </Button>
