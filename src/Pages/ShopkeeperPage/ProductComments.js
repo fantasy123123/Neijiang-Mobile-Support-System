@@ -13,36 +13,31 @@ const ProductComments=()=>{
     const [viewObject,setViewObject]=useState({})
     const [likes, setLikes] =useState([]);
 
-    async function init(){
-        await  axiosInstance.get('/products/merchants/accountId/'+localStorage.getItem('accountId')).then(
-            res=>{
-                res.data.data.forEach(value => {
-                    likes.push(false)
-                    axiosInstance.get('/comments/product_comments/products/'+value.productId).then(
-                        res=>{
-                            productData.push({
-                                name:value.productName,
-                                description:value.description,
-                                category:value.categoryName,
-                                price:value.price,
-                                comments:res.data.data
-                            })
-                        }
-                    ).catch(
-                        err=>{
-                            console.log(err)
-                        }
-                    )
-                })
-            }
-        ).catch(
-            err=>{
-                console.log(err)
-            }
-        )
-        setProductData([...productData])
-        setLikes([...likes])
+    async function init() {
+        try {
+            const res = await axiosInstance.get('/products/merchants/accountId/' + localStorage.getItem('accountId'));
+            const products = res.data.data;
+            const productPromises = products.map(async (value) => {
+                const commentsRes = await axiosInstance.get('/comments/product_comments/products/' + value.productId);
+                return {
+                    name: value.productName,
+                    description: value.description,
+                    category: value.categoryName,
+                    price: value.price,
+                    comments: commentsRes.data.data
+                };
+            });
+
+            const productData = await Promise.all(productPromises);
+            const likes = new Array(productData.length).fill(false);
+
+            setProductData(productData);
+            setLikes(likes);
+        } catch (err) {
+            console.log(err);
+        }
     }
+
 
     useEffect(()=>{
         init()
